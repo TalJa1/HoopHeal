@@ -7,7 +7,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {containerStyle} from '../../services/styleProps';
+import {containerStyle, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {onboardingData} from '../../services/renderData';
 import OnboardingComponent from '../../components/onboarding/OnboardingComponent';
@@ -58,7 +58,7 @@ const Onboarding = () => {
           ))}
         </View>
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          {nextArrowIcon(24, 24, '#FFFFFF')}
+          {nextArrowIcon(24, 24, '#547958')}
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -84,24 +84,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: '#F87643',
   },
   pagination: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   dot: {
-    width: 10,
-    height: 10,
+    width: 6,
+    height: 6,
     borderRadius: 5,
     backgroundColor: '#8F8F8F',
     marginHorizontal: 5,
   },
   activeDot: {
-    width: 20,
+    width: 30,
     backgroundColor: '#FFFFFF',
   },
   nextButton: {
-    padding: 10,
+    padding: vw(3),
+    backgroundColor: 'white',
+    borderRadius: vw(50),
   },
 });

@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useCallback} from 'react';
 import {centerAll, containerStyle, text1, vh, vw} from '../services/styleProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -34,6 +34,7 @@ const LoadingView = () => {
 
   return (
     <View style={[styles.container, centerAll, {rowGap: vh(2)}]}>
+      <StatusBar barStyle="light-content" backgroundColor={'#000000'} />
       <Image
         style={styles.logo}
         source={require('../assets/loading/Logo.png')}
