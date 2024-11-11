@@ -15,6 +15,7 @@ import {
   profileIcon,
   progressIcon,
 } from './assets/svgIcon';
+import LoadingView from './views/LoadingView';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -84,8 +85,13 @@ const App = () => {
   };
   return (
     <NavigationContainer>
-      {/* Main || Login */}
-      <Stack.Navigator initialRouteName="Main">
+      {/* Main || LoadingView */}
+      <Stack.Navigator initialRouteName="LoadingView">
+      <Stack.Screen
+          name="LoadingView"
+          component={LoadingView}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Main"
           component={TabNavigator}

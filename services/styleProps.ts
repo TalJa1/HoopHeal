@@ -23,3 +23,9 @@ export const containerStyle: TextStyle = {
   flex: 1,
   backgroundColor: 'black',
 };
+
+export const text1: TextStyle = {
+  color: 'white',
+  fontSize: 18,
+  fontWeight: '400',
+};
