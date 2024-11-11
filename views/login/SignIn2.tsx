@@ -88,7 +88,7 @@ const InputField: React.FC<InputFieldProps> = ({
       <Text style={styles.label}>{label}</Text>
       <View style={styles.inputWrapper}>
         <TextInput
-          style={[styles.input, label === 'Password' && {paddingRight: vw(20)}]}
+          style={[styles.input, label === 'Password' && {paddingRight: vw(10)}]}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry && !isPasswordVisible}
@@ -144,11 +144,11 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#8F8F8F',
-    paddingVertical: 15,
-    borderRadius: 5,
+    borderRadius: 20,
     paddingHorizontal: vw(3),
     color: '#BABABA',
     width: '100%',
+    height: vh(7),
   },
   inputWrapper: {
     flexDirection: 'row',
