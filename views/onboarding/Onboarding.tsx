@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   ScrollView,
   StatusBar,
@@ -17,11 +17,18 @@ const {width: screenWidth} = Dimensions.get('window');
 
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const handleNext = () => {
     if (currentIndex < onboardingData.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      scrollViewRef.current?.scrollTo({ x: (currentIndex + 1) * screenWidth, animated: true });
     }
+  };
+
+  const handleScroll = (event: any) => {
+    const newIndex = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
+    setCurrentIndex(newIndex);
   };
 
   return (
@@ -32,12 +39,10 @@ const Onboarding = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
-        scrollEnabled={false}
-        ref={ref => {
-          if (ref) {
-            ref.scrollTo({x: currentIndex * screenWidth, animated: true});
-          }
-        }}>
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        ref={scrollViewRef}
+      >
         {onboardingData.map((page, index) => (
           <View key={index} style={styles.page}>
             <OnboardingComponent
