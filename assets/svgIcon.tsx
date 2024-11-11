@@ -11,6 +11,20 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const nextArrowIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.4299 5.93005L20.4999 12.0001L14.4299 18.0701" stroke=${
+    color ?? '#547958'
+  } stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.5 12H20.33" stroke=${
+    color ?? '#547958'
+  } stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const homeIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M15.875 23.4375C15.3625 23.4375 14.9375 23.0125 14.9375 22.5V18.75C14.9375 18.2375 15.3625 17.8125 15.875 17.8125C16.3875 17.8125 16.8125 18.2375 16.8125 18.75V22.5C16.8125 23.0125 16.3875 23.4375 15.875 23.4375Z" fill=${

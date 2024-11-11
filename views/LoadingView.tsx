@@ -1,8 +1,8 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {centerAll, containerStyle, text1, vh, vw} from '../services/styleProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const LoadingView = () => {
@@ -21,12 +21,16 @@ const LoadingView = () => {
     }
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      fetchToken();
-    }, 3000);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const timer = setTimeout(() => {
+        fetchToken();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  );
 
   return (
     <View style={[styles.container, centerAll, {rowGap: vh(2)}]}>
