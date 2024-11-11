@@ -3,3 +3,8 @@ export interface OnboardingComponentProps {
   title: string;
   description: string;
 }
+
+export interface LoginButtonTypeProps {
+  image: any;
+  title: string;
+}
