@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet} from 'react-native';
 import React from 'react';
 import {containerStyle} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -8,6 +8,7 @@ import OnboardingComponent from '../../components/onboarding/OnboardingComponent
 const Onboarding = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor={'#F87643'} />
       <ScrollView
         horizontal
         pagingEnabled
