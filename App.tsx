@@ -16,6 +16,7 @@ import {
   progressIcon,
 } from './assets/svgIcon';
 import LoadingView from './views/LoadingView';
+import Onboarding from './views/onboarding/Onboarding';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,7 +88,12 @@ const App = () => {
     <NavigationContainer>
       {/* Main || LoadingView */}
       <Stack.Navigator initialRouteName="LoadingView">
-      <Stack.Screen
+        <Stack.Screen
+          name="Onboarding"
+          component={Onboarding}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="LoadingView"
           component={LoadingView}
           options={{headerShown: false}}
