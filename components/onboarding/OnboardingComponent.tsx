@@ -14,8 +14,10 @@ const OnboardingComponent: React.FC<OnboardingComponentProps> = ({
       <View style={styles.topImgView}>
         <Image source={img} style={styles.image} />
       </View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      <View style={styles.textGrp}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -28,23 +30,31 @@ const styles = StyleSheet.create({
   },
   topImgView: {
     backgroundColor: '#F87643',
-    height: vh(45),
+    height: vh(50),
     width: vw(100),
   },
   image: {
     position: 'absolute',
     top: 0,
     width: '100%',
-    height: vh(55),
+    height: vh(60),
     resizeMode: 'cover',
   },
+  textGrp: {
+    height: vh(50),
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: vw(5),
+    rowGap: vh(2),
+  },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontSize: 32,
+    textAlign: 'center',
+    color: '#F87643',
   },
   description: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
+    color: '#FFFFFF',
   },
 });
