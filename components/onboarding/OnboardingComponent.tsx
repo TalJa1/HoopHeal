@@ -33,8 +33,10 @@ const styles = StyleSheet.create({
   },
   image: {
     position: 'absolute',
-    width: vw(100),
-    height: vh(50),
+    top: 0,
+    width: '100%',
+    height: vh(60),
+    resizeMode: 'cover',
   },
   title: {
     fontSize: 24,
