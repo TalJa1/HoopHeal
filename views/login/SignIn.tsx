@@ -70,7 +70,7 @@ const LoginTypeButton: React.FC<LoginButtonTypeProps> = ({image, title}) => {
         style={{width: vw(5), height: vw(5), resizeMode: 'contain'}}
         source={image}
       />
-      <Text style={{color: '#A7A7A7', fontSize: 18}}>Tiếp tục với {title}</Text>
+      <Text style={{color: '#A7A7A7', fontSize: 18}}>Continue with {title}</Text>
     </TouchableOpacity>
   );
 };
