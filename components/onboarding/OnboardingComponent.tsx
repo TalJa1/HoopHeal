@@ -1,18 +1,26 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {OnboardingComponentProps} from '../../services/typeProps';
 import {vh, vw} from '../../services/styleProps';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const OnboardingComponent: React.FC<OnboardingComponentProps> = ({
   description,
   img,
   title,
 }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topImgView}>
         <Image source={img} style={styles.image} />
+        <TouchableOpacity
+          style={styles.skipBtn}
+          onPress={() => navigation.navigate('')}>
+          <Text style={styles.skipTxt}>Skip</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.textGrp}>
         <Text style={styles.title}>{title}</Text>
@@ -56,5 +64,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     color: '#FFFFFF',
+  },
+  skipBtn: {
+    position: 'absolute',
+    top: vh(5),
+    right: vw(5),
+    backgroundColor: '#00000040',
+    padding: 5,
+    borderRadius: 8,
+  },
+  skipTxt: {
+    color: '#BABABA',
+    fontSize: 16,
   },
 });
