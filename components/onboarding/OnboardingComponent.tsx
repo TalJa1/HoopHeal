@@ -2,6 +2,7 @@ import {Image, StyleSheet, Text} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {OnboardingComponentProps} from '../../services/typeProps';
+import { vh, vw } from '../../services/styleProps';
 
 const OnboardingComponent: React.FC<OnboardingComponentProps> = ({
   description,
@@ -24,12 +25,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
   },
   image: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: vw(100),
+    height: vh(50),
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 24,
