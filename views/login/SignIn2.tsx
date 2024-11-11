@@ -11,17 +11,21 @@ import {
 import React, {useState} from 'react';
 import {containerStyle, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {signInStarIcon} from '../../assets/svgIcon';
+import {blindPassIcon, signInStarIcon} from '../../assets/svgIcon';
 import {InputFieldProps} from '../../services/typeProps';
 
 const SignIn2 = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const handleSubmit = () => {
     console.log('Email:', email);
     console.log('Password:', password);
-    // Add your submit logic here
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -35,7 +39,16 @@ const SignIn2 = () => {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
+              showPasswordToggle
+              onTogglePasswordVisibility={handleTogglePasswordVisibility}
+              isPasswordVisible={isPasswordVisible}
             />
+            <View style={styles.rememberForgotContainer}>
+              <Text style={styles.rememberText}>Remember</Text>
+              <TouchableOpacity>
+                <Text style={styles.forgotText}>Forgot your password?</Text>
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
               <Text style={styles.submitTxt}>Sign In</Text>
             </TouchableOpacity>
@@ -66,16 +79,28 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   onChangeText,
   secureTextEntry = false,
+  showPasswordToggle = false,
+  onTogglePasswordVisibility,
+  isPasswordVisible,
 }) => {
   return (
     <View style={styles.inputContainer}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        style={styles.input}
-        value={value}
-        onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry}
-      />
+      <View style={styles.inputWrapper}>
+        <TextInput
+          style={[styles.input, label === 'Password' && {paddingRight: vw(20)}]}
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={secureTextEntry && !isPasswordVisible}
+        />
+        {showPasswordToggle && (
+          <TouchableOpacity
+            onPress={onTogglePasswordVisibility}
+            style={styles.blindBtn}>
+            {blindPassIcon(24, 24, '#8F8F8F')}
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -123,6 +148,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: vw(3),
     color: '#BABABA',
+    width: '100%',
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   submitBtn: {
     backgroundColor: '#F87643',
@@ -133,5 +164,26 @@ const styles = StyleSheet.create({
   submitTxt: {
     color: 'black',
     fontSize: 16,
+  },
+  rememberForgotContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  rememberText: {
+    fontSize: 14,
+    color: '#7C7C7C',
+  },
+  forgotText: {
+    fontSize: 14,
+    color: '#F87643',
+    fontWeight: 'bold',
+  },
+  blindBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: vw(3),
   },
 });

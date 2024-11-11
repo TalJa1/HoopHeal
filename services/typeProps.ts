@@ -37,4 +37,7 @@ export interface InputFieldProps {
   value: string;
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean;
+  showPasswordToggle?: boolean;
+  onTogglePasswordVisibility?: () => void;
+  isPasswordVisible?: boolean;
 }
