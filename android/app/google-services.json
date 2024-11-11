@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157137185368",
+    "project_id": "hoopheal-b7433",
+    "storage_bucket": "hoopheal-b7433.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157137185368:android:123b541991775db3c0382d",
+        "android_client_info": {
+          "package_name": "com.hoopheal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA50Aj8GEX_OJ5YCmpysiBOm4a1TZU1RxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
+  Alert,
   Image,
   ScrollView,
   StatusBar,
@@ -14,6 +15,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {LoginButtonTypeProps} from '../../services/typeProps';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {
+  GoogleSignin,
+  isSuccessResponse,
+} from '@react-native-google-signin/google-signin';
 
 const SignIn = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -64,13 +69,45 @@ const SignIn = () => {
 };
 
 const LoginTypeButton: React.FC<LoginButtonTypeProps> = ({image, title}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  GoogleSignin.configure();
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      if (isSuccessResponse(response)) {
+        console.log(response);
+      } else {
+        // sign in was cancelled by user
+      }
+    } catch (error) {
+      console.log('error', error);
+
+      Alert.alert('Logged in failed');
+    }
+  };
+
+  const handlePress = () => {
+    switch (title) {
+      case 'Google':
+        signIn();
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
-    <TouchableOpacity style={styles.loginBtn}>
+    <TouchableOpacity style={styles.loginBtn} onPress={handlePress}>
       <Image
         style={{width: vw(5), height: vw(5), resizeMode: 'contain'}}
         source={image}
       />
-      <Text style={{color: '#A7A7A7', fontSize: 18}}>Continue with {title}</Text>
+      <Text style={{color: '#A7A7A7', fontSize: 18}}>
+        Continue with {title}
+      </Text>
     </TouchableOpacity>
   );
 };
