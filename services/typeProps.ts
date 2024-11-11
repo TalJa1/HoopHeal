@@ -31,3 +31,10 @@ export interface UserProps {
   reminderDailyforExerciseat: string;
   adviceFromPro: boolean;
 }
+
+export interface InputFieldProps {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  secureTextEntry?: boolean;
+}
