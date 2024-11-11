@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: '100%',
-    height: vh(60),
+    height: vh(55),
     resizeMode: 'cover',
   },
   title: {
