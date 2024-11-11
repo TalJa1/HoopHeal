@@ -29,9 +29,9 @@ const App = () => {
             tabBarActiveTintColor: '#F87643',
             tabBarShowLabel: false,
             tabBarStyle: {
-              borderTopColor: 'black',
+              borderTopWidth: 0,
               backgroundColor: '#000000',
-              height: vh(8),
+              height: vh(7),
             },
           }}>
           <Tab.Screen
