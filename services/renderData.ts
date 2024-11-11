@@ -30,4 +30,27 @@ export const onboardingData = [
   },
 ];
 
-export const userData = [{}];
+export const userData = [
+  {
+    email: 'lalabu@gmail.com',
+    familyName: 'Bu',
+    givenName: 'La La',
+    id: '117632206976104712173',
+    name: 'La La Bu',
+    photo: null,
+    age: 22,
+    weight: 75,
+    height: '180 cm',
+    playingTime: '1 - 3 years',
+    injury: ['Ankle', 'Shoulder'],
+    injuryLast: '1-4 weeks',
+    painLevel: 3,
+    isMovingDifficult: false,
+    hasSameInjuryBefore: true,
+    swellingBruising: false,
+    medicalTreatment: true,
+    hopeforRecovery: '1 - 2 weeks',
+    reminderDailyforExerciseat: '7:00 AM',
+    adviceFromPro: true,
+  },
+];
