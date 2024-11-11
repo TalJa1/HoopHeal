@@ -56,7 +56,7 @@ const SignIn = () => {
               columnGap: vw(2),
             }}>
             <Text style={{color: '#7C7C7C'}}>You already have account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn2')}>
               <Text style={{color: '#F7F9FA', fontWeight: 'bold'}}>
                 Sign in
               </Text>
