@@ -12,22 +12,38 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {onboardingData} from '../../services/renderData';
 import OnboardingComponent from '../../components/onboarding/OnboardingComponent';
 import {nextArrowIcon} from '../../assets/svgIcon';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const {width: screenWidth} = Dimensions.get('window');
 
 const Onboarding = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentIndex < onboardingData.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      scrollViewRef.current?.scrollTo({ x: (currentIndex + 1) * screenWidth, animated: true });
+      scrollViewRef.current?.scrollTo({
+        x: (currentIndex + 1) * screenWidth,
+        animated: true,
+      });
+    } else {
+      try {
+        await AsyncStorage.setItem('finishOnboarding', 'true');
+        navigation.navigate('SignIn');
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const handleScroll = (event: any) => {
-    const newIndex = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
+    const newIndex = Math.round(
+      event.nativeEvent.contentOffset.x / screenWidth,
+    );
     setCurrentIndex(newIndex);
   };
 
@@ -41,8 +57,7 @@ const Onboarding = () => {
         contentContainerStyle={styles.scrollViewContent}
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        ref={scrollViewRef}
-      >
+        ref={scrollViewRef}>
         {onboardingData.map((page, index) => (
           <View key={index} style={styles.page}>
             <OnboardingComponent

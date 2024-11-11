@@ -5,6 +5,7 @@ import {OnboardingComponentProps} from '../../services/typeProps';
 import {vh, vw} from '../../services/styleProps';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OnboardingComponent: React.FC<OnboardingComponentProps> = ({
   description,
@@ -12,13 +13,19 @@ const OnboardingComponent: React.FC<OnboardingComponentProps> = ({
   title,
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const handleSkip = async () => {
+    try {
+      await AsyncStorage.setItem('finishOnboarding', 'true');
+      navigation.navigate('SignIn');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topImgView}>
         <Image source={img} style={styles.image} />
-        <TouchableOpacity
-          style={styles.skipBtn}
-          onPress={() => navigation.navigate('')}>
+        <TouchableOpacity style={styles.skipBtn} onPress={handleSkip}>
           <Text style={styles.skipTxt}>Skip</Text>
         </TouchableOpacity>
       </View>

@@ -10,9 +10,9 @@ const LoadingView = () => {
 
   const fetchToken = async () => {
     try {
-      const token = await AsyncStorage.getItem('firstTime');
-      if (token) {
-        console.log('Home');
+      const token = await AsyncStorage.getItem('finishOnboarding');
+      if (token === 'true') {
+        navigation.navigate('SignIn');
       } else {
         navigation.navigate('Onboarding');
       }
