@@ -14,6 +14,7 @@ import {ggUserProps, UserProps} from '../../services/typeProps';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {backIcon} from '../../assets/svgIcon';
 import * as Progress from 'react-native-progress';
+import ProgressContent from '../../components/getInfor/ProgressContent';
 
 const GetUserInfor = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -79,7 +80,11 @@ const GetUserInfor = () => {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.content}>
-        {/* render here */}
+        <ProgressContent
+          progressState={progressState}
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+        />
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>

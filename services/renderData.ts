@@ -54,3 +54,9 @@ export const userData = [
     adviceFromPro: true,
   },
 ];
+
+export interface ProgressContentProps {
+  progressState: number;
+  userInfo: any;
+  setUserInfo: (info: any) => void;
+}
