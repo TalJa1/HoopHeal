@@ -45,6 +45,8 @@ const GetUserInfor: React.FC = () => {
     adviceFromPro: false,
   });
 
+  console.log('userInfo', userInfo);
+
   const handleNext = () => {
     if (progressState === 13) {
       navigation.navigate('Home');
