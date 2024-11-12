@@ -126,6 +126,42 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
           />
         </View>
       );
+    case 8:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>Have you had this injury before?</Text>
+          <YesNoComponent
+            value={userInfo.hasSameInjuryBefore}
+            onValueChange={v =>
+              setUserInfo({...userInfo, hasSameInjuryBefore: v})
+            }
+          />
+        </View>
+      );
+    case 9:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>Do you have swelling or bruising?</Text>
+          <YesNoComponent
+            value={userInfo.swellingBruising}
+            onValueChange={v =>
+              setUserInfo({...userInfo, swellingBruising: v})
+            }
+          />
+        </View>
+      );
+    case 10:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>Have you received medical treatment for this injury?</Text>
+          <YesNoComponent
+            value={userInfo.medicalTreatment}
+            onValueChange={v =>
+              setUserInfo({...userInfo, medicalTreatment: v})
+            }
+          />
+        </View>
+      );
     default:
       return (
         <View style={styles.formGroup}>
