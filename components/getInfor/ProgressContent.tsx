@@ -11,6 +11,7 @@ import {vh, vw} from '../../services/styleProps';
 import Slider from '@react-native-community/slider';
 import YesNoComponent from './YesNoComponent';
 import HopeForRecover from './HopeForRecover';
+import TimePickerComponent from './TimePickerComponent';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -187,7 +188,12 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
               }}>
               Time
             </Text>
-            {/* render here */}
+            <TimePickerComponent
+              time={userInfo.reminderDailyforExerciseat}
+              onTimeChange={time =>
+                setUserInfo({...userInfo, reminderDailyforExerciseat: time})
+              }
+            />
           </View>
         </View>
       );
