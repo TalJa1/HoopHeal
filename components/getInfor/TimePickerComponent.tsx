@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import {vh} from '../../services/styleProps';
 
 interface TimePickerComponentProps {
   time: string;
@@ -37,20 +38,30 @@ const TimePickerComponent: React.FC<TimePickerComponentProps> = ({
     onTimeChange(formattedTime);
   };
 
+  const splitTime = (time1: string) => {
+    const [timePart, period] = time1.split(' ');
+    return {timePart, period};
+  };
+
+  const {timePart, period} = splitTime(time || '12:00 AM');
+
   return (
     <View>
       <TouchableOpacity
         style={styles.inputWrapper}
         onPress={() => setOpen(true)}>
-        <Text style={styles.input}>{time || 'Select Time'}</Text>
+        <View style={styles.timeContainer}>
+          <Text style={styles.timeText}>{timePart}</Text>
+          <Text style={styles.periodText}>{period}</Text>
+        </View>
       </TouchableOpacity>
       <DatePicker
         modal
-        mode="time"
         open={open}
         date={selectedTime}
         onConfirm={handleConfirm}
         onCancel={() => setOpen(false)}
+        mode="time"
       />
     </View>
   );
@@ -64,13 +75,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
     paddingHorizontal: 10,
-    height: 40,
+    height: vh(7),
     width: '100%',
+    marginVertical: vh(2),
   },
-  input: {
+  timeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  timeText: {
     flex: 1,
+    fontSize: 16,
+    color: 'white',
+  },
+  periodText: {
     fontSize: 16,
     color: 'white',
   },
