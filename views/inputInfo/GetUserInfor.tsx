@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -21,7 +22,7 @@ const GetUserInfor: React.FC = () => {
   const route = useRoute();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {userData} = route.params as {userData: ggUserProps};
-
+  const [disableBtn, setDisableBtn] = useState(true);
   const [progressState, setProgressState] = useState<number>(1);
   const [userInfo, setUserInfo] = useState<UserProps>({
     email: userData.email,
@@ -46,6 +47,66 @@ const GetUserInfor: React.FC = () => {
     adviceFromPro: false,
   });
 
+  useEffect(() => {
+    switch (progressState) {
+      case 1:
+        if (userInfo.age > 0) {
+          setDisableBtn(false);
+        }
+        break;
+      case 2:
+        if (userInfo.weight.length > 0 && userInfo.height.length > 0) {
+          setDisableBtn(false);
+        }
+        break;
+      case 3:
+        if (userInfo.playingTime.length > 0) {
+          setDisableBtn(false);
+        }
+        break;
+      case 4:
+        if (userInfo.injury.length > 0) {
+          setDisableBtn(false);
+        } else {
+          setDisableBtn(true);
+        }
+        break;
+      case 5:
+        if (userInfo.injuryLast.length > 0) {
+          setDisableBtn(false);
+        }
+        break;
+      case 6:
+        setDisableBtn(false);
+        break;
+      case 7:
+        setDisableBtn(false);
+        break;
+      case 8:
+        setDisableBtn(false);
+        break;
+      case 9:
+        setDisableBtn(false);
+        break;
+      case 10:
+        setDisableBtn(false);
+        break;
+      case 11:
+        if (userInfo.hopeforRecovery.length > 0) {
+          setDisableBtn(false);
+        }
+        break;
+      case 12:
+        setDisableBtn(false);
+        break;
+      case 13:
+        setDisableBtn(false);
+        break;
+      default:
+        break;
+    }
+  }, [progressState, userInfo]);
+
   const handleNext = async () => {
     if (progressState === 13) {
       const listUserString = await AsyncStorage.getItem('listUser');
@@ -57,6 +118,7 @@ const GetUserInfor: React.FC = () => {
       navigation.navigate('Main');
     } else {
       setProgressState(progressState + 1);
+      setDisableBtn(true);
     }
   };
 
@@ -72,6 +134,7 @@ const GetUserInfor: React.FC = () => {
       navigation.navigate('Main');
     } else {
       setProgressState(progressState + 1);
+      setDisableBtn(true);
     }
   };
 
@@ -116,7 +179,13 @@ const GetUserInfor: React.FC = () => {
         keyExtractor={item => item.key}
       />
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+        <TouchableOpacity
+          style={[
+            styles.nextButton,
+            disableBtn && {backgroundColor: '#BABABA'},
+          ]}
+          onPress={handleNext}
+          disabled={disableBtn}>
           <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>
       </View>
