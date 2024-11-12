@@ -1,5 +1,5 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 interface VerticalNumberPickerProps {
   min: number;
@@ -17,26 +17,16 @@ const VerticalNumberPicker: React.FC<VerticalNumberPickerProps> = ({
   onValueChange,
 }) => {
   const [currentValue, setCurrentValue] = useState(value);
-  const flatListRef = useRef<FlatList<number>>(null);
 
   useEffect(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToIndex({index: 1, animated: true});
+    if (currentValue !== value) {
+      onValueChange(currentValue);
     }
-  }, []);
+  }, [currentValue, onValueChange, value]);
 
-  useEffect(() => {
-    onValueChange(currentValue);
-  }, [currentValue, onValueChange]);
-
-  const handleScroll = (event: any) => {
-    const index = Math.round(event.nativeEvent.contentOffset.y / ITEM_HEIGHT);
-    const newValue = currentValue + (index - 1);
+  const handleSelect = (newValue: number) => {
     if (newValue >= min && newValue <= max) {
       setCurrentValue(newValue);
-      if (flatListRef.current) {
-        flatListRef.current.scrollToIndex({index: 1, animated: false});
-      }
     }
   };
 
@@ -47,13 +37,12 @@ const VerticalNumberPicker: React.FC<VerticalNumberPickerProps> = ({
   ].filter(item => item !== null) as number[];
 
   return (
-    <FlatList
-      ref={flatListRef}
-      data={data}
-      keyExtractor={item => item.toString()}
-      renderItem={({item}) => (
-        <View
-          style={[styles.item, item === currentValue && styles.selectedItem]}>
+    <View style={styles.container}>
+      {data.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[styles.item, item === currentValue && styles.selectedItem]}
+          onPress={() => handleSelect(item)}>
           <Text
             style={[
               styles.itemText,
@@ -61,22 +50,18 @@ const VerticalNumberPicker: React.FC<VerticalNumberPickerProps> = ({
             ]}>
             {item}
           </Text>
-        </View>
-      )}
-      getItemLayout={(data1, index) => ({
-        length: ITEM_HEIGHT,
-        offset: ITEM_HEIGHT * index,
-        index,
-      })}
-      showsVerticalScrollIndicator={false}
-      snapToInterval={ITEM_HEIGHT}
-      decelerationRate="fast"
-      onMomentumScrollEnd={handleScroll}
-    />
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    height: ITEM_HEIGHT * 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   item: {
     height: ITEM_HEIGHT,
     justifyContent: 'center',
