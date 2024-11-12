@@ -63,7 +63,7 @@ const VerticalNumberPicker: React.FC<VerticalNumberPickerProps> = ({
           </Text>
         </View>
       )}
-      getItemLayout={(data, index) => ({
+      getItemLayout={(data1, index) => ({
         length: ITEM_HEIGHT,
         offset: ITEM_HEIGHT * index,
         index,
