@@ -171,6 +171,26 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
           />
         </View>
       );
+    case 12:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>
+            What time would you like daily reminders for recovery exercises?
+          </Text>
+          <View style={{marginTop: vh(2)}}>
+            <Text
+              style={{
+                textAlign: 'left',
+                color: '#F87643',
+                fontSize: 24,
+                fontWeight: '700',
+              }}>
+              Time
+            </Text>
+            {/* render here */}
+          </View>
+        </View>
+      );
     case 13:
       return (
         <View style={styles.formGroup}>
