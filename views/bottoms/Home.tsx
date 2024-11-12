@@ -26,7 +26,6 @@ const Home = () => {
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={{flex: 1}}>
           <Header data={profile} />
-          <Text>Home</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
