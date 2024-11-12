@@ -1,11 +1,19 @@
-/* eslint-disable react-native/no-inline-styles */
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {containerStyle} from '../../services/styleProps';
+import {containerStyle, vh, vw} from '../../services/styleProps';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {ggUserProps, UserProps} from '../../services/typeProps';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {backIcon} from '../../assets/svgIcon';
+import * as Progress from 'react-native-progress';
 
 const GetUserInfor = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -34,14 +42,44 @@ const GetUserInfor = () => {
     adviceFromPro: false,
   });
 
+  const handleNext = () => {
+    // Handle next button press
+  };
+
+  const handleSkip = () => {
+    // Handle skip button press
+  };
+
+  const handleBack = () => {
+    // Handle back button press
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={{flex: 1}}>
-          <Text style={{color: 'white'}}>GetUserInfor</Text>
-        </View>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backBtn} onPress={handleBack}>
+          {backIcon(24, 24, 'white')}
+        </TouchableOpacity>
+        <Progress.Bar
+          progress={0.5}
+          width={vw(55)}
+          color={'#F87643'}
+          borderColor="black"
+        />
+        <TouchableOpacity onPress={handleSkip}>
+          <Text style={styles.skipText}>Skip</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View />
+        {/* Add more form fields as needed */}
       </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+          <Text style={styles.nextButtonText}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -50,4 +88,44 @@ export default GetUserInfor;
 
 const styles = StyleSheet.create({
   container: containerStyle,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: vw(5),
+    paddingVertical: vh(2),
+  },
+  backBtn: {
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#BABABA',
+  },
+  skipText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  content: {
+    flexGrow: 1,
+    padding: 20,
+  },
+  slider: {
+    width: '100%',
+    height: 40,
+  },
+  footer: {
+    paddingHorizontal: vw(5),
+    marginVertical: vh(2),
+  },
+  nextButton: {
+    backgroundColor: '#F87643',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  nextButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
