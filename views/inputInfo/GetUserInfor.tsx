@@ -1,15 +1,36 @@
 /* eslint-disable react-native/no-inline-styles */
 import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {containerStyle} from '../../services/styleProps';
 import {useRoute} from '@react-navigation/native';
-import {ggUserProps} from '../../services/typeProps';
+import {ggUserProps, UserProps} from '../../services/typeProps';
 
 const GetUserInfor = () => {
   const route = useRoute();
   const {userData} = route.params as {userData: ggUserProps};
-  console.log('userData', userData);
+  const [userInfo, setUserInfo] = useState<UserProps>({
+    email: userData.email,
+    familyName: userData.familyName ?? '',
+    givenName: userData.givenName ?? '',
+    id: userData.id,
+    name: userData.name ?? '',
+    photo: userData.photo,
+    age: 0,
+    weight: 0,
+    height: '',
+    playingTime: '',
+    injury: [],
+    injuryLast: '',
+    painLevel: 0,
+    isMovingDifficult: false,
+    hasSameInjuryBefore: false,
+    swellingBruising: false,
+    medicalTreatment: false,
+    hopeforRecovery: '',
+    reminderDailyforExerciseat: '',
+    adviceFromPro: false,
+  });
 
   return (
     <SafeAreaView style={styles.container}>
