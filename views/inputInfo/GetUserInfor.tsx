@@ -3,10 +3,12 @@ import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {containerStyle} from '../../services/styleProps';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {ggUserProps, UserProps} from '../../services/typeProps';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const GetUserInfor = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const route = useRoute();
   const {userData} = route.params as {userData: ggUserProps};
   const [userInfo, setUserInfo] = useState<UserProps>({
