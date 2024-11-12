@@ -122,6 +122,9 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     padding: 10,
+    borderWidth: 1,
+    borderColor: '#BABABA',
+    borderRadius: 10,
   },
   skipText: {
     color: 'white',
