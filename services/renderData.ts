@@ -39,7 +39,7 @@ export const userData = [
     name: 'La La Bu',
     photo: null,
     age: 22,
-    weight: 75,
+    weight: '60 kg',
     height: '180 cm',
     playingTime: '1 - 3 years',
     injury: ['Ankle', 'Shoulder'],

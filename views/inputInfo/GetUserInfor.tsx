@@ -30,7 +30,7 @@ const GetUserInfor: React.FC = () => {
     name: userData.name ?? '',
     photo: userData.photo,
     age: 18,
-    weight: 0,
+    weight: '',
     height: '',
     playingTime: '',
     injury: [],

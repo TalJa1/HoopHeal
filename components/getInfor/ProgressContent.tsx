@@ -1,8 +1,8 @@
-import Slider from '@react-native-community/slider';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {ProgressContentProps} from '../../services/renderData';
 import VerticalNumberPicker from './VerticalNumberPicker';
+import HeightWeightInput from './HeightWeightInput';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -25,16 +25,13 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
     case 2:
       return (
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Weight</Text>
-          <Slider
-            style={styles.slider}
-            minimumValue={0}
-            maximumValue={200}
-            step={1}
-            value={userInfo.weight}
-            onValueChange={value => setUserInfo({...userInfo, weight: value})}
+          <Text style={styles.label}>What is your height and weight?</Text>
+          <HeightWeightInput
+            weight={userInfo.weight}
+            height={userInfo.height}
+            onWeightChange={value => setUserInfo({...userInfo, weight: value})}
+            onHeightChange={value => setUserInfo({...userInfo, height: value})}
           />
-          <Text style={styles.value}>{userInfo.weight} kg</Text>
         </View>
       );
     // Add more cases for other progress states

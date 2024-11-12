@@ -26,7 +26,7 @@ export interface UserProps {
   name: string;
   photo: string | null;
   age: number;
-  weight: number;
+  weight: string;
   height: string;
   playingTime: string;
   injury: Array<string>;
