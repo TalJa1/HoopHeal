@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -17,6 +18,10 @@ import {
   signInStarIcon,
 } from '../../assets/svgIcon';
 import {InputFieldProps} from '../../services/typeProps';
+import {
+  GoogleSignin,
+  isSuccessResponse,
+} from '@react-native-google-signin/google-signin';
 
 const SignIn2 = () => {
   const [email, setEmail] = useState('');
@@ -31,6 +36,25 @@ const SignIn2 = () => {
     console.log('Email:', email);
     console.log('Password:', password);
   };
+
+  GoogleSignin.configure();
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      if (isSuccessResponse(response)) {
+        console.log(response);
+      } else {
+        // sign in was cancelled by user
+      }
+    } catch (error) {
+      console.log('error', error);
+
+      Alert.alert('Logged in failed');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -68,11 +92,17 @@ const SignIn2 = () => {
             </View>
             <View style={styles.socialButtons}>
               <TouchableOpacity style={styles.socialButton}>
-                <Image source={require('../../assets/login/fb.png')} style={styles.socialIcon} />
+                <Image
+                  source={require('../../assets/login/fb.png')}
+                  style={styles.socialIcon}
+                />
                 <Text style={styles.socialButtonText}>Facebook</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <Image source={require('../../assets/login/gg.png')} style={styles.socialIcon} />
+              <TouchableOpacity style={styles.socialButton} onPress={signIn}>
+                <Image
+                  source={require('../../assets/login/gg.png')}
+                  style={styles.socialIcon}
+                />
                 <Text style={styles.socialButtonText}>Google</Text>
               </TouchableOpacity>
             </View>
@@ -257,7 +287,7 @@ const styles = StyleSheet.create({
   },
   socialButtonText: {
     fontSize: 16,
-    color: '#7C7C7C',
+    color: '#BABABA',
   },
   signUpContainer: {
     flexDirection: 'row',
