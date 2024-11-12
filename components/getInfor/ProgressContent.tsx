@@ -10,6 +10,7 @@ import InjuryTimeLast from './InjuryTimeLast';
 import {vh, vw} from '../../services/styleProps';
 import Slider from '@react-native-community/slider';
 import YesNoComponent from './YesNoComponent';
+import HopeForRecover from './HopeForRecover';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -144,21 +145,41 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
           <Text style={styles.label}>Do you have swelling or bruising?</Text>
           <YesNoComponent
             value={userInfo.swellingBruising}
-            onValueChange={v =>
-              setUserInfo({...userInfo, swellingBruising: v})
-            }
+            onValueChange={v => setUserInfo({...userInfo, swellingBruising: v})}
           />
         </View>
       );
     case 10:
       return (
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Have you received medical treatment for this injury?</Text>
+          <Text style={styles.label}>
+            Have you received medical treatment for this injury?
+          </Text>
           <YesNoComponent
             value={userInfo.medicalTreatment}
-            onValueChange={v =>
-              setUserInfo({...userInfo, medicalTreatment: v})
-            }
+            onValueChange={v => setUserInfo({...userInfo, medicalTreatment: v})}
+          />
+        </View>
+      );
+    case 11:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>How quickly do you hope to recover?</Text>
+          <HopeForRecover
+            hope={userInfo.hopeforRecovery}
+            onHopeChange={v => setUserInfo({...userInfo, hopeforRecovery: v})}
+          />
+        </View>
+      );
+    case 13:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>
+            Would you like advice from a medical professional?
+          </Text>
+          <YesNoComponent
+            value={userInfo.adviceFromPro}
+            onValueChange={v => setUserInfo({...userInfo, adviceFromPro: v})}
           />
         </View>
       );
