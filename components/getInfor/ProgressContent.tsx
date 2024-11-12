@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {ProgressContentProps} from '../../services/renderData';
 import VerticalNumberPicker from './VerticalNumberPicker';
 import HeightWeightInput from './HeightWeightInput';
+import BasketballExperience from './BasketballExperience';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -34,7 +35,20 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
           />
         </View>
       );
-    // Add more cases for other progress states
+    case 3:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>
+            How long have you been playing basketball?
+          </Text>
+          <BasketballExperience
+            experience={userInfo.playingTime}
+            onExperienceChange={value =>
+              setUserInfo({...userInfo, playingTime: value})
+            }
+          />
+        </View>
+      );
     default:
       return (
         <View style={styles.formGroup}>
