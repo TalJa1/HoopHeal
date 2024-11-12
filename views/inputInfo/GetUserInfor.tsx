@@ -64,6 +64,8 @@ const GetUserInfor = () => {
         <Progress.Bar
           progress={0.5}
           width={vw(55)}
+          height={vh(1)}
+          borderRadius={vw(50)}
           color={'#F87643'}
           borderColor="black"
         />
