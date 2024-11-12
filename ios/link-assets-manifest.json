@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Racing_Sans_One/OFL.txt",
+      "sha1": "d1671fd5563a05dc3ffa730916797ca889ea8ac6"
+    },
+    {
+      "path": "assets/fonts/Racing_Sans_One/RacingSansOne-Regular.ttf",
+      "sha1": "8af9d456f26ec2bd5591496f23f3a92f4f520a78"
+    }
+  ]
+}

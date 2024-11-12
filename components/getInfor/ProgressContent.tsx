@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginBottom: 10,
     textAlign: 'center',
+    fontFamily: 'RacingSansOne-Regular',
   },
   slider: {
     width: '100%',
