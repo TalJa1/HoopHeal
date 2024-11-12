@@ -11,7 +11,11 @@ import {
 import React, {useState} from 'react';
 import {containerStyle, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {blindPassIcon, signInStarIcon} from '../../assets/svgIcon';
+import {
+  blindPassIcon,
+  checkSaveIcon,
+  signInStarIcon,
+} from '../../assets/svgIcon';
 import {InputFieldProps} from '../../services/typeProps';
 
 const SignIn2 = () => {
@@ -44,7 +48,10 @@ const SignIn2 = () => {
               isPasswordVisible={isPasswordVisible}
             />
             <View style={styles.rememberForgotContainer}>
-              <Text style={styles.rememberText}>Remember</Text>
+              <View style={{flexDirection: 'row', columnGap: vw(2)}}>
+                {checkSaveIcon(vw(5), vw(5))}
+                <Text style={styles.rememberText}>Remember</Text>
+              </View>
               <TouchableOpacity>
                 <Text style={styles.forgotText}>Forgot your password?</Text>
               </TouchableOpacity>
@@ -52,6 +59,29 @@ const SignIn2 = () => {
             <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
               <Text style={styles.submitTxt}>Sign In</Text>
             </TouchableOpacity>
+          </View>
+          <View style={styles.additionalOptions}>
+            <View style={styles.divider}>
+              <View style={styles.line} />
+              <Text style={styles.dividerText}>Sign in with</Text>
+              <View style={styles.line} />
+            </View>
+            <View style={styles.socialButtons}>
+              <TouchableOpacity style={styles.socialButton}>
+                <Image source={require('../../assets/login/fb.png')} style={styles.socialIcon} />
+                <Text style={styles.socialButtonText}>Facebook</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.socialButton}>
+                <Image source={require('../../assets/login/gg.png')} style={styles.socialIcon} />
+                <Text style={styles.socialButtonText}>Google</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.signUpContainer}>
+              <Text style={styles.signUpText}>Bạn chưa có tài khoản?</Text>
+              <TouchableOpacity>
+                <Text style={styles.signUpButton}>Đăng ký</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -177,13 +207,71 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     fontSize: 14,
-    color: '#F87643',
-    fontWeight: 'bold',
+    color: '#BABABA',
   },
   blindBtn: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     right: vw(3),
+  },
+  additionalOptions: {
+    marginTop: 20,
+    paddingHorizontal: vw(5),
+  },
+  divider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#ccc',
+  },
+  dividerText: {
+    marginHorizontal: 10,
+    fontSize: 16,
+    color: '#7C7C7C',
+  },
+  socialButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    columnGap: 10,
+  },
+  socialButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    flex: 1,
+    height: vh(7),
+  },
+  socialIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  socialButtonText: {
+    fontSize: 16,
+    color: '#7C7C7C',
+  },
+  signUpContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signUpText: {
+    fontSize: 14,
+    color: '#7C7C7C',
+  },
+  signUpButton: {
+    fontSize: 14,
+    color: '#BABABA',
+    fontWeight: 'bold',
+    marginLeft: 5,
   },
 });
