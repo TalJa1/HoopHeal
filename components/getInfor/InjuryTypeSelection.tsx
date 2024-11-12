@@ -42,6 +42,7 @@ const InjuryTypeSelection: React.FC<InjuryTypeSelectionProps> = ({
           onPress={() => handleSelect(option)}>
           <Text style={styles.optionText}>{option}</Text>
           <CheckBox
+            disabled
             value={selectedInjuries.includes(option)}
             onValueChange={() => handleSelect(option)}
             style={styles.checkbox}
