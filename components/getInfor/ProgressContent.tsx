@@ -4,6 +4,7 @@ import {ProgressContentProps} from '../../services/renderData';
 import VerticalNumberPicker from './VerticalNumberPicker';
 import HeightWeightInput from './HeightWeightInput';
 import BasketballExperience from './BasketballExperience';
+import InjuryTypeSelection from './InjuryTypeSelection';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -45,6 +46,18 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
             experience={userInfo.playingTime}
             onExperienceChange={value =>
               setUserInfo({...userInfo, playingTime: value})
+            }
+          />
+        </View>
+      );
+    case 4:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>What type of injury do you have?</Text>
+          <InjuryTypeSelection
+            selectedInjuries={userInfo.injury}
+            onInjuryChange={selected =>
+              setUserInfo({...userInfo, injury: selected})
             }
           />
         </View>
