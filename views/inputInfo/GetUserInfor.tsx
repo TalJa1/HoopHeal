@@ -15,6 +15,7 @@ import * as Progress from 'react-native-progress';
 import {backIcon} from '../../assets/svgIcon';
 import {vw, vh, containerStyle} from '../../services/styleProps';
 import ProgressContent from '../../components/getInfor/ProgressContent';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GetUserInfor: React.FC = () => {
   const route = useRoute();
@@ -45,19 +46,30 @@ const GetUserInfor: React.FC = () => {
     adviceFromPro: false,
   });
 
-  console.log('userInfo', userInfo);
-
-  const handleNext = () => {
+  const handleNext = async () => {
     if (progressState === 13) {
-      navigation.navigate('Home');
+      const listUserString = await AsyncStorage.getItem('listUser');
+      const listUser: UserProps[] = listUserString
+        ? JSON.parse(listUserString)
+        : [];
+      listUser.push(userInfo);
+      await AsyncStorage.setItem('listUser', JSON.stringify(listUser));
+      navigation.navigate('Main');
     } else {
       setProgressState(progressState + 1);
     }
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     if (progressState === 13) {
-      navigation.navigate('Home');
+      const listUserString = await AsyncStorage.getItem('listUser');
+      const listUser: UserProps[] = listUserString
+        ? JSON.parse(listUserString)
+        : [];
+      listUser.push(userInfo);
+      await AsyncStorage.setItem('listUser', JSON.stringify(listUser));
+      navigation.navigate('Main');
+      navigation.navigate('Main');
     } else {
       setProgressState(progressState + 1);
     }
