@@ -1,12 +1,8 @@
 import Slider from '@react-native-community/slider';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-
-interface ProgressContentProps {
-  progressState: number;
-  userInfo: any;
-  setUserInfo: (info: any) => void;
-}
+import {ProgressContentProps} from '../../services/renderData';
+import VerticalNumberPicker from './VerticalNumberPicker';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -18,15 +14,12 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
       return (
         <View style={styles.formGroup}>
           <Text style={styles.label}>How old are you?</Text>
-          <Slider
-            style={styles.slider}
-            minimumValue={0}
-            maximumValue={100}
-            step={1}
+          <VerticalNumberPicker
+            min={0}
+            max={100}
             value={userInfo.age}
             onValueChange={value => setUserInfo({...userInfo, age: value})}
           />
-          <Text style={styles.value}>{userInfo.age}</Text>
         </View>
       );
     case 2:

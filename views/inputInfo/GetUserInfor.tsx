@@ -1,25 +1,26 @@
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {containerStyle, vh, vw} from '../../services/styleProps';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {ggUserProps, UserProps} from '../../services/typeProps';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  StatusBar,
+  FlatList,
+} from 'react-native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {backIcon} from '../../assets/svgIcon';
+import {UserProps, ggUserProps} from '../../services/typeProps';
 import * as Progress from 'react-native-progress';
+import {backIcon} from '../../assets/svgIcon';
+import {vw, vh, containerStyle} from '../../services/styleProps';
 import ProgressContent from '../../components/getInfor/ProgressContent';
 
-const GetUserInfor = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+const GetUserInfor: React.FC = () => {
   const route = useRoute();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const {userData} = route.params as {userData: ggUserProps};
+
   const [progressState, setProgressState] = useState<number>(1);
   const [userInfo, setUserInfo] = useState<UserProps>({
     email: userData.email,
@@ -28,7 +29,7 @@ const GetUserInfor = () => {
     id: userData.id,
     name: userData.name ?? '',
     photo: userData.photo,
-    age: 0,
+    age: 18,
     weight: 0,
     height: '',
     playingTime: '',
@@ -45,11 +46,19 @@ const GetUserInfor = () => {
   });
 
   const handleNext = () => {
-    // Handle next button press
+    if (progressState === 13) {
+      navigation.navigate('Home');
+    } else {
+      setProgressState(progressState + 1);
+    }
   };
 
   const handleSkip = () => {
-    setProgressState(progressState + 1);
+    if (progressState === 13) {
+      navigation.navigate('Home');
+    } else {
+      setProgressState(progressState + 1);
+    }
   };
 
   const handleBack = () => {
@@ -79,13 +88,19 @@ const GetUserInfor = () => {
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView contentContainerStyle={styles.content}>
-        <ProgressContent
-          progressState={progressState}
-          userInfo={userInfo}
-          setUserInfo={setUserInfo}
-        />
-      </ScrollView>
+      <FlatList
+        data={[{key: 'content'}]}
+        renderItem={() => (
+          <View style={styles.content}>
+            <ProgressContent
+              progressState={progressState}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+            />
+          </View>
+        )}
+        keyExtractor={item => item.key}
+      />
       <View style={styles.footer}>
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
           <Text style={styles.nextButtonText}>Next</Text>
@@ -103,14 +118,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: vw(5),
-    paddingVertical: vh(2),
+    padding: 20,
   },
   backBtn: {
     padding: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#BABABA',
   },
   skipText: {
     color: 'white',
@@ -120,13 +131,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
   },
-  slider: {
-    width: '100%',
-    height: 40,
-  },
   footer: {
-    paddingHorizontal: vw(5),
-    marginVertical: vh(2),
+    padding: 20,
   },
   nextButton: {
     backgroundColor: '#F87643',
@@ -135,8 +141,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nextButtonText: {
-    color: '#03020B',
-    fontSize: 18,
-    fontWeight: '600',
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

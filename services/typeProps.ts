@@ -50,3 +50,9 @@ export interface InputFieldProps {
   onTogglePasswordVisibility?: () => void;
   isPasswordVisible?: boolean;
 }
+
+export interface ProgressContentProps {
+  progressState: number;
+  userInfo: any;
+  setUserInfo: (info: any) => void;
+}
