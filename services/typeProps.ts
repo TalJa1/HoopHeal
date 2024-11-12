@@ -13,7 +13,7 @@ export interface UserProps {
   email: string;
   familyName: string;
   givenName: string;
-  id: string;
+  id: string | null;
   name: string;
   photo: string | null;
   age: number;

@@ -50,7 +50,6 @@ const SignIn2 = () => {
       }
     } catch (error) {
       console.log('error', error);
-
       Alert.alert('Logged in failed');
     }
   };

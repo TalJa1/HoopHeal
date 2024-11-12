@@ -19,6 +19,7 @@ import {
   GoogleSignin,
   isSuccessResponse,
 } from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -77,7 +78,7 @@ const LoginTypeButton: React.FC<LoginButtonTypeProps> = ({image, title}) => {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
       if (isSuccessResponse(response)) {
-        console.log(response);
+        const tmp = response.data.user;
       } else {
         // sign in was cancelled by user
       }

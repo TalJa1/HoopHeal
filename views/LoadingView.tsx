@@ -1,12 +1,28 @@
 import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {centerAll, containerStyle, text1, vh, vw} from '../services/styleProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {userData} from '../services/renderData';
 
 const LoadingView = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const fetchListUser = async () => {
+    try {
+      const listUser = await AsyncStorage.getItem('listUser');
+      if (listUser === null) {
+        await AsyncStorage.setItem('listUser', JSON.stringify(userData));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchListUser();
+  }, []);
 
   const fetchToken = async () => {
     try {
