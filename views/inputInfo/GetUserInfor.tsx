@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nextButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+    color: '#03020B',
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
