@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {vw} from '../../services/styleProps';
 
 interface VerticalNumberPickerProps {
   min: number;
@@ -7,8 +8,6 @@ interface VerticalNumberPickerProps {
   value: number;
   onValueChange: (value: number) => void;
 }
-
-const ITEM_HEIGHT = 60;
 
 const VerticalNumberPicker: React.FC<VerticalNumberPickerProps> = ({
   min,
@@ -58,25 +57,27 @@ const VerticalNumberPicker: React.FC<VerticalNumberPickerProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: ITEM_HEIGHT * 3,
     justifyContent: 'center',
     alignItems: 'center',
   },
   item: {
-    height: ITEM_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
   },
   selectedItem: {
     backgroundColor: '#F87643',
     borderRadius: 10,
+    padding: vw(4),
+    borderWidth: 4,
+    borderColor: '#2C3522',
   },
   itemText: {
-    fontSize: 24,
+    fontSize: 60,
     color: '#BABABA',
   },
   selectedItemText: {
-    color: 'white',
+    color: 'black',
+    fontSize: 128,
     fontWeight: 'bold',
   },
 });

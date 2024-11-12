@@ -51,7 +51,7 @@ export default ProgressContent;
 
 const styles = StyleSheet.create({
   formGroup: {
-    marginBottom: 20,
+    flex: 1,
   },
   label: {
     color: '#BABABA',
