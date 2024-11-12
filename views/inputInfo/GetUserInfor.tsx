@@ -103,6 +103,7 @@ const GetUserInfor: React.FC = () => {
         setDisableBtn(false);
         break;
       default:
+        setDisableBtn(false);
         break;
     }
   }, [progressState, userInfo]);
