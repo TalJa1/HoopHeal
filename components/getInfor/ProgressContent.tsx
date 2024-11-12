@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {ProgressContentProps} from '../../services/renderData';
@@ -6,6 +7,8 @@ import HeightWeightInput from './HeightWeightInput';
 import BasketballExperience from './BasketballExperience';
 import InjuryTypeSelection from './InjuryTypeSelection';
 import InjuryTimeLast from './InjuryTimeLast';
+import {vh, vw} from '../../services/styleProps';
+import Slider from '@react-native-community/slider';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -73,6 +76,41 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
               setUserInfo({...userInfo, injuryLast: v})
             }
           />
+        </View>
+      );
+    case 6:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>
+            What is your current pain level (on a scale of 1-10)?
+          </Text>
+          <View style={{marginTop: vh(2)}}>
+            <Text style={{color: '#FFFFFF', fontSize: 20, fontWeight: '900'}}>
+              Slide
+            </Text>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 48,
+                fontWeight: '900',
+                textAlign: 'center',
+              }}>
+              {userInfo.painLevel}
+            </Text>
+            <Slider
+              style={{width: vw(90), height: vh(5)}}
+              value={userInfo.painLevel}
+              onValueChange={value =>
+                setUserInfo({...userInfo, painLevel: value})
+              }
+              minimumValue={0}
+              maximumValue={10}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#F87643"
+              thumbTintColor="white"
+              step={1}
+            />
+          </View>
         </View>
       );
     default:

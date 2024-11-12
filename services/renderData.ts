@@ -1,4 +1,4 @@
-import { UserProps } from "./typeProps";
+import {UserProps} from './typeProps';
 
 export const onboardingData = [
   {
