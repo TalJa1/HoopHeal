@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 60,
     color: '#BABABA',
+    fontWeight: '800',
   },
   selectedItemText: {
     color: 'black',
