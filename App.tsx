@@ -19,6 +19,7 @@ import LoadingView from './views/LoadingView';
 import Onboarding from './views/onboarding/Onboarding';
 import SignIn from './views/login/SignIn';
 import SignIn2 from './views/login/SignIn2';
+import GetUserInfor from './views/inputInfo/GetUserInfor';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,6 +100,11 @@ const App = () => {
         <Stack.Screen
           name="SignIn2"
           component={SignIn2}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="GetUserInfor"
+          component={GetUserInfor}
           options={{headerShown: false}}
         />
         {/* Login Group */}

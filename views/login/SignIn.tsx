@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import {centerAll, containerStyle, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {LoginButtonTypeProps} from '../../services/typeProps';
+import {LoginButtonTypeProps, UserProps} from '../../services/typeProps';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
@@ -79,12 +79,25 @@ const LoginTypeButton: React.FC<LoginButtonTypeProps> = ({image, title}) => {
       const response = await GoogleSignin.signIn();
       if (isSuccessResponse(response)) {
         const tmp = response.data.user;
+        const listUser = await AsyncStorage.getItem('listUser');
+        if (listUser !== null) {
+          const userList: UserProps[] = JSON.parse(listUser);
+          const user = userList.find(
+            (item: UserProps) =>
+              item.email === tmp.email && item.name === tmp.name,
+          );
+          if (!user) {
+            navigation.navigate('GetUserInfor', {userData: tmp});
+          } else {
+            navigation.navigate('Main');
+          }
+        } else {
+          await AsyncStorage.setItem('listUser', JSON.stringify([tmp]));
+        }
       } else {
         // sign in was cancelled by user
       }
-    } catch (error) {
-      console.log('error', error);
-
+    } catch {
       Alert.alert('Logged in failed');
     }
   };

@@ -9,6 +9,15 @@ export interface LoginButtonTypeProps {
   title: string;
 }
 
+export interface ggUserProps {
+  id: string;
+  name: string | null;
+  email: string;
+  photo: string | null;
+  familyName: string | null;
+  givenName: string | null;
+}
+
 export interface UserProps {
   email: string;
   familyName: string;
