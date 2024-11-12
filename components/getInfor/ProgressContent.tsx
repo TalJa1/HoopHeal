@@ -9,6 +9,7 @@ import InjuryTypeSelection from './InjuryTypeSelection';
 import InjuryTimeLast from './InjuryTimeLast';
 import {vh, vw} from '../../services/styleProps';
 import Slider from '@react-native-community/slider';
+import YesNoComponent from './YesNoComponent';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -111,6 +112,18 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
               step={1}
             />
           </View>
+        </View>
+      );
+    case 7:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>Do you have difficulty moving?</Text>
+          <YesNoComponent
+            value={userInfo.isMovingDifficult}
+            onValueChange={v =>
+              setUserInfo({...userInfo, isMovingDifficult: v})
+            }
+          />
         </View>
       );
     default:

@@ -56,3 +56,8 @@ export interface ProgressContentProps {
   userInfo: any;
   setUserInfo: (info: any) => void;
 }
+
+export interface YesNoComponentProps {
+  value: boolean;
+  onValueChange: (value: boolean) => void;
+}
