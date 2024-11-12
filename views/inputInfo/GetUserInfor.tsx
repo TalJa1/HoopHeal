@@ -19,6 +19,7 @@ const GetUserInfor = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const route = useRoute();
   const {userData} = route.params as {userData: ggUserProps};
+  const [progressState, setProgressState] = useState<number>(1);
   const [userInfo, setUserInfo] = useState<UserProps>({
     email: userData.email,
     familyName: userData.familyName ?? '',
@@ -47,11 +48,15 @@ const GetUserInfor = () => {
   };
 
   const handleSkip = () => {
-    // Handle skip button press
+    setProgressState(progressState + 1);
   };
 
   const handleBack = () => {
-    // Handle back button press
+    if (progressState === 1) {
+      navigation.goBack();
+    } else {
+      setProgressState(progressState - 1);
+    }
   };
 
   return (
@@ -62,7 +67,7 @@ const GetUserInfor = () => {
           {backIcon(24, 24, 'white')}
         </TouchableOpacity>
         <Progress.Bar
-          progress={0.5}
+          progress={progressState / 13}
           width={vw(55)}
           height={vh(1)}
           borderRadius={vw(50)}
@@ -74,8 +79,7 @@ const GetUserInfor = () => {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.content}>
-        <View />
-        {/* Add more form fields as needed */}
+        {/* render here */}
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
