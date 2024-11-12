@@ -3,7 +3,7 @@ import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {vh} from '../../services/styleProps';
 
 interface HeightWeightInputProps {
-  weight: number;
+  weight: string;
   height: string;
   onWeightChange: (value: string) => void;
   onHeightChange: (value: string) => void;

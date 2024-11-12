@@ -5,6 +5,7 @@ import VerticalNumberPicker from './VerticalNumberPicker';
 import HeightWeightInput from './HeightWeightInput';
 import BasketballExperience from './BasketballExperience';
 import InjuryTypeSelection from './InjuryTypeSelection';
+import InjuryTimeLast from './InjuryTimeLast';
 
 const ProgressContent: React.FC<ProgressContentProps> = ({
   progressState,
@@ -58,6 +59,18 @@ const ProgressContent: React.FC<ProgressContentProps> = ({
             selectedInjuries={userInfo.injury}
             onInjuryChange={selected =>
               setUserInfo({...userInfo, injury: selected})
+            }
+          />
+        </View>
+      );
+    case 5:
+      return (
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>How long have you had this injury?</Text>
+          <InjuryTimeLast
+            injuryTimeLast={userInfo.injuryLast}
+            onInjuryTimeLast={(v: string) =>
+              setUserInfo({...userInfo, injuryLast: v})
             }
           />
         </View>

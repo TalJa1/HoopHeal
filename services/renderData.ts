@@ -1,3 +1,5 @@
+import { UserProps } from "./typeProps";
+
 export const onboardingData = [
   {
     img: require('../assets/onboarding/1.png'),
@@ -57,6 +59,6 @@ export const userData = [
 
 export interface ProgressContentProps {
   progressState: number;
-  userInfo: any;
+  userInfo: UserProps;
   setUserInfo: (info: any) => void;
 }
