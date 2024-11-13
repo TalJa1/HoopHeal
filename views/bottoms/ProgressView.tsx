@@ -72,7 +72,7 @@ const BarChartView: React.FC = () => {
               x={padding + index * (barWidth + 10) + barWidth / 2}
               y={chartHeight - padding + 15}
               fontSize="10"
-              fill="#8D9092"
+              fill="white"
               textAnchor="middle"
             >
               {week}
