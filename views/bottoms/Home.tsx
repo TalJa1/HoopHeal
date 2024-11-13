@@ -90,7 +90,7 @@ const TodayExercise: React.FC = () => {
                 <Text style={styles.exerTime}>{item.time}</Text>
               </View>
             </View>
-            <View style={{position: 'absolute', right: 0}}>
+            <View style={{position: 'absolute', right: 20}}>
               <ToggleSwitch
                 isOn={item.notify}
                 onColor="#F87643"
@@ -299,6 +299,9 @@ const styles = StyleSheet.create({
     padding: vw(2),
     borderRadius: 20,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    columnGap: vw(1),
   },
   exerciseTitle: {
     color: 'white',
