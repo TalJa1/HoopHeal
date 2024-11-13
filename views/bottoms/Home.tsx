@@ -9,7 +9,11 @@ import {
   TodayExerciseDataProps,
   UserProps,
 } from '../../services/typeProps';
-import {homeUpperProgressIcon, notiIcon} from '../../assets/svgIcon';
+import {
+  arrowDownIcon,
+  homeUpperProgressIcon,
+  notiIcon,
+} from '../../assets/svgIcon';
 import * as Progress from 'react-native-progress';
 import {TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
@@ -45,15 +49,21 @@ const Home = () => {
 const Matplotlib: React.FC = () => {
   return (
     <View style={styles.matplotlib}>
-      <Text style={styles.todayTitle}>Matplotlib Chart</Text>
-      <View style={[rowCenter, {columnGap: vw(4)}]}>
-        <View style={[rowCenter, {columnGap: vw(1)}]}>
-          <View style={styles.purple} />
-          <Text style={styles.matplotTxt}>Pain level</Text>
+      <View>
+        <Text style={styles.todayTitle}>Matplotlib Chart</Text>
+        <View style={[rowCenter, {columnGap: vw(4)}]}>
+          <View style={[rowCenter, {columnGap: vw(1)}]}>
+            <View style={styles.purple} />
+            <Text style={styles.matplotTxt}>Pain level</Text>
+          </View>
+          <View style={[rowCenter, {columnGap: vw(1)}]}>
+            <View style={styles.orange} />
+            <Text style={styles.matplotTxt}>Range of motion</Text>
+          </View>
         </View>
-        <View style={[rowCenter, {columnGap: vw(1)}]}>
-          <View style={styles.orange} />
-          <Text style={styles.matplotTxt}>Range of motion</Text>
+        <View style={[rowCenter, {position: 'absolute', bottom: 0, right: 0}, styles.matDropdown]}>
+          <Text style={styles.matplotTxt}>7 days</Text>
+          {arrowDownIcon(vw(5), vw(5), 'white')}
         </View>
       </View>
     </View>
@@ -372,5 +382,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: '400',
+  },
+  matDropdown: {
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingHorizontal: vw(2),
+    paddingVertical: 3,
   },
 });
