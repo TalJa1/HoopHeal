@@ -19,7 +19,14 @@ import {
 import {arrowDownIcon, homeUpperProgressIcon} from '../../assets/svgIcon';
 import {ProgressRightComponentProps} from '../../services/typeProps';
 import * as d3 from 'd3-shape';
-import Svg, {Line, G, Text as SvgText, Path, Circle} from 'react-native-svg';
+import Svg, {
+  Rect,
+  Line,
+  G,
+  Text as SvgText,
+  Path,
+  Circle,
+} from 'react-native-svg';
 import * as Progress from 'react-native-progress';
 
 const ProgressView = () => {
@@ -38,6 +45,14 @@ const ProgressView = () => {
 };
 
 const BarChartView: React.FC = () => {
+  const data = [10, 40, 60, 72, 79, 0, 0, 0]; // Example data for the bar chart
+  const weeks = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'];
+
+  const chartWidth = vw(90);
+  const chartHeight = vh(40);
+  const padding = 20;
+  const barWidth = (chartWidth - padding * 2) / data.length - 10;
+  const stepY = (chartHeight - padding * 2) / 100;
   return (
     <View style={styles.barchart}>
       <View style={[rowCenter, {justifyContent: 'space-between'}]}>
@@ -46,6 +61,60 @@ const BarChartView: React.FC = () => {
           <Text style={{color: 'white'}}>8weeks</Text>
           {arrowDownIcon(vw(5), vw(5), 'white')}
         </View>
+      </View>
+      <View>
+        <Svg width={chartWidth} height={chartHeight}>
+          <G>
+            {weeks.map((week, index) => (
+              <SvgText
+                key={index}
+                x={padding + index * (barWidth + 10) + barWidth / 2}
+                y={chartHeight - padding + 15}
+                fontSize="10"
+                fill="#8D9092"
+                textAnchor="middle">
+                {week}
+              </SvgText>
+            ))}
+            {[0, 20, 40, 60, 80, 100].map((value, index) => (
+              <SvgText
+                key={index}
+                x={chartWidth - padding + 10}
+                y={chartHeight - padding - value * stepY}
+                fontSize="10"
+                fill="#8D9092"
+                textAnchor="start">
+                {value}
+              </SvgText>
+            ))}
+            <Line
+              x1={padding}
+              y1={chartHeight - padding}
+              x2={chartWidth - padding}
+              y2={chartHeight - padding}
+              stroke="black"
+            />
+            <Line
+              x1={padding}
+              y1={padding}
+              x2={padding}
+              y2={chartHeight - padding}
+              stroke="black"
+            />
+            {data.map((value, index) => (
+              <Rect
+                key={index}
+                x={padding + index * (barWidth + 10)}
+                y={chartHeight - padding - value * stepY}
+                width={barWidth}
+                height={value * stepY}
+                fill="#A3A3F2"
+                rx={5}
+                ry={5}
+              />
+            ))}
+          </G>
+        </Svg>
       </View>
     </View>
   );
