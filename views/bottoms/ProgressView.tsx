@@ -50,9 +50,10 @@ const BarChartView: React.FC = () => {
 
   const chartWidth = vw(90);
   const chartHeight = vh(40);
-  const padding = 20;
+  const padding = 30;
   const barWidth = (chartWidth - padding * 2) / data.length - 10;
   const stepY = (chartHeight - padding * 2) / 100;
+  const barRadius = 15;
   return (
     <View style={styles.barchart}>
       <View style={[rowCenter, {justifyContent: 'space-between'}]}>
@@ -63,58 +64,70 @@ const BarChartView: React.FC = () => {
         </View>
       </View>
       <View>
-        <Svg width={chartWidth} height={chartHeight}>
-          <G>
-            {weeks.map((week, index) => (
-              <SvgText
-                key={index}
-                x={padding + index * (barWidth + 10) + barWidth / 2}
-                y={chartHeight - padding + 15}
-                fontSize="10"
-                fill="#8D9092"
-                textAnchor="middle">
-                {week}
-              </SvgText>
-            ))}
-            {[0, 20, 40, 60, 80, 100].map((value, index) => (
-              <SvgText
-                key={index}
-                x={chartWidth - padding + 10}
-                y={chartHeight - padding - value * stepY}
-                fontSize="10"
-                fill="#8D9092"
-                textAnchor="start">
-                {value}
-              </SvgText>
-            ))}
-            <Line
-              x1={padding}
-              y1={chartHeight - padding}
-              x2={chartWidth - padding}
-              y2={chartHeight - padding}
-              stroke="black"
-            />
-            <Line
-              x1={padding}
-              y1={padding}
-              x2={padding}
-              y2={chartHeight - padding}
-              stroke="black"
-            />
-            {data.map((value, index) => (
+      <Svg width={chartWidth} height={chartHeight}>
+        <G>
+          {weeks.map((week, index) => (
+            <SvgText
+              key={index}
+              x={padding + index * (barWidth + 10) + barWidth / 2}
+              y={chartHeight - padding + 15}
+              fontSize="10"
+              fill="#8D9092"
+              textAnchor="middle"
+            >
+              {week}
+            </SvgText>
+          ))}
+          {[0, 20, 40, 60, 80, 100].map((value, index) => (
+            <SvgText
+              key={index}
+              x={chartWidth - padding + 10}
+              y={chartHeight - padding - value * stepY}
+              fontSize="10"
+              fill="#8D9092"
+              textAnchor="start"
+            >
+              {value}
+            </SvgText>
+          ))}
+          <Line
+            x1={padding}
+            y1={chartHeight - padding}
+            x2={chartWidth - padding}
+            y2={chartHeight - padding}
+            stroke="black"
+          />
+          <Line
+            x1={padding}
+            y1={padding}
+            x2={padding}
+            y2={chartHeight - padding}
+            stroke="black"
+          />
+          {data.map((value, index) => (
+            <React.Fragment key={index}>
               <Rect
-                key={index}
+                x={padding + index * (barWidth + 10)}
+                y={padding}
+                width={barWidth}
+                height={chartHeight - padding * 2}
+                fill="#A3A3F25C"
+                rx={barRadius}
+                ry={barRadius}
+              />
+              <Rect
                 x={padding + index * (barWidth + 10)}
                 y={chartHeight - padding - value * stepY}
                 width={barWidth}
                 height={value * stepY}
                 fill="#A3A3F2"
-                rx={5}
-                ry={5}
+                rx={barRadius}
+                ry={barRadius}
               />
-            ))}
-          </G>
-        </Svg>
+            </React.Fragment>
+          ))}
+        </G>
+      </Svg>
       </View>
     </View>
   );
@@ -133,7 +146,7 @@ const Matplotlib: React.FC = () => {
 
   const chartWidth = vw(90);
   const chartHeight = vh(40);
-  const padding = 20;
+  const padding = 30;
   const stepX = (chartWidth - padding * 2) / (days.length - 1);
   const stepY1 = (chartHeight - padding * 2) / 10;
   const stepY2 = (chartHeight - padding * 2) / 80;
