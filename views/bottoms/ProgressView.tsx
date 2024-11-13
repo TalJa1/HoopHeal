@@ -54,49 +54,55 @@ const Milestone: React.FC = () => {
   const [progress1, setProgress1] = useState(0.4);
   const [progress2, setProgress2] = useState(0.5);
   return (
-    <View
-      style={[
-        rowCenter,
-        {marginHorizontal: vw(5), justifyContent: 'space-between'},
-      ]}>
-      <View style={styles.mileleft}>
-        <Text style={styles.mileleftTxt}>Reduced pain </Text>
-        {/* render here */}
-        <Progress.Circle
-          size={vw(28)}
-          progress={progress1}
-          showsText={false}
-          color={'black'}
-          unfilledColor={'#626262'}
-          style={{alignItems: 'center', justifyContent: 'center'}}
-          borderWidth={0}
-          thickness={10}>
-          <View style={styles.progressTextWrapper1}>
-            <Text
-              style={[styles.progressText, {color: 'white'}]}>{`${Math.round(
-              progress1 * 100,
-            )}%`}</Text>
-          </View>
-        </Progress.Circle>
-      </View>
-      <View style={styles.mileright}>
-        <Text style={styles.milerightTxt}>Range of motion regaine</Text>
-        {/* render here */}
-        <Progress.Circle
-          size={vw(28)}
-          progress={progress2}
-          showsText={false}
-          color={'#F87643'}
-          unfilledColor={'#663427'}
-          style={{alignItems: 'center', justifyContent: 'center'}}
-          borderWidth={0}
-          thickness={10}>
-          <View style={styles.progressTextWrapper2}>
-            <Text style={styles.progressText}>{`${Math.round(
-              progress2 * 100,
-            )}%`}</Text>
-          </View>
-        </Progress.Circle>
+    <View style={[styles.barchart, {rowGap: vh(2)}]}>
+      <Text style={styles.todayTitle}>Milestones Achieved</Text>
+
+      <View
+        style={[
+          rowCenter,
+          {
+            justifyContent: 'space-between',
+          },
+        ]}>
+        <View style={styles.mileleft}>
+          <Text style={styles.mileleftTxt}>Reduced pain</Text>
+          {/* render here */}
+          <Progress.Circle
+            size={vw(28)}
+            progress={progress1}
+            showsText={false}
+            color={'black'}
+            unfilledColor={'#626262'}
+            style={{alignItems: 'center', justifyContent: 'center'}}
+            borderWidth={0}
+            thickness={10}>
+            <View style={styles.progressTextWrapper1}>
+              <Text
+                style={[styles.progressText, {color: 'white'}]}>{`${Math.round(
+                progress1 * 100,
+              )}%`}</Text>
+            </View>
+          </Progress.Circle>
+        </View>
+        <View style={styles.mileright}>
+          <Text style={styles.milerightTxt}>Range of motion regaine</Text>
+          {/* render here */}
+          <Progress.Circle
+            size={vw(28)}
+            progress={progress2}
+            showsText={false}
+            color={'#F87643'}
+            unfilledColor={'#663427'}
+            style={{alignItems: 'center', justifyContent: 'center'}}
+            borderWidth={0}
+            thickness={10}>
+            <View style={styles.progressTextWrapper2}>
+              <Text style={styles.progressText}>{`${Math.round(
+                progress2 * 100,
+              )}%`}</Text>
+            </View>
+          </Progress.Circle>
+        </View>
       </View>
     </View>
   );
