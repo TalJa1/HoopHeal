@@ -17,7 +17,8 @@ import {
 import * as Progress from 'react-native-progress';
 import {TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
-import Svg, {Line, G, Text as SvgText} from 'react-native-svg';
+import Svg, {Line, G, Text as SvgText, Path} from 'react-native-svg';
+import * as d3 from 'd3-shape';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -48,8 +49,8 @@ const Home = () => {
 };
 
 const Matplotlib: React.FC = () => {
-  const data1 = [2, 4, 6, 8, 6, 4, 2]; // Example data for Pain level
-  const data2 = [20, 40, 60, 80, 60, 40, 20]; // Example data for Range of motion
+  const data1 = [2, 8, 6, 2, 6, 7, 1]; // Example data for Pain level
+  const data2 = [10, 40, 20, 25, 80, 10, 26]; // Example data for Range of motion
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const chartWidth = vw(90);
@@ -58,6 +59,19 @@ const Matplotlib: React.FC = () => {
   const stepX = (chartWidth - padding * 2) / (days.length - 1);
   const stepY1 = (chartHeight - padding * 2) / 10;
   const stepY2 = (chartHeight - padding * 2) / 80;
+
+  const line1 = d3
+    .line<number>()
+    .x((d: number, i: number) => padding + i * stepX)
+    .y((d: number) => chartHeight - padding - d * stepY1)
+    .curve(d3.curveCatmullRom.alpha(0.5));
+
+  const line2 = d3
+    .line<number>()
+    .x((d: number, i: number) => padding + i * stepX)
+    .y((d: number) => chartHeight - padding - d * stepY2)
+    .curve(d3.curveCatmullRom.alpha(0.5));
+
   return (
     <View style={styles.matplotlib}>
       <Text style={styles.todayTitle}>Matplotlib Chart</Text>
@@ -83,8 +97,7 @@ const Matplotlib: React.FC = () => {
         </View>
       </View>
       <View>
-        {' '}
-        <Svg width={chartWidth} height={chartHeight}>
+      <Svg width={chartWidth} height={chartHeight}>
           <G>
             {days.map((day, index) => (
               <SvgText
@@ -93,7 +106,8 @@ const Matplotlib: React.FC = () => {
                 y={chartHeight - padding + 15}
                 fontSize="10"
                 fill="#8D9092"
-                textAnchor="middle">
+                textAnchor="middle"
+              >
                 {day}
               </SvgText>
             ))}
@@ -104,7 +118,8 @@ const Matplotlib: React.FC = () => {
                 y={chartHeight - padding - value * stepY1}
                 fontSize="10"
                 fill="#8D9092"
-                textAnchor="end">
+                textAnchor="end"
+              >
                 {value}
               </SvgText>
             ))}
@@ -115,7 +130,8 @@ const Matplotlib: React.FC = () => {
                 y={chartHeight - padding - value * stepY2}
                 fontSize="10"
                 fill="#8D9092"
-                textAnchor="start">
+                textAnchor="start"
+              >
                 {value}
               </SvgText>
             ))}
@@ -124,41 +140,27 @@ const Matplotlib: React.FC = () => {
               y1={chartHeight - padding}
               x2={chartWidth - padding}
               y2={chartHeight - padding}
+              stroke="black"
             />
             <Line
               x1={padding}
               y1={padding}
               x2={padding}
               y2={chartHeight - padding}
+              stroke="black"
             />
-            {data1.map(
-              (value, index) =>
-                index < data1.length - 1 && (
-                  <Line
-                    key={index}
-                    x1={padding + index * stepX}
-                    y1={chartHeight - padding - value * stepY1}
-                    x2={padding + (index + 1) * stepX}
-                    y2={chartHeight - padding - data1[index + 1] * stepY1}
-                    stroke="#F87643"
-                    strokeWidth="2"
-                  />
-                ),
-            )}
-            {data2.map(
-              (value, index) =>
-                index < data2.length - 1 && (
-                  <Line
-                    key={index}
-                    x1={padding + index * stepX}
-                    y1={chartHeight - padding - value * stepY2}
-                    x2={padding + (index + 1) * stepX}
-                    y2={chartHeight - padding - data2[index + 1] * stepY2}
-                    stroke="#A3A3F2"
-                    strokeWidth="2"
-                  />
-                ),
-            )}
+            <Path
+              d={line1(data1) as string}
+              stroke="#F87643"
+              strokeWidth="2"
+              fill="none"
+            />
+            <Path
+              d={line2(data2) as string}
+              stroke="#A3A3F2"
+              strokeWidth="2"
+              fill="none"
+            />
           </G>
         </Svg>
       </View>
