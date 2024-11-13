@@ -6,6 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserProps} from '../../services/typeProps';
 import {notiIcon} from '../../assets/svgIcon';
+import * as Progress from 'react-native-progress';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -34,10 +35,23 @@ const Home = () => {
 };
 
 const UpperProgress: React.FC = () => {
+  const progress = 0.4;
   return (
     <View style={styles.upperProgress}>
       <View style={styles.progressLeft}>
         <Text style={styles.recoverTxt}>Recovery Progress</Text>
+        {/* render here */}
+        <Progress.Circle
+          size={vw(28)}
+          progress={progress}
+          showsText={true}
+          color={'#03020B'}
+          unfilledColor={'#BABABA'}
+          borderWidth={0}
+          thickness={10}
+          formatText={() => `${Math.round(progress * 100)}%`}
+          textStyle={styles.progressText}
+        />
       </View>
       <View style={styles.progressRight}></View>
     </View>
@@ -111,7 +125,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     backgroundColor: 'white',
-    padding: 10,
+    paddingHorizontal: vw(2),
+    paddingVertical: vh(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    rowGap: vh(2),
   },
   progressRight: {
     height: 10,
@@ -122,5 +140,9 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: '700',
+  },
+  progressText: {
+    color: 'black',
+    fontWeight: 'bold',
   },
 });
