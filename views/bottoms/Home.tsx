@@ -12,6 +12,7 @@ import {
 import {homeUpperProgressIcon, notiIcon} from '../../assets/svgIcon';
 import * as Progress from 'react-native-progress';
 import {TodayExerciseData} from '../../services/renderData';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -60,6 +61,13 @@ const TodayExercise: React.FC = () => {
     fetchData();
   }, []);
 
+  const handleToggle = (index: number) => {
+    const newExercises = [...exercises];
+    newExercises[index].notify = !newExercises[index].notify;
+    setExercises(newExercises);
+    AsyncStorage.setItem('todayExercise', JSON.stringify(newExercises));
+  };
+
   return (
     <View style={styles.todayExer}>
       <View style={styles.todayTitleGrp}>
@@ -81,6 +89,15 @@ const TodayExercise: React.FC = () => {
                 <View style={styles.excerVertical} />
                 <Text style={styles.exerTime}>{item.time}</Text>
               </View>
+            </View>
+            <View style={{position: 'absolute', right: 0}}>
+              <ToggleSwitch
+                isOn={item.notify}
+                onColor="#F87643"
+                offColor="#A09F9F"
+                size="small"
+                onToggle={() => handleToggle(index)}
+              />
             </View>
           </View>
         ))}
