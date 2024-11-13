@@ -44,14 +44,18 @@ const UpperProgress: React.FC = () => {
         <Progress.Circle
           size={vw(28)}
           progress={progress}
-          showsText={true}
+          showsText={false}
           color={'#03020B'}
           unfilledColor={'#BABABA'}
+          style={{alignItems: 'center', justifyContent: 'center'}}
           borderWidth={0}
-          thickness={10}
-          formatText={() => `${Math.round(progress * 100)}%`}
-          textStyle={styles.progressText}
-        />
+          thickness={10}>
+          <View style={styles.progressTextWrapper}>
+            <Text style={styles.progressText}>{`${Math.round(
+              progress * 100,
+            )}%`}</Text>
+          </View>
+        </Progress.Circle>
       </View>
       <View style={styles.progressRight}></View>
     </View>
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
   },
   progressLeft: {
     borderRadius: 20,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: 'black',
     backgroundColor: 'white',
     paddingHorizontal: vw(2),
@@ -142,7 +146,17 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   progressText: {
-    color: 'black',
-    fontWeight: 'bold',
+    color: '#03020B',
+    fontWeight: '900',
+    fontSize: 20,
+  },
+  progressTextWrapper: {
+    position: 'absolute',
+    backgroundColor: '#F87643',
+    borderRadius: vw(50),
+    width: vw(20),
+    height: vw(20),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
