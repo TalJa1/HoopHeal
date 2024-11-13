@@ -35,10 +35,15 @@ const Home = () => {
           <Header data={profile} />
           <UpperProgress />
           <TodayExercise />
+          <Matplotlib />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
+};
+
+const Matplotlib: React.FC = () => {
+  return <View></View>;
 };
 
 const TodayExercise: React.FC = () => {
