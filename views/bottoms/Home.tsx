@@ -147,7 +147,7 @@ const Matplotlib: React.FC = () => {
 
   const chartWidth = vw(90);
   const chartHeight = vh(40);
-  const padding = 20;
+  const padding = 30;
   const stepX = (chartWidth - padding * 2) / (days.length - 1);
   const stepY1 = (chartHeight - padding * 2) / 10;
   const stepY2 = (chartHeight - padding * 2) / 80;
