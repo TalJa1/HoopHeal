@@ -92,7 +92,7 @@ const Matplotlib: React.FC = () => {
                 x={padding + index * stepX}
                 y={chartHeight - padding + 15}
                 fontSize="10"
-                fill="white"
+                fill="#8D9092"
                 textAnchor="middle">
                 {day}
               </SvgText>
@@ -103,7 +103,7 @@ const Matplotlib: React.FC = () => {
                 x={padding - 10}
                 y={chartHeight - padding - value * stepY1}
                 fontSize="10"
-                fill="white"
+                fill="#8D9092"
                 textAnchor="end">
                 {value}
               </SvgText>
@@ -114,7 +114,7 @@ const Matplotlib: React.FC = () => {
                 x={chartWidth - padding + 10}
                 y={chartHeight - padding - value * stepY2}
                 fontSize="10"
-                fill="white"
+                fill="#8D9092"
                 textAnchor="start">
                 {value}
               </SvgText>
@@ -140,7 +140,7 @@ const Matplotlib: React.FC = () => {
                     y1={chartHeight - padding - value * stepY1}
                     x2={padding + (index + 1) * stepX}
                     y2={chartHeight - padding - data1[index + 1] * stepY1}
-                    stroke="purple"
+                    stroke="#F87643"
                     strokeWidth="2"
                   />
                 ),
@@ -154,7 +154,7 @@ const Matplotlib: React.FC = () => {
                     y1={chartHeight - padding - value * stepY2}
                     x2={padding + (index + 1) * stepX}
                     y2={chartHeight - padding - data2[index + 1] * stepY2}
-                    stroke="orange"
+                    stroke="#A3A3F2"
                     strokeWidth="2"
                   />
                 ),
