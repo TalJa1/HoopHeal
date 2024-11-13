@@ -26,9 +26,21 @@ const Home = () => {
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={{flex: 1}}>
           <Header data={profile} />
+          <UpperProgress />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const UpperProgress: React.FC = () => {
+  return (
+    <View style={styles.upperProgress}>
+      <View style={styles.progressLeft}>
+        <Text style={styles.recoverTxt}>Recovery Progress</Text>
+      </View>
+      <View style={styles.progressRight}></View>
+    </View>
   );
 };
 
@@ -83,5 +95,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '900',
     color: '#FFFFFF',
+  },
+  upperProgress: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: vw(5),
+    marginTop: vh(2),
+    backgroundColor: '#F87643',
+    paddingHorizontal: vw(4),
+    paddingVertical: vh(3),
+    borderRadius: 20,
+  },
+  progressLeft: {
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: 'black',
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  progressRight: {
+    height: 10,
+    backgroundColor: '#F87643',
+    borderRadius: 10,
+  },
+  recoverTxt: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
