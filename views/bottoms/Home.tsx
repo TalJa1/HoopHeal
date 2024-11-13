@@ -8,7 +8,13 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {containerStyle, rowCenter, vh, vw} from '../../services/styleProps';
+import {
+  centerAll,
+  containerStyle,
+  rowCenter,
+  vh,
+  vw,
+} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -23,7 +29,7 @@ import {
   notiIcon,
 } from '../../assets/svgIcon';
 import * as Progress from 'react-native-progress';
-import {TodayExerciseData} from '../../services/renderData';
+import {CommonInjuriesData, TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Svg, {Line, G, Text as SvgText, Path, Circle} from 'react-native-svg';
 import * as d3 from 'd3-shape';
@@ -51,9 +57,42 @@ const Home = () => {
           <TodayExercise />
           <Matplotlib />
           <Reminder />
+          <CommonInjuries />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const CommonInjuries: React.FC = () => {
+  return (
+    <View style={styles.reminder}>
+      <View style={[rowCenter]}>
+        <Text style={styles.todayTitle}>Common Basketball Injuries</Text>
+        <Text
+          style={{
+            color: '#8F8F8F',
+            fontSize: 12,
+            fontWeight: '500',
+            position: 'absolute',
+            right: 10,
+          }}>
+          More
+        </Text>
+      </View>
+      <ScrollView horizontal contentContainerStyle={{marginVertical: vh(2)}}>
+        {CommonInjuriesData.map((item, index) => {
+          return (
+            <View
+              key={index}
+              style={[centerAll, {marginRight: vw(5), rowGap: vh(1.5)}]}>
+              <Image style={styles.exerImg} source={item.img} />
+              <Text style={{color: 'white'}}>{item.label}</Text>
+            </View>
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 };
 

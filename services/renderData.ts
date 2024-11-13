@@ -75,3 +75,22 @@ export const TodayExerciseData: TodayExerciseDataProps[] = [
     img: require('../assets/home/exer1.png'),
   },
 ];
+
+export const CommonInjuriesData = [
+  {
+    label: 'Ankle Sprain',
+    img: require('../assets/home/inj1.png'),
+  },
+  {
+    label: 'ACL Tear',
+    img: require('../assets/home/inj2.png'),
+  },
+  {
+    label: 'Patellar Tendonitis',
+    img: require('../assets/home/inj3.png'),
+  },
+  {
+    label: 'Achilles Tendonitis',
+    img: require('../assets/home/inj4.png'),
+  },
+];
