@@ -18,6 +18,7 @@ import {
 } from '../../services/typeProps';
 import {
   arrowDownIcon,
+  boneIcon,
   homeUpperProgressIcon,
   notiIcon,
 } from '../../assets/svgIcon';
@@ -82,6 +83,14 @@ const Reminder: React.FC = () => {
         <Text style={styles.reminderTextRight}>6:00 PM</Text>
       </View>
       <View style={styles.reminderHorizontalLine} />
+      <View style={[rowCenter]}>
+        <View style={styles.boneContainer}>
+          {boneIcon(vw(7), vw(7), '#F87643')}
+        </View>
+        <Text style={styles.reminderTxt}>
+          Pain level has increased - consider taking it easy today.
+        </Text>
+      </View>
     </View>
   );
 };
@@ -598,5 +607,19 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#8F8F8F',
     marginVertical: vh(1),
+  },
+  reminderTxt: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
+    width: '80%',
+  },
+  boneContainer: {
+    padding: vw(2),
+    borderRadius: vw(50),
+    backgroundColor: '#F8764333',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: vw(2),
   },
 });
