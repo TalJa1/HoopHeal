@@ -49,9 +49,40 @@ const Home = () => {
           <UpperProgress />
           <TodayExercise />
           <Matplotlib />
+          <Reminder />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const Reminder: React.FC = () => {
+  const [toggle, setToggle] = useState(false);
+  return (
+    <View style={styles.reminder}>
+      <View style={[rowCenter]}>
+        <View style={[rowCenter, {columnGap: vw(2)}]}>
+          {notiIcon(vw(7), vw(7), '#F87643')}
+          <Text style={styles.todayTitle}>Reminder</Text>
+        </View>
+        <View style={{position: 'absolute', right: 10}}>
+          <ToggleSwitch
+            isOn={toggle}
+            onColor="#F87643"
+            offColor="white"
+            size="small"
+            onToggle={() => setToggle(!toggle)}
+          />
+        </View>
+      </View>
+      <View style={[styles.reminderTxtGrp]}>
+        <Text style={styles.reminderTextLeft}>
+          Don’t forget to complete your recovery exercises
+        </Text>
+        <Text style={styles.reminderTextRight}>6:00 PM</Text>
+      </View>
+      <View style={styles.reminderHorizontalLine} />
+    </View>
   );
 };
 
@@ -540,5 +571,32 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     top: 10,
     right: 10,
+  },
+  reminder: {
+    marginHorizontal: vw(5),
+    marginVertical: vh(2),
+  },
+  reminderTxtGrp: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: vh(1),
+  },
+  reminderTextLeft: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
+    width: '80%',
+  },
+  reminderTextRight: {
+    color: '#F87643',
+    fontSize: 16,
+    fontWeight: '400',
+    width: '20%',
+  },
+  reminderHorizontalLine: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#8F8F8F',
+    marginVertical: vh(1),
   },
 });
