@@ -34,3 +34,7 @@ export const rowCenter: TextStyle = {
   flexDirection: 'row',
   alignItems: 'center',
 };
+
+export const scrollContainer: TextStyle = {
+  flexGrow: 1,
+};
