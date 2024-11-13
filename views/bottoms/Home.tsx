@@ -17,6 +17,7 @@ import {
 import * as Progress from 'react-native-progress';
 import {TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
+import Svg, {Line, G, Text as SvgText} from 'react-native-svg';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -47,6 +48,16 @@ const Home = () => {
 };
 
 const Matplotlib: React.FC = () => {
+  const data1 = [2, 4, 6, 8, 6, 4, 2]; // Example data for Pain level
+  const data2 = [20, 40, 60, 80, 60, 40, 20]; // Example data for Range of motion
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  const chartWidth = vw(90);
+  const chartHeight = vh(40);
+  const padding = 20;
+  const stepX = (chartWidth - padding * 2) / (days.length - 1);
+  const stepY1 = (chartHeight - padding * 2) / 10;
+  const stepY2 = (chartHeight - padding * 2) / 80;
   return (
     <View style={styles.matplotlib}>
       <Text style={styles.todayTitle}>Matplotlib Chart</Text>
@@ -70,6 +81,86 @@ const Matplotlib: React.FC = () => {
           <Text style={styles.matplotTxt}>7 days</Text>
           {arrowDownIcon(vw(5), vw(5), 'white')}
         </View>
+      </View>
+      <View>
+        {' '}
+        <Svg width={chartWidth} height={chartHeight}>
+          <G>
+            {days.map((day, index) => (
+              <SvgText
+                key={index}
+                x={padding + index * stepX}
+                y={chartHeight - padding + 15}
+                fontSize="10"
+                fill="white"
+                textAnchor="middle">
+                {day}
+              </SvgText>
+            ))}
+            {[0, 2, 4, 6, 8, 10].map((value, index) => (
+              <SvgText
+                key={index}
+                x={padding - 10}
+                y={chartHeight - padding - value * stepY1}
+                fontSize="10"
+                fill="white"
+                textAnchor="end">
+                {value}
+              </SvgText>
+            ))}
+            {[0, 20, 40, 60, 80].map((value, index) => (
+              <SvgText
+                key={index}
+                x={chartWidth - padding + 10}
+                y={chartHeight - padding - value * stepY2}
+                fontSize="10"
+                fill="white"
+                textAnchor="start">
+                {value}
+              </SvgText>
+            ))}
+            <Line
+              x1={padding}
+              y1={chartHeight - padding}
+              x2={chartWidth - padding}
+              y2={chartHeight - padding}
+            />
+            <Line
+              x1={padding}
+              y1={padding}
+              x2={padding}
+              y2={chartHeight - padding}
+            />
+            {data1.map(
+              (value, index) =>
+                index < data1.length - 1 && (
+                  <Line
+                    key={index}
+                    x1={padding + index * stepX}
+                    y1={chartHeight - padding - value * stepY1}
+                    x2={padding + (index + 1) * stepX}
+                    y2={chartHeight - padding - data1[index + 1] * stepY1}
+                    stroke="purple"
+                    strokeWidth="2"
+                  />
+                ),
+            )}
+            {data2.map(
+              (value, index) =>
+                index < data2.length - 1 && (
+                  <Line
+                    key={index}
+                    x1={padding + index * stepX}
+                    y1={chartHeight - padding - value * stepY2}
+                    x2={padding + (index + 1) * stepX}
+                    y2={chartHeight - padding - data2[index + 1] * stepY2}
+                    stroke="orange"
+                    strokeWidth="2"
+                  />
+                ),
+            )}
+          </G>
+        </Svg>
       </View>
     </View>
   );
