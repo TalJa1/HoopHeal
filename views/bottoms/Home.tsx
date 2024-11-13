@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {containerStyle, rowCenter, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -17,7 +17,7 @@ import {
 import * as Progress from 'react-native-progress';
 import {TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
-import Svg, {Line, G, Text as SvgText, Path} from 'react-native-svg';
+import Svg, {Line, G, Text as SvgText, Path, Circle} from 'react-native-svg';
 import * as d3 from 'd3-shape';
 
 const Home = () => {
@@ -53,6 +53,12 @@ const Matplotlib: React.FC = () => {
   const data2 = [10, 40, 20, 25, 80, 10, 26]; // Example data for Range of motion
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
+  const [selectedData, setSelectedData] = useState<{
+    day: string;
+    value: number;
+    type: string;
+  } | null>(null);
+
   const chartWidth = vw(90);
   const chartHeight = vh(40);
   const padding = 20;
@@ -71,6 +77,10 @@ const Matplotlib: React.FC = () => {
     .x((d: number, i: number) => padding + i * stepX)
     .y((d: number) => chartHeight - padding - d * stepY2)
     .curve(d3.curveCatmullRom.alpha(0.5));
+
+  const handlePress = (day: string, value: number, type: string) => {
+    setSelectedData({day, value, type});
+  };
 
   return (
     <View style={styles.matplotlib}>
@@ -97,7 +107,7 @@ const Matplotlib: React.FC = () => {
         </View>
       </View>
       <View>
-      <Svg width={chartWidth} height={chartHeight}>
+        <Svg width={chartWidth} height={chartHeight}>
           <G>
             {days.map((day, index) => (
               <SvgText
@@ -106,8 +116,7 @@ const Matplotlib: React.FC = () => {
                 y={chartHeight - padding + 15}
                 fontSize="10"
                 fill="#8D9092"
-                textAnchor="middle"
-              >
+                textAnchor="middle">
                 {day}
               </SvgText>
             ))}
@@ -118,8 +127,7 @@ const Matplotlib: React.FC = () => {
                 y={chartHeight - padding - value * stepY1}
                 fontSize="10"
                 fill="#8D9092"
-                textAnchor="end"
-              >
+                textAnchor="end">
                 {value}
               </SvgText>
             ))}
@@ -130,8 +138,7 @@ const Matplotlib: React.FC = () => {
                 y={chartHeight - padding - value * stepY2}
                 fontSize="10"
                 fill="#8D9092"
-                textAnchor="start"
-              >
+                textAnchor="start">
                 {value}
               </SvgText>
             ))}
@@ -161,9 +168,40 @@ const Matplotlib: React.FC = () => {
               strokeWidth="2"
               fill="none"
             />
+            {data1.map((value, index) => (
+              <TouchableOpacity
+                key={`data1-${index}`}
+                onPress={() => handlePress(days[index], value, 'Pain level')}>
+                <Circle
+                  cx={padding + index * stepX}
+                  cy={chartHeight - padding - value * stepY1}
+                  r={4}
+                  fill="#F87643"
+                />
+              </TouchableOpacity>
+            ))}
+            {data2.map((value, index) => (
+              <TouchableOpacity
+                key={`data2-${index}`}
+                onPress={() =>
+                  handlePress(days[index], value, 'Range of motion')
+                }>
+                <Circle
+                  cx={padding + index * stepX}
+                  cy={chartHeight - padding - value * stepY2}
+                  r={4}
+                  fill="#A3A3F2"
+                />
+              </TouchableOpacity>
+            ))}
           </G>
         </Svg>
       </View>
+      {selectedData && (
+        <View style={styles.dataTooltip}>
+          <Text>{`${selectedData.type} on ${selectedData.day}: ${selectedData.value}`}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -487,5 +525,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: vw(2),
     paddingVertical: 3,
+  },
+  dataTooltip: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    top: 10,
+    right: 10,
   },
 });
