@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
   matDropdown: {
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 8,
     paddingHorizontal: vw(2),
     paddingVertical: 3,
   },
