@@ -26,6 +26,10 @@ import Svg, {
   Text as SvgText,
   Path,
   Circle,
+  Defs,
+  LinearGradient,
+  Stop,
+  Polygon,
 } from 'react-native-svg';
 import * as Progress from 'react-native-progress';
 
@@ -38,9 +42,106 @@ const ProgressView = () => {
           <UpperProgress />
           <Matplotlib />
           <BarChartView />
+          <WeeklyHistory />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const WeeklyHistory: React.FC = () => {
+  const data = [10, 40, 60, 80, 50, 30, 70, 90]; // Example data for the line chart
+  const weeks = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'];
+
+  const chartWidth = vw(90);
+  const chartHeight = vh(40);
+  const padding = 30;
+  const stepX = (chartWidth - padding * 2) / (weeks.length - 1);
+  const stepY = (chartHeight - padding * 2) / 100;
+
+  const line = d3
+    .line<number>()
+    .x((d, i) => padding + i * stepX)
+    .y(d => chartHeight - padding - d * stepY)
+    .curve(d3.curveCatmullRom.alpha(0.5));
+  return (
+    <View style={styles.barchart}>
+      <Text style={styles.todayTitle}>Weekly History & Progress</Text>
+      <View>
+        <Svg width={chartWidth} height={chartHeight}>
+          <Defs>
+            <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+              <Stop offset="0" stopColor="#F87643" stopOpacity="0.5" />
+              <Stop offset="1" stopColor="#F87643" stopOpacity="0" />
+            </LinearGradient>
+          </Defs>
+          <G>
+            {weeks.map((week, index) => (
+              <SvgText
+                key={index}
+                x={padding + index * stepX}
+                y={chartHeight - padding + 15}
+                fontSize="10"
+                fill="#8D9092"
+                textAnchor="middle">
+                {week}
+              </SvgText>
+            ))}
+            {[0, 20, 40, 60, 80, 100].map((value, index) => (
+              <React.Fragment key={index}>
+                <SvgText
+                  x={padding - 10}
+                  y={chartHeight - padding - value * stepY}
+                  fontSize="10"
+                  fill="#8D9092"
+                  textAnchor="end">
+                  {value}
+                </SvgText>
+                <Line
+                  x1={padding}
+                  y1={chartHeight - padding - value * stepY}
+                  x2={chartWidth - padding}
+                  y2={chartHeight - padding - value * stepY}
+                  stroke="#8D9092"
+                  strokeDasharray="4"
+                />
+              </React.Fragment>
+            ))}
+            <Path
+              d={line(data) as string}
+              stroke="#F87643"
+              strokeWidth="2"
+              fill="none"
+            />
+            <Polygon
+              points={
+                data
+                  .map(
+                    (d, i) =>
+                      `${padding + i * stepX},${
+                        chartHeight - padding - d * stepY
+                      }`,
+                  )
+                  .join(' ') +
+                ` ${chartWidth - padding},${chartHeight - padding} ${padding},${
+                  chartHeight - padding
+                }`
+              }
+              fill="url(#grad)"
+            />
+            {data.map((value, index) => (
+              <Circle
+                key={index}
+                cx={padding + index * stepX}
+                cy={chartHeight - padding - value * stepY}
+                r={4}
+                fill="#F87643"
+              />
+            ))}
+          </G>
+        </Svg>
+      </View>
+    </View>
   );
 };
 
@@ -64,70 +165,68 @@ const BarChartView: React.FC = () => {
         </View>
       </View>
       <View>
-      <Svg width={chartWidth} height={chartHeight}>
-        <G>
-          {weeks.map((week, index) => (
-            <SvgText
-              key={index}
-              x={padding + index * (barWidth + 10) + barWidth / 2}
-              y={chartHeight - padding + 15}
-              fontSize="10"
-              fill="white"
-              textAnchor="middle"
-            >
-              {week}
-            </SvgText>
-          ))}
-          {[0, 20, 40, 60, 80, 100].map((value, index) => (
-            <SvgText
-              key={index}
-              x={chartWidth - padding + 10}
-              y={chartHeight - padding - value * stepY}
-              fontSize="10"
-              fill="#8D9092"
-              textAnchor="start"
-            >
-              {value}
-            </SvgText>
-          ))}
-          <Line
-            x1={padding}
-            y1={chartHeight - padding}
-            x2={chartWidth - padding}
-            y2={chartHeight - padding}
-            stroke="black"
-          />
-          <Line
-            x1={padding}
-            y1={padding}
-            x2={padding}
-            y2={chartHeight - padding}
-            stroke="black"
-          />
-          {data.map((value, index) => (
-            <React.Fragment key={index}>
-              <Rect
-                x={padding + index * (barWidth + 10)}
-                y={padding}
-                width={barWidth}
-                height={chartHeight - padding * 2}
-                fill="#A3A3F25C"
-                rx={barRadius}
-                ry={barRadius}
-              />
-              <Rect
-                x={padding + index * (barWidth + 10)}
+        <Svg width={chartWidth} height={chartHeight}>
+          <G>
+            {weeks.map((week, index) => (
+              <SvgText
+                key={index}
+                x={padding + index * (barWidth + 10) + barWidth / 2}
+                y={chartHeight - padding + 15}
+                fontSize="10"
+                fill="white"
+                textAnchor="middle">
+                {week}
+              </SvgText>
+            ))}
+            {[0, 20, 40, 60, 80, 100].map((value, index) => (
+              <SvgText
+                key={index}
+                x={chartWidth - padding + 10}
                 y={chartHeight - padding - value * stepY}
-                width={barWidth}
-                height={value * stepY}
-                fill="#A3A3F2"
-                rx={barRadius}
-                ry={barRadius}
-              />
-            </React.Fragment>
-          ))}
-        </G>
-      </Svg>
+                fontSize="10"
+                fill="#8D9092"
+                textAnchor="start">
+                {value}
+              </SvgText>
+            ))}
+            <Line
+              x1={padding}
+              y1={chartHeight - padding}
+              x2={chartWidth - padding}
+              y2={chartHeight - padding}
+              stroke="black"
+            />
+            <Line
+              x1={padding}
+              y1={padding}
+              x2={padding}
+              y2={chartHeight - padding}
+              stroke="black"
+            />
+            {data.map((value, index) => (
+              <React.Fragment key={index}>
+                <Rect
+                  x={padding + index * (barWidth + 10)}
+                  y={padding}
+                  width={barWidth}
+                  height={chartHeight - padding * 2}
+                  fill="#A3A3F25C"
+                  rx={barRadius}
+                  ry={barRadius}
+                />
+                <Rect
+                  x={padding + index * (barWidth + 10)}
+                  y={chartHeight - padding - value * stepY}
+                  width={barWidth}
+                  height={value * stepY}
+                  fill="#A3A3F2"
+                  rx={barRadius}
+                  ry={barRadius}
+                />
+              </React.Fragment>
+            ))}
+          </G>
+        </Svg>
       </View>
     </View>
   );
