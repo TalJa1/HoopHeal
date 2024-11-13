@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -24,13 +25,29 @@ import * as Progress from 'react-native-progress';
 const ProgressView = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={'black'} />
       <ScrollView contentContainerStyle={scrollContainer}>
         <View style={{flex: 1}}>
           <UpperProgress />
           <Matplotlib />
+          <BarChartView />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const BarChartView: React.FC = () => {
+  return (
+    <View style={styles.barchart}>
+      <View style={[rowCenter, {justifyContent: 'space-between'}]}>
+        <Text style={styles.strenght}>Strenght</Text>
+        <View style={[rowCenter, styles.weeks8]}>
+          <Text style={{color: 'white'}}>8weeks</Text>
+          {arrowDownIcon(vw(5), vw(5), 'white')}
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -352,5 +369,20 @@ const styles = StyleSheet.create({
     color: '#F87643',
     fontSize: 20,
     fontWeight: '900',
+  },
+  barchart: {
+    marginHorizontal: vw(5),
+    marginVertical: vh(2),
+  },
+  strenght: {
+    color: '#A3A3F2',
+    fontSize: 18,
+  },
+  weeks8: {
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: vw(2),
+    paddingVertical: 3,
   },
 });
