@@ -61,3 +61,8 @@ export interface YesNoComponentProps {
   value: boolean;
   onValueChange: (value: boolean) => void;
 }
+
+export interface ProgressRightComponentProps {
+  label: string;
+  description: string;
+}

@@ -4,8 +4,8 @@ import React, {useEffect, useState} from 'react';
 import {containerStyle, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UserProps} from '../../services/typeProps';
-import {notiIcon} from '../../assets/svgIcon';
+import {ProgressRightComponentProps, UserProps} from '../../services/typeProps';
+import {homeUpperProgressIcon, notiIcon} from '../../assets/svgIcon';
 import * as Progress from 'react-native-progress';
 
 const Home = () => {
@@ -57,7 +57,43 @@ const UpperProgress: React.FC = () => {
           </View>
         </Progress.Circle>
       </View>
-      <View style={styles.progressRight}></View>
+      <View style={styles.progressRight}>
+        <ProgressRightComponent label="Timing" description="3w remaining" />
+        <ProgressRightComponent
+          label="Milestone"
+          description="Achieved 75% mobility"
+        />
+        <ProgressRightComponent
+          label="Completed excer"
+          description="80% this week"
+        />
+      </View>
+    </View>
+  );
+};
+
+const ProgressRightComponent: React.FC<ProgressRightComponentProps> = ({
+  description,
+  label,
+}) => {
+  const renderStyledText = (text: string) => {
+    return text.split(/(\d+\S*\s)/).map((part, index) => {
+      const isNumber = /^\d/.test(part);
+      return (
+        <Text
+          key={index}
+          style={isNumber ? styles.numberText : styles.letterText}>
+          {part}
+        </Text>
+      );
+    });
+  };
+
+  return (
+    <View>
+      <Text>{label}</Text>
+      {homeUpperProgressIcon('100%', 10)}
+      <Text>{renderStyledText(description)}</Text>
     </View>
   );
 };
@@ -136,9 +172,10 @@ const styles = StyleSheet.create({
     rowGap: vh(2),
   },
   progressRight: {
-    height: 10,
+    height: '100%',
     backgroundColor: '#F87643',
     borderRadius: 10,
+    rowGap: vh(1),
   },
   recoverTxt: {
     color: 'black',
@@ -158,5 +195,11 @@ const styles = StyleSheet.create({
     height: vw(20),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  numberText: {
+    color: 'black',
+  },
+  letterText: {
+    color: 'white',
   },
 });
