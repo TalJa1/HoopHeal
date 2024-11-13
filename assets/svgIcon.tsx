@@ -11,6 +11,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const arrowDownIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.9906 4.42371C3.12776 4.28654 3.3424 4.27407 3.49365 4.3863L3.53699 4.42371L6.86975 7.75629L10.2025 4.42371C10.3397 4.28654 10.5543 4.27407 10.7056 4.3863L10.7489 4.42371C10.8861 4.56087 10.8985 4.77551 10.7863 4.92676L10.7489 4.97009L7.14294 8.57605C7.00578 8.71321 6.79114 8.72568 6.63989 8.61345L6.59656 8.57605L2.9906 4.97009C2.83972 4.81921 2.83972 4.57459 2.9906 4.42371Z" fill=${
+    color ?? 'white'
+  }/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const homeUpperProgressIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="120" height="7" viewBox="0 0 120 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 <line x1="2.453" y1="4" x2="115.453" y2="4" stroke="#03020B"/>

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {containerStyle, vh, vw} from '../../services/styleProps';
+import {containerStyle, rowCenter, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -43,7 +43,21 @@ const Home = () => {
 };
 
 const Matplotlib: React.FC = () => {
-  return <View></View>;
+  return (
+    <View style={styles.matplotlib}>
+      <Text style={styles.todayTitle}>Matplotlib Chart</Text>
+      <View style={[rowCenter, {columnGap: vw(4)}]}>
+        <View style={[rowCenter, {columnGap: vw(1)}]}>
+          <View style={styles.purple} />
+          <Text style={styles.matplotTxt}>Pain level</Text>
+        </View>
+        <View style={[rowCenter, {columnGap: vw(1)}]}>
+          <View style={styles.orange} />
+          <Text style={styles.matplotTxt}>Range of motion</Text>
+        </View>
+      </View>
+    </View>
+  );
 };
 
 const TodayExercise: React.FC = () => {
@@ -337,5 +351,26 @@ const styles = StyleSheet.create({
     color: '#A09F9F',
     fontSize: 12,
     fontWeight: '300',
+  },
+  matplotlib: {
+    marginHorizontal: vw(5),
+    marginVertical: vh(2),
+  },
+  purple: {
+    width: 11,
+    height: 11,
+    borderRadius: 4,
+    backgroundColor: '#A3A3F2',
+  },
+  orange: {
+    width: 11,
+    height: 11,
+    borderRadius: 4,
+    backgroundColor: '#F87643',
+  },
+  matplotTxt: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '400',
   },
 });

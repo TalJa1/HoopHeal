@@ -29,3 +29,8 @@ export const text1: TextStyle = {
   fontSize: 18,
   fontWeight: '400',
 };
+
+export const rowCenter: TextStyle = {
+  flexDirection: 'row',
+  alignItems: 'center',
+};
