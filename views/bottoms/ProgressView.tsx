@@ -29,7 +29,6 @@ import Svg, {
   Defs,
   LinearGradient,
   Stop,
-  Polygon,
 } from 'react-native-svg';
 import * as Progress from 'react-native-progress';
 
@@ -50,12 +49,12 @@ const ProgressView = () => {
 };
 
 const WeeklyHistory: React.FC = () => {
-  const data = [10, 40, 60, 80, 50, 30, 70, 90]; // Example data for the line chart
+  const data = [10, 40, 60, 70, 69, 76, 70, 73]; // Example data for the line chart
   const weeks = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'];
 
   const chartWidth = vw(90);
   const chartHeight = vh(40);
-  const padding = 30;
+  const padding = 20;
   const stepX = (chartWidth - padding * 2) / (weeks.length - 1);
   const stepY = (chartHeight - padding * 2) / 100;
 
@@ -64,6 +63,14 @@ const WeeklyHistory: React.FC = () => {
     .x((d, i) => padding + i * stepX)
     .y(d => chartHeight - padding - d * stepY)
     .curve(d3.curveCatmullRom.alpha(0.5));
+
+  const area = d3
+    .area<number>()
+    .x((d, i) => padding + i * stepX)
+    .y0(chartHeight - padding)
+    .y1(d => chartHeight - padding - d * stepY)
+    .curve(d3.curveCatmullRom.alpha(0.5));
+
   return (
     <View style={styles.barchart}>
       <Text style={styles.todayTitle}>Weekly History & Progress</Text>
@@ -88,24 +95,15 @@ const WeeklyHistory: React.FC = () => {
               </SvgText>
             ))}
             {[0, 20, 40, 60, 80, 100].map((value, index) => (
-              <React.Fragment key={index}>
-                <SvgText
-                  x={padding - 10}
-                  y={chartHeight - padding - value * stepY}
-                  fontSize="10"
-                  fill="#8D9092"
-                  textAnchor="end">
-                  {value}
-                </SvgText>
-                <Line
-                  x1={padding}
-                  y1={chartHeight - padding - value * stepY}
-                  x2={chartWidth - padding}
-                  y2={chartHeight - padding - value * stepY}
-                  stroke="#8D9092"
-                  strokeDasharray="4"
-                />
-              </React.Fragment>
+              <Line
+                key={index}
+                x1={padding}
+                y1={chartHeight - padding - value * stepY}
+                x2={chartWidth - padding}
+                y2={chartHeight - padding - value * stepY}
+                stroke="#8D9092"
+                strokeDasharray="4"
+              />
             ))}
             <Path
               d={line(data) as string}
@@ -113,22 +111,7 @@ const WeeklyHistory: React.FC = () => {
               strokeWidth="2"
               fill="none"
             />
-            <Polygon
-              points={
-                data
-                  .map(
-                    (d, i) =>
-                      `${padding + i * stepX},${
-                        chartHeight - padding - d * stepY
-                      }`,
-                  )
-                  .join(' ') +
-                ` ${chartWidth - padding},${chartHeight - padding} ${padding},${
-                  chartHeight - padding
-                }`
-              }
-              fill="url(#grad)"
-            />
+            <Path d={area(data) as string} fill="url(#grad)" />
             {data.map((value, index) => (
               <Circle
                 key={index}
