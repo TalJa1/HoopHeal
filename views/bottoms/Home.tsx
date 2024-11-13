@@ -1,5 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {containerStyle, rowCenter, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -199,7 +206,7 @@ const Matplotlib: React.FC = () => {
       </View>
       {selectedData && (
         <View style={styles.dataTooltip}>
-          <Text>{`${selectedData.type} on ${selectedData.day}: ${selectedData.value}`}</Text>
+          <Text style={{color: 'white'}}>{`${selectedData.value}`}</Text>
         </View>
       )}
     </View>
