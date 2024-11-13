@@ -66,3 +66,11 @@ export interface ProgressRightComponentProps {
   label: string;
   description: string;
 }
+
+export interface TodayExerciseDataProps {
+  title: string;
+  repeat: string;
+  level: string;
+  time: string;
+  notify: boolean;
+}

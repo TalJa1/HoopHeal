@@ -1,4 +1,4 @@
-import {UserProps} from './typeProps';
+import {TodayExerciseDataProps} from './typeProps';
 
 export const onboardingData = [
   {
@@ -57,8 +57,19 @@ export const userData = [
   },
 ];
 
-export interface ProgressContentProps {
-  progressState: number;
-  userInfo: UserProps;
-  setUserInfo: (info: any) => void;
-}
+export const TodayExerciseData: TodayExerciseDataProps[] = [
+  {
+    title: 'Ankle Stretch',
+    repeat: '5 min',
+    level: 'Easy',
+    notify: true,
+    time: '7:00 am',
+  },
+  {
+    title: 'Range of Motion',
+    repeat: '10 min',
+    level: 'Medium',
+    notify: false,
+    time: '8:30 pm',
+  },
+];
