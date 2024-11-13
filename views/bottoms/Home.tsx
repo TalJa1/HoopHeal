@@ -69,8 +69,19 @@ const TodayExercise: React.FC = () => {
       <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
         {exercises.map((item, index) => (
           <View key={index} style={styles.exercise}>
-            <Image source={item.img} />
-            <Text style={styles.exerciseTitle}>{item.title}</Text>
+            {/* <Image style={styles.exerImg} source={item.img} /> */}
+            <Image
+              style={styles.exerImg}
+              source={require('../../assets/home/exer1.png')}
+            />
+            <View>
+              <Text style={styles.exerciseTitle}>{item.title}</Text>
+              <View style={styles.exerTimeGrp}>
+                <Text style={styles.exerRepeat}>{item.repeat}</Text>
+                <View style={styles.excerVertical} />
+                <Text style={styles.exerTime}>{item.time}</Text>
+              </View>
+            </View>
           </View>
         ))}
       </View>
@@ -266,9 +277,40 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
   },
+  exercise: {
+    flexDirection: 'row',
+    padding: vw(2),
+    borderRadius: 20,
+    alignItems: 'center',
+  },
   exerciseTitle: {
     color: 'white',
     fontSize: 16,
     fontWeight: '700',
+  },
+  exerImg: {
+    width: vw(15),
+    height: vw(15),
+    resizeMode: 'cover',
+  },
+  exerTimeGrp: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: vw(2),
+  },
+  exerRepeat: {
+    color: '#A09F9F',
+    fontSize: 12,
+    fontWeight: '300',
+  },
+  excerVertical: {
+    width: 1,
+    height: '100%',
+    backgroundColor: '#A09F9F',
+  },
+  exerTime: {
+    color: '#A09F9F',
+    fontSize: 12,
+    fontWeight: '300',
   },
 });

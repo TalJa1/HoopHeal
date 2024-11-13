@@ -72,6 +72,6 @@ export const TodayExerciseData: TodayExerciseDataProps[] = [
     level: 'Medium',
     notify: false,
     time: '8:30 pm',
-    img: require('../assets/home/exer2.png'),
+    img: require('../assets/home/exer1.png'),
   },
 ];
