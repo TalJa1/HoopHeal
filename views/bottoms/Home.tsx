@@ -28,10 +28,15 @@ const Home = () => {
         <View style={{flex: 1}}>
           <Header data={profile} />
           <UpperProgress />
+          <TodayExercise />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
+};
+
+const TodayExercise: React.FC = () => {
+  return <View></View>;
 };
 
 const UpperProgress: React.FC = () => {
