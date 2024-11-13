@@ -73,4 +73,5 @@ export interface TodayExerciseDataProps {
   level: string;
   time: string;
   notify: boolean;
+  img: any;
 }

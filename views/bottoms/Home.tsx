@@ -4,9 +4,14 @@ import React, {useEffect, useState} from 'react';
 import {containerStyle, vh, vw} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ProgressRightComponentProps, UserProps} from '../../services/typeProps';
+import {
+  ProgressRightComponentProps,
+  TodayExerciseDataProps,
+  UserProps,
+} from '../../services/typeProps';
 import {homeUpperProgressIcon, notiIcon} from '../../assets/svgIcon';
 import * as Progress from 'react-native-progress';
+import {TodayExerciseData} from '../../services/renderData';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -36,11 +41,38 @@ const Home = () => {
 };
 
 const TodayExercise: React.FC = () => {
+  const [exercises, setExercises] = useState<TodayExerciseDataProps[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await AsyncStorage.getItem('todayExercise');
+      if (data) {
+        const parsedData: TodayExerciseDataProps[] = JSON.parse(data);
+        setExercises(parsedData);
+      } else {
+        setExercises(TodayExerciseData);
+        await AsyncStorage.setItem(
+          'todayExercise',
+          JSON.stringify(TodayExerciseData),
+        );
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.todayExer}>
       <View style={styles.todayTitleGrp}>
         <Text style={styles.todayTitle}>Today's Exercise</Text>
         <Text style={styles.more}>More</Text>
+      </View>
+      <View style={{marginVertical: vh(2), rowGap: vh(2)}}>
+        {exercises.map((item, index) => (
+          <View key={index} style={styles.exercise}>
+            <Image source={item.img} />
+            <Text style={styles.exerciseTitle}>{item.title}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -233,5 +265,10 @@ const styles = StyleSheet.create({
     color: '#8F8F8F',
     fontSize: 12,
     fontWeight: '500',
+  },
+  exerciseTitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
