@@ -49,8 +49,8 @@ const Home = () => {
 const Matplotlib: React.FC = () => {
   return (
     <View style={styles.matplotlib}>
-      <View>
-        <Text style={styles.todayTitle}>Matplotlib Chart</Text>
+      <Text style={styles.todayTitle}>Matplotlib Chart</Text>
+      <View style={{marginVertical: vh(1)}}>
         <View style={[rowCenter, {columnGap: vw(4)}]}>
           <View style={[rowCenter, {columnGap: vw(1)}]}>
             <View style={styles.purple} />
@@ -61,7 +61,12 @@ const Matplotlib: React.FC = () => {
             <Text style={styles.matplotTxt}>Range of motion</Text>
           </View>
         </View>
-        <View style={[rowCenter, {position: 'absolute', bottom: 0, right: 0}, styles.matDropdown]}>
+        <View
+          style={[
+            rowCenter,
+            {position: 'absolute', bottom: 0, right: 0},
+            styles.matDropdown,
+          ]}>
           <Text style={styles.matplotTxt}>7 days</Text>
           {arrowDownIcon(vw(5), vw(5), 'white')}
         </View>
