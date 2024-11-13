@@ -644,7 +644,7 @@ const styles = StyleSheet.create({
   reminderHorizontalLine: {
     width: '100%',
     height: 1,
-    backgroundColor: '#8F8F8F',
+    backgroundColor: '#FFFFFF33',
     marginVertical: vh(1),
   },
   reminderTxt: {
