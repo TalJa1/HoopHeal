@@ -85,3 +85,10 @@ export interface AccountRenderProps {
   isUser?: boolean;
   data: string;
 }
+
+export interface SettingsFieldProps {
+  label: string;
+  icon: any;
+  isNoti: boolean;
+  setNoti: () => void;
+}

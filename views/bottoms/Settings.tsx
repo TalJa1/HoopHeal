@@ -4,18 +4,27 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   containerStyle,
+  rowCenter,
   scrollContainer,
   vh,
   vw,
 } from '../../services/styleProps';
 import {
   AccountRenderProps,
+  SettingsFieldProps,
   SettingsProps,
   UserProps,
 } from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserTmp} from '../../services/renderData';
-import {nextIcon, settingPassIcon, settingUserIcon} from '../../assets/svgIcon';
+import {
+  aboutUsIcon,
+  nextIcon,
+  notiIcon,
+  settingPassIcon,
+  settingUserIcon,
+} from '../../assets/svgIcon';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 const Settings = () => {
   const [user, setUser] = useState<UserProps | null>(null);
@@ -47,6 +56,12 @@ const Settings = () => {
 };
 
 const Main: React.FC<SettingsProps> = ({data}) => {
+  const [notif, setNotif] = useState({
+    noti: false,
+    privacy: false,
+    aboutUs: false,
+  });
+
   return (
     <View style={styles.main}>
       <View>
@@ -63,6 +78,52 @@ const Main: React.FC<SettingsProps> = ({data}) => {
           <AccountRender label="Sex" data={'Male'} />
         </View>
       </View>
+      <View>
+        <Text style={styles.title}>Setting</Text>
+        <View>
+          <SettingsField
+            icon={notiIcon(vw(7), vw(7), 'white')}
+            isNoti={notif.noti}
+            label="Noti"
+            setNoti={() => setNotif({...notif, noti: !notif.noti})}
+          />
+          <SettingsField
+            icon={settingPassIcon(vw(7), vw(7), 'white')}
+            isNoti={notif.privacy}
+            label="Privacy"
+            setNoti={() => setNotif({...notif, privacy: !notif.privacy})}
+          />
+          <SettingsField
+            icon={aboutUsIcon(vw(7), vw(7), 'white')}
+            isNoti={notif.aboutUs}
+            label="Noti"
+            setNoti={() => setNotif({...notif, aboutUs: !notif.aboutUs})}
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const SettingsField: React.FC<SettingsFieldProps> = ({
+  icon,
+  isNoti,
+  label,
+  setNoti,
+}) => {
+  return (
+    <View style={styles.settingfield}>
+      <View style={[rowCenter, {columnGap: vw(3)}]}>
+        {icon}
+        <Text style={styles.title}>{label}</Text>
+      </View>
+      <ToggleSwitch
+        isOn={isNoti}
+        onColor="#34C759"
+        offColor="#A09F9F"
+        size="small"
+        onToggle={setNoti}
+      />
     </View>
   );
 };
@@ -110,5 +171,10 @@ const styles = StyleSheet.create({
     marginVertical: vh(2),
     justifyContent: 'space-between',
     width: '100%',
+  },
+  settingfield: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: vh(2),
   },
 });
