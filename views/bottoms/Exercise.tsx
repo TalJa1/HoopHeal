@@ -16,9 +16,21 @@ const Exercise = () => {
       <ScrollView style={scrollContainer}>
         <View style={{flex: 1}}>
           <Header />
+          <TodayExercise />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const TodayExercise: React.FC = () => {
+  return (
+    <View style={styles.todayExer}>
+      <View style={styles.todayTitleGrp}>
+        <Text style={styles.todayTitle}>Today's Exercise</Text>
+        <Text style={styles.more}>More</Text>
+      </View>
+    </View>
   );
 };
 
@@ -46,5 +58,25 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 28,
     fontFamily: 'RacingSansOne-Regular',
+  },
+
+  todayTitleGrp: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  todayTitle: {
+    color: '#F87643',
+    fontSize: 20,
+    fontWeight: '900',
+  },
+  more: {
+    color: '#8F8F8F',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  todayExer: {
+    paddingHorizontal: vw(5),
+    marginTop: vh(2),
   },
 });
