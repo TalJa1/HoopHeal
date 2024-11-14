@@ -8,9 +8,14 @@ import {
   vh,
   vw,
 } from '../../services/styleProps';
-import {SettingsProps, UserProps} from '../../services/typeProps';
+import {
+  AccountRenderProps,
+  SettingsProps,
+  UserProps,
+} from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserTmp} from '../../services/renderData';
+import {nextArrowIcon, settingUserIcon} from '../../assets/svgIcon';
 
 const Settings = () => {
   const [user, setUser] = useState<UserProps | null>(null);
@@ -41,12 +46,34 @@ const Settings = () => {
   );
 };
 
-const Main: React.FC<SettingsProps> = () => {
+const Main: React.FC<SettingsProps> = ({data}) => {
   return (
     <View style={styles.main}>
       <View>
         <Text style={styles.title}>Your acc</Text>
+        <View>
+          <AccountRender label="Name" data={data?.name || ''} />
+        </View>
       </View>
+    </View>
+  );
+};
+
+const AccountRender: React.FC<AccountRenderProps> = ({
+  data,
+  isUser = true,
+  label,
+}) => {
+  return (
+    <View style={styles.accountRender}>
+      <View style={{flexDirection: 'row', columnGap: vw(3)}}>
+        {isUser ? settingUserIcon(vw(7), vw(7)) : settingUserIcon(vw(7), vw(7))}
+        <View>
+          <Text style={styles.title}>{label}</Text>
+          <Text style={styles.title}>{data}</Text>
+        </View>
+      </View>
+      {nextArrowIcon(vw(7), vw(7), 'white')}
     </View>
   );
 };
@@ -69,5 +96,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 400,
+  },
+  accountRender: {
+    flexDirection: 'row',
+    marginVertical: vh(2),
+    justifyContent: 'space-between',
+    width: '100%',
   },
 });

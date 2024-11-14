@@ -79,3 +79,9 @@ export interface TodayExerciseDataProps {
 export interface SettingsProps {
   data: UserProps | null;
 }
+
+export interface AccountRenderProps {
+  label: string;
+  isUser?: boolean;
+  data: string;
+}
