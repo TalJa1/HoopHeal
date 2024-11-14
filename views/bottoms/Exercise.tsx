@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
+  Image,
   ImageBackground,
   ScrollView,
   StyleSheet,
@@ -16,10 +17,19 @@ import {
   vw,
 } from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {boneIcon, clockIcon, notiIcon, play2Icon, playIcon} from '../../assets/svgIcon';
+import {
+  boneIcon,
+  clockIcon,
+  notiIcon,
+  play2Icon,
+  playIcon,
+} from '../../assets/svgIcon';
 import {TodayExerciseDataProps} from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {TodayExerciseData} from '../../services/renderData';
+import {
+  CommonInjuriesExerciseData,
+  TodayExerciseData,
+} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 const Exercise = () => {
@@ -30,6 +40,11 @@ const Exercise = () => {
           <Header />
           <TodayExercise />
           <Reminder />
+          <Image
+            style={styles.logo}
+            source={require('../../assets/exercise/logo.png')}
+          />
+          <CommonInjuries />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -95,6 +110,51 @@ const TodayExercise: React.FC = () => {
           );
         })}
       </ScrollView>
+    </View>
+  );
+};
+
+const CommonInjuries: React.FC = () => {
+  const renderRows = () => {
+    const rows = [];
+    for (let i = 0; i < CommonInjuriesExerciseData.length; i += 2) {
+      rows.push(
+        <View style={styles.row} key={i}>
+          <View style={styles.injuryItem}>
+            <Image
+              style={styles.injuryImage}
+              source={require('../../assets/exercise/common.png')} // Replace with actual image source
+            />
+            <Text style={styles.injuryLabel}>
+              {CommonInjuriesExerciseData[i].label}
+            </Text>
+            <Text style={styles.injuryDescription}>
+              {CommonInjuriesExerciseData[i].description}
+            </Text>
+          </View>
+          {i + 1 < CommonInjuriesExerciseData.length && (
+            <View style={styles.injuryItem}>
+              <Image
+                style={styles.injuryImage}
+                source={require('../../assets/exercise/common.png')} // Replace with actual image source
+              />
+              <Text style={styles.injuryLabel}>
+                {CommonInjuriesExerciseData[i + 1].label}
+              </Text>
+              <Text style={styles.injuryDescription}>
+                {CommonInjuriesExerciseData[i + 1].description}
+              </Text>
+            </View>
+          )}
+        </View>,
+      );
+    }
+    return rows;
+  };
+  return (
+    <View style={[styles.todayExer, {marginVertical: vh(2)}]}>
+      <Text style={styles.todayTitle}>Common Basketball Injuries</Text>
+      {renderRows()}
     </View>
   );
 };
@@ -262,5 +322,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: vw(2),
+  },
+  logo: {
+    alignSelf: 'center',
+    marginVertical: vh(2),
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: vh(2),
+  },
+  injuryItem: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: vw(4),
+    marginHorizontal: vw(1),
+    alignItems: 'center',
+  },
+  injuryImage: {
+    width: vw(30),
+    height: vh(15),
+    borderRadius: 5,
+    marginBottom: vh(1),
+  },
+  injuryLabel: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 900,
+    marginBottom: vh(0.5),
+    textAlign: 'center',
+  },
+  injuryDescription: {
+    color: '#8F8F8F',
+    fontSize: 12,
+    textAlign: 'center',
   },
 });

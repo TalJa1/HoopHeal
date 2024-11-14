@@ -117,3 +117,30 @@ export const UserTmp = {
   reminderDailyforExerciseat: '7:00 AM',
   adviceFromPro: true,
 };
+
+export const CommonInjuriesExerciseData = [
+  {
+    label: 'Ankle Sprain',
+    description: 'Common ankle twist or roll causing ligament strain',
+  },
+  {
+    label: 'ACL Tear',
+    description: 'Anterior cruciate ligament tear in the knee',
+  },
+  {
+    label: 'Patellar Tendonitis',
+    description: 'Inflammation of the patellar tendon in the knee',
+  },
+  {
+    label: 'Achilles Tendonitis',
+    description: 'Inflammation of the Achilles tendon in the heel',
+  },
+  {
+    label: 'Hamstring Strain',
+    description: 'Tear or strain in the hamstring muscles',
+  },
+  {
+    label: 'Shin Splints',
+    description: 'Pain along the shin bone caused by overuse',
+  },
+];
