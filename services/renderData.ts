@@ -94,3 +94,26 @@ export const CommonInjuriesData = [
     img: require('../assets/home/inj4.png'),
   },
 ];
+
+export const UserTmp = {
+  email: 'wozsnshesp@sina.com',
+  familyName: 'Bu',
+  givenName: 'La La',
+  id: '1176322069761047123123',
+  name: 'La La Bu',
+  photo: null,
+  age: 22,
+  weight: '60',
+  height: '180',
+  playingTime: '1 - 3 years',
+  injury: ['Ankle', 'Shoulder'],
+  injuryLast: '1-4 weeks',
+  painLevel: 3,
+  isMovingDifficult: false,
+  hasSameInjuryBefore: true,
+  swellingBruising: false,
+  medicalTreatment: true,
+  hopeforRecovery: '1 - 2 weeks',
+  reminderDailyforExerciseat: '7:00 AM',
+  adviceFromPro: true,
+};

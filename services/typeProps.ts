@@ -75,3 +75,7 @@ export interface TodayExerciseDataProps {
   notify: boolean;
   img: any;
 }
+
+export interface SettingsProps {
+  data: UserProps | null;
+}
