@@ -110,6 +110,7 @@ const Reminder: React.FC = () => {
             isOn={toggle}
             onColor="#F87643"
             offColor="white"
+            circleColor={'black'}
             size="small"
             onToggle={() => setToggle(!toggle)}
           />

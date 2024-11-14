@@ -20,6 +20,7 @@ import {clockIcon, notiIcon, play2Icon, playIcon} from '../../assets/svgIcon';
 import {TodayExerciseDataProps} from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TodayExerciseData} from '../../services/renderData';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 const Exercise = () => {
   return (
@@ -28,6 +29,7 @@ const Exercise = () => {
         <View style={{flex: 1}}>
           <Header />
           <TodayExercise />
+          <Reminder />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -93,6 +95,31 @@ const TodayExercise: React.FC = () => {
           );
         })}
       </ScrollView>
+    </View>
+  );
+};
+
+const Reminder: React.FC = () => {
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <View style={styles.reminder}>
+      <View style={[rowCenter]}>
+        <View style={[rowCenter, {columnGap: vw(2)}]}>
+          {notiIcon(vw(7), vw(7), '#F87643')}
+          <Text style={styles.todayTitle}>Reminder</Text>
+        </View>
+        <View style={{position: 'absolute', right: 10}}>
+          <ToggleSwitch
+            isOn={toggle}
+            onColor="#F87643"
+            offColor="white"
+            circleColor={'black'}
+            size="small"
+            onToggle={() => setToggle(!toggle)}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -180,5 +207,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 10,
     alignSelf: 'center',
+  },
+  reminder: {
+    paddingHorizontal: vw(5),
+    marginTop: vh(2),
   },
 });
