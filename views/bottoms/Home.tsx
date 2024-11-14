@@ -37,10 +37,10 @@ import * as d3 from 'd3-shape';
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
   const fetchData = async () => {
-    const data = await AsyncStorage.getItem('listUser');
+    const data = await AsyncStorage.getItem('currentUser');
     if (data) {
-      const parsedData: UserProps[] = JSON.parse(data);
-      setProfile(parsedData[parsedData.length - 1]);
+      const parsedData: UserProps = JSON.parse(data);
+      setProfile(parsedData);
     }
   };
 

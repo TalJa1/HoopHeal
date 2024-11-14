@@ -116,6 +116,7 @@ const GetUserInfor: React.FC = () => {
         : [];
       listUser.push(userInfo);
       await AsyncStorage.setItem('listUser', JSON.stringify(listUser));
+      await AsyncStorage.setItem('currentUser', JSON.stringify(userInfo));
       navigation.navigate('Main');
     } else {
       setProgressState(progressState + 1);
@@ -131,7 +132,7 @@ const GetUserInfor: React.FC = () => {
         : [];
       listUser.push(userInfo);
       await AsyncStorage.setItem('listUser', JSON.stringify(listUser));
-      navigation.navigate('Main');
+      await AsyncStorage.setItem('currentUser', JSON.stringify(userInfo));
       navigation.navigate('Main');
     } else {
       setProgressState(progressState + 1);

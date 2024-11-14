@@ -89,6 +89,7 @@ const LoginTypeButton: React.FC<LoginButtonTypeProps> = ({image, title}) => {
           if (!user) {
             navigation.navigate('GetUserInfor', {userData: tmp});
           } else {
+            await AsyncStorage.setItem('currentUser', JSON.stringify(user));
             navigation.navigate('Main');
           }
         } else {
