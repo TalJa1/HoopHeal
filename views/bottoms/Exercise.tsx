@@ -16,7 +16,7 @@ import {
   vw,
 } from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {clockIcon, notiIcon, play2Icon, playIcon} from '../../assets/svgIcon';
+import {boneIcon, clockIcon, notiIcon, play2Icon, playIcon} from '../../assets/svgIcon';
 import {TodayExerciseDataProps} from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TodayExerciseData} from '../../services/renderData';
@@ -101,7 +101,6 @@ const TodayExercise: React.FC = () => {
 
 const Reminder: React.FC = () => {
   const [toggle, setToggle] = useState(false);
-
   return (
     <View style={styles.reminder}>
       <View style={[rowCenter]}>
@@ -119,6 +118,21 @@ const Reminder: React.FC = () => {
             onToggle={() => setToggle(!toggle)}
           />
         </View>
+      </View>
+      <View style={[styles.reminderTxtGrp]}>
+        <Text style={styles.reminderTextLeft}>
+          Don’t forget to complete your recovery exercises
+        </Text>
+        <Text style={styles.reminderTextRight}>6:00 PM</Text>
+      </View>
+      <View style={styles.reminderHorizontalLine} />
+      <View style={[rowCenter]}>
+        <View style={styles.boneContainer}>
+          {boneIcon(vw(7), vw(7), '#F87643')}
+        </View>
+        <Text style={styles.reminderTxt}>
+          Pain level has increased - consider taking it easy today.
+        </Text>
       </View>
     </View>
   );
@@ -211,5 +225,42 @@ const styles = StyleSheet.create({
   reminder: {
     paddingHorizontal: vw(5),
     marginTop: vh(2),
+  },
+  reminderTxtGrp: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: vh(1),
+  },
+  reminderTextLeft: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
+    width: '80%',
+  },
+  reminderTextRight: {
+    color: '#F87643',
+    fontSize: 16,
+    fontWeight: '400',
+    width: '20%',
+  },
+  reminderHorizontalLine: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#FFFFFF33',
+    marginVertical: vh(1),
+  },
+  reminderTxt: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
+    width: '80%',
+  },
+  boneContainer: {
+    padding: vw(2),
+    borderRadius: vw(50),
+    backgroundColor: '#F8764333',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: vw(2),
   },
 });
