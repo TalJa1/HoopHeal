@@ -21,8 +21,10 @@ import {
   aboutUsIcon,
   nextIcon,
   notiIcon,
+  settingIcon,
   settingPassIcon,
   settingUserIcon,
+  signOutIcon,
 } from '../../assets/svgIcon';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -47,7 +49,7 @@ const Settings = () => {
       <ScrollView contentContainerStyle={scrollContainer}>
         <View style={{flex: 1}}>
           <Text style={styles.headerTxt}>Settings</Text>
-          <Image />
+          <Image style={styles.avatar} source={require('../../assets/settings/avatar.png')}/>
           <Main data={user} />
         </View>
       </ScrollView>
@@ -99,6 +101,26 @@ const Main: React.FC<SettingsProps> = ({data}) => {
             label="Noti"
             setNoti={() => setNotif({...notif, aboutUs: !notif.aboutUs})}
           />
+        </View>
+      </View>
+      <View>
+        <Text style={styles.title}>Language</Text>
+        <View style={styles.accountRender}>
+          <View style={{flexDirection: 'row', columnGap: vw(3)}}>
+            {settingIcon(vw(7), vw(7))}
+            <View>
+              <Text style={styles.title}>Language</Text>
+              <Text style={styles.title}>English</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.accountRender}>
+          <View style={{flexDirection: 'row', columnGap: vw(3)}}>
+            {signOutIcon(vw(7), vw(7))}
+            <View>
+              <Text style={styles.title}>Sign out</Text>
+            </View>
+          </View>
         </View>
       </View>
     </View>
@@ -176,5 +198,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: vh(2),
+  },
+  avatar: {
+    width: vw(30),
+    height: vw(30),
+    borderRadius: 10,
+    alignSelf: 'center',
   },
 });
