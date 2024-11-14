@@ -1,14 +1,22 @@
 /* eslint-disable react-native/no-inline-styles */
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   containerStyle,
+  rowCenter,
   scrollContainer,
   vh,
   vw,
 } from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {notiIcon} from '../../assets/svgIcon';
+import {clockIcon, notiIcon, play2Icon, playIcon} from '../../assets/svgIcon';
 import {TodayExerciseDataProps} from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TodayExerciseData} from '../../services/renderData';
@@ -52,16 +60,39 @@ const TodayExercise: React.FC = () => {
         <Text style={styles.todayTitle}>Today's Exercise</Text>
         <Text style={styles.more}>More</Text>
       </View>
-      <View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{columnGap: vw(5)}}>
         {todayExer.map((item, index) => {
           return (
-            <View key={index}>
-              <Text>{item.title}</Text>
-              <Text>{item.level}</Text>
-            </View>
+            <ImageBackground
+              style={styles.exerciseItem}
+              source={require('../../assets/exercise/todayExer.png')}
+              key={index}>
+              <Text style={styles.exerTitle}>{item.title}</Text>
+              <Text style={styles.exerLevel}>Level: {item.level}</Text>
+              <View style={styles.exerBottom}>
+                <View style={[rowCenter, styles.exerTimeGrp]}>
+                  {playIcon(vw(3), vw(3), 'black')}
+                  <Text style={{color: 'black', fontSize: 16}}>
+                    {item.repeat}
+                  </Text>
+                </View>
+                <View style={[rowCenter, styles.exerTimeGrp]}>
+                  {clockIcon(vw(5), vw(5), 'black')}
+                  <Text style={{color: 'black', fontSize: 16}}>
+                    {item.time}
+                  </Text>
+                </View>
+                <TouchableOpacity style={styles.exerBtnBottom}>
+                  {play2Icon(vw(10), vw(10))}
+                </TouchableOpacity>
+              </View>
+            </ImageBackground>
           );
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -110,5 +141,44 @@ const styles = StyleSheet.create({
   todayExer: {
     paddingHorizontal: vw(5),
     marginTop: vh(2),
+  },
+  exerciseItem: {
+    width: vw(70),
+    height: vh(45),
+    marginVertical: vh(2),
+    borderRadius: 24,
+    overflow: 'hidden',
+    padding: vw(5),
+  },
+  exerTitle: {
+    color: 'white',
+    fontSize: 40,
+    fontWeight: '900',
+    fontFamily: 'RacingSansOne-Regular',
+  },
+  exerLevel: {
+    color: 'white',
+    fontSize: 16,
+  },
+  exerBottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: vw(5),
+    columnGap: vw(2),
+  },
+  exerBtnBottom: {
+    backgroundColor: '#F87643',
+    padding: 2,
+    borderRadius: vw(50),
+  },
+  exerTimeGrp: {
+    backgroundColor: 'white',
+    paddingVertical: 2,
+    paddingHorizontal: 5,
+    borderRadius: 10,
+    alignSelf: 'center',
   },
 });

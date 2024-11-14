@@ -11,6 +11,15 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const play2Icon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.25 9C11.25 9 10.5 12 10.5 18C10.5 24 11.25 27 11.25 27C11.25 27 14.25 26.25 19.5 23.25C24.75 20.25 26.25 18 26.25 18C26.25 18 24.75 15.75 19.5 12.75C14.25 9.75 11.25 9 11.25 9Z" stroke="#03020B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const clockIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 5.83333V8.5L9.33333 9.83333M14 8.5C14 11.8137 11.3137 14.5 8 14.5C4.68629 14.5 2 11.8137 2 8.5C2 5.18629 4.68629 2.5 8 2.5C11.3137 2.5 14 5.18629 14 8.5Z" stroke=${
