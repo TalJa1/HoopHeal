@@ -15,7 +15,7 @@ import {
 } from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserTmp} from '../../services/renderData';
-import {nextArrowIcon, settingUserIcon} from '../../assets/svgIcon';
+import {nextIcon, settingPassIcon, settingUserIcon} from '../../assets/svgIcon';
 
 const Settings = () => {
   const [user, setUser] = useState<UserProps | null>(null);
@@ -53,6 +53,14 @@ const Main: React.FC<SettingsProps> = ({data}) => {
         <Text style={styles.title}>Your acc</Text>
         <View>
           <AccountRender label="Name" data={data?.name || ''} />
+          <AccountRender label="Email" data={data?.email || ''} />
+          <AccountRender
+            label="Change password"
+            isUser={false}
+            data={'************'}
+          />
+          <AccountRender label="DOB" data={'02/02/2003'} />
+          <AccountRender label="Sex" data={'Male'} />
         </View>
       </View>
     </View>
@@ -67,13 +75,13 @@ const AccountRender: React.FC<AccountRenderProps> = ({
   return (
     <View style={styles.accountRender}>
       <View style={{flexDirection: 'row', columnGap: vw(3)}}>
-        {isUser ? settingUserIcon(vw(7), vw(7)) : settingUserIcon(vw(7), vw(7))}
+        {isUser ? settingUserIcon(vw(7), vw(7)) : settingPassIcon(vw(7), vw(7))}
         <View>
           <Text style={styles.title}>{label}</Text>
           <Text style={styles.title}>{data}</Text>
         </View>
       </View>
-      {nextArrowIcon(vw(7), vw(7), 'white')}
+      {nextIcon(vw(7), vw(7), 'white')}
     </View>
   );
 };
