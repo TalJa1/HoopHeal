@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   containerStyle,
   scrollContainer,
@@ -9,6 +9,9 @@ import {
 } from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {notiIcon} from '../../assets/svgIcon';
+import {TodayExerciseDataProps} from '../../services/typeProps';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TodayExerciseData} from '../../services/renderData';
 
 const Exercise = () => {
   return (
@@ -24,11 +27,40 @@ const Exercise = () => {
 };
 
 const TodayExercise: React.FC = () => {
+  const [todayExer, setTodayExer] = useState<TodayExerciseDataProps[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await AsyncStorage.getItem('todayExercise');
+      if (res) {
+        const parsedData: TodayExerciseDataProps[] = JSON.parse(res);
+        setTodayExer(parsedData);
+      } else {
+        setTodayExer(TodayExerciseData);
+        await AsyncStorage.setItem(
+          'todayExercise',
+          JSON.stringify(TodayExerciseData),
+        );
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.todayExer}>
       <View style={styles.todayTitleGrp}>
         <Text style={styles.todayTitle}>Today's Exercise</Text>
         <Text style={styles.more}>More</Text>
+      </View>
+      <View>
+        {todayExer.map((item, index) => {
+          return (
+            <View key={index}>
+              <Text>{item.title}</Text>
+              <Text>{item.level}</Text>
+            </View>
+          );
+        })}
       </View>
     </View>
   );

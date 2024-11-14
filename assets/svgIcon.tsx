@@ -11,6 +11,28 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const clockIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 5.83333V8.5L9.33333 9.83333M14 8.5C14 11.8137 11.3137 14.5 8 14.5C4.68629 14.5 2 11.8137 2 8.5C2 5.18629 4.68629 2.5 8 2.5C11.3137 2.5 14 5.18629 14 8.5Z" stroke=${
+    color ?? '#03020B'
+  } stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const playIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.596 5.1971L1.233 8.8891C0.693 9.2021 0 8.8231 0 8.1921V0.808104C0 0.178104 0.692 -0.201896 1.233 0.112104L7.596 3.8041C7.71884 3.87423 7.82094 3.97559 7.89196 4.09791C7.96299 4.22023 8.00039 4.35916 8.00039 4.5006C8.00039 4.64205 7.96299 4.78098 7.89196 4.9033C7.82094 5.02562 7.71884 5.12698 7.596 5.1971Z" fill=${
+    color ?? '#03020B'
+  }/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const settingIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 15.75C9.93 15.75 8.25 14.07 8.25 12C8.25 9.93 9.93 8.25 12 8.25C14.07 8.25 15.75 9.93 15.75 12C15.75 14.07 14.07 15.75 12 15.75ZM12 9.75C10.76 9.75 9.75 10.76 9.75 12C9.75 13.24 10.76 14.25 12 14.25C13.24 14.25 14.25 13.24 14.25 12C14.25 10.76 13.24 9.75 12 9.75Z" fill="white"/>
