@@ -11,6 +11,28 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const doubleDotsIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="32" height="32" rx="8" fill="#626262"/>
+<circle cx="13" cy="16" r="2" fill="white"/>
+<circle cx="19" cy="16" r="2" fill="white"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const cancelIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="32" height="32" rx="8" fill="#626262"/>
+<path d="M20 12L12 20" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 12L20 20" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const plusIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9999 8.45825C14.4832 8.45825 14.8749 8.85 14.8749 9.33325V13.1249H18.6666C19.1498 13.1249 19.5416 13.5167 19.5416 13.9999C19.5416 14.4832 19.1498 14.8749 18.6666 14.8749H14.8749V18.6666C14.8749 19.1498 14.4832 19.5416 13.9999 19.5416C13.5167 19.5416 13.1249 19.1498 13.1249 18.6666V14.8749H9.33325C8.85 14.8749 8.45825 14.4832 8.45825 13.9999C8.45825 13.5167 8.85 13.1249 9.33325 13.1249H13.1249V9.33325C13.1249 8.85 13.5167 8.45825 13.9999 8.45825Z" fill="white"/>
