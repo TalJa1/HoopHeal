@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import DatePicker from 'react-native-date-picker';
 import {vh} from '../../services/styleProps';
+import DatePicker from 'react-native-date-picker';
 
 interface TimePickerComponentProps {
   time: string;
