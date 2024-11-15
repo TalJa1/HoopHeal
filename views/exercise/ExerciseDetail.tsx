@@ -31,6 +31,7 @@ import {
   nextIcon,
 } from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {WorkoutData} from '../../services/renderData';
 
 const ExerciseDetail = () => {
   const route = useRoute<ExerciseDetailRouteProp>();
@@ -80,9 +81,31 @@ const ExerciseDetail = () => {
             source={require('../../assets/exercise/exer.png')}
           />
           <SupportItem />
+          <WorkOut />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const WorkOut: React.FC = () => {
+  return (
+    <View style={[marginHorizontal]}>
+      <Text style={styles.supportTitle}>Workout</Text>
+      <View style={styles.woContainer}>
+        {WorkoutData.map((item, index) => {
+          return (
+            <TouchableOpacity key={index} style={[styles.woItem, rowCenter]}>
+              <View style={[rowCenter, {columnGap: vw(2)}]}>
+                <Image source={item.img} style={styles.woImg} />
+                <Text style={styles.woTxt}>{item.title}</Text>
+              </View>
+              <Text style={styles.woTimes}>{item.times}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </View>
   );
 };
 
@@ -237,5 +260,30 @@ const styles = StyleSheet.create({
     color: '#F87643',
     fontSize: 16,
     fontWeight: 600,
+  },
+  woContainer: {
+    rowGap: vh(1.5),
+    marginVertical: vh(2),
+  },
+  woItem: {
+    justifyContent: 'space-between',
+    padding: vw(3),
+    borderColor: '#8F8F8F',
+    borderWidth: 1,
+    borderRadius: 12,
+  },
+  woImg: {
+    width: vw(15),
+    height: vw(15),
+    resizeMode: 'contain',
+    borderRadius: 12,
+  },
+  woTxt: {
+    color: '#6D6E6F',
+    fontSize: 16,
+  },
+  woTimes: {
+    color: '#6D6E6F',
+    fontSize: 16,
   },
 });

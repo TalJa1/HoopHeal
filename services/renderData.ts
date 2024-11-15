@@ -147,7 +147,7 @@ export const CommonInjuriesExerciseData = [
   },
 ];
 
-export const workoutData: WorkoutProps[] = [
+export const WorkoutData: WorkoutProps[] = [
   {
     title: 'Towel stretch',
     times: 3,
