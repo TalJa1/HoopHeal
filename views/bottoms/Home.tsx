@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   centerAll,
   containerStyle,
@@ -33,6 +33,7 @@ import {CommonInjuriesData, TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Svg, {Line, G, Text as SvgText, Path, Circle} from 'react-native-svg';
 import * as d3 from 'd3-shape';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -296,22 +297,24 @@ const Matplotlib: React.FC = () => {
 const TodayExercise: React.FC = () => {
   const [exercises, setExercises] = useState<TodayExerciseDataProps[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await AsyncStorage.getItem('todayExercise');
-      if (data) {
-        const parsedData: TodayExerciseDataProps[] = JSON.parse(data);
-        setExercises(parsedData);
-      } else {
-        setExercises(TodayExerciseData);
-        await AsyncStorage.setItem(
-          'todayExercise',
-          JSON.stringify(TodayExerciseData),
-        );
-      }
-    };
-    fetchData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        const data = await AsyncStorage.getItem('todayExercise');
+        if (data) {
+          const parsedData: TodayExerciseDataProps[] = JSON.parse(data);
+          setExercises(parsedData);
+        } else {
+          setExercises(TodayExerciseData);
+          await AsyncStorage.setItem(
+            'todayExercise',
+            JSON.stringify(TodayExerciseData),
+          );
+        }
+      };
+      fetchData();
+    }, [])
+  );
 
   const handleToggle = (index: number) => {
     const newExercises = [...exercises];
