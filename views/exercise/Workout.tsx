@@ -25,7 +25,7 @@ import {
 } from '../../services/typeProps';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {backArrowIcon, circleWOIcon} from '../../assets/svgIcon';
+import {backArrowIcon, circleWOIcon, nextIcon} from '../../assets/svgIcon';
 import {WorkoutData} from '../../services/renderData';
 
 const Workout = () => {
@@ -61,6 +61,14 @@ const Workout = () => {
             />
           </View>
           <Main data={data} />
+          <TouchableOpacity
+            style={[styles.woBtn]}
+            disabled={true}>
+            <Text style={styles.woBtnTxt}>Save</Text>
+            <View style={styles.woNextIcon}>
+              {nextIcon(vw(7), vw(7), 'black')}
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -169,5 +177,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E65A4B',
     marginTop: vh(1),
+  },
+  woBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: vw(3),
+    alignSelf: 'center',
+    backgroundColor: '#F87643',
+    borderRadius: 12,
+    columnGap: vw(4),
+    paddingHorizontal: vw(7),
+    marginBottom: vh(2),
+  },
+  woBtnTxt: {
+    color: '#03020B',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  woNextIcon: {
+    backgroundColor: '#03020B',
+    opacity: 0.5,
+    borderRadius: 5,
   },
 });
