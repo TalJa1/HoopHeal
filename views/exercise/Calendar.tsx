@@ -1,5 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
 import {
+  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -7,26 +9,77 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   containerStyle,
   marginHorizontal,
   rowCenter,
   scrollContainer,
   vh,
+  vw,
 } from '../../services/styleProps';
 import {backArrowIcon, calendarIcon} from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 
 const Calendar = () => {
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const dates = [];
+    for (let i = -3; i <= 3; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      dates.push({
+        day: date.getDate(),
+        dayOfWeek: date.getDay(),
+        isToday: i === 0,
+        isPast: i < 0,
+      });
+    }
+    return dates;
+  };
+
+  const dates = getCurrentDate();
+
+  const handleDatePress = (index: number) => {
+    setSelectedDate(index);
+  };
+
+  const dayOfWeekMapping = ['Sun', '2', '3', '4', '5', '6', '7'];
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
       <ScrollView contentContainerStyle={scrollContainer}>
         <View style={{flex: 1}}>
           <Header />
+          <View style={styles.dateContainer}>
+            {dates.map((date, index) => {
+              const isSelected = selectedDate === index;
+
+              const textStyle = isSelected
+                ? styles.selectedText
+                : date.isToday
+                ? styles.todayText
+                : date.isPast
+                ? styles.pastText
+                : styles.futureText;
+
+              return (
+                <TouchableOpacity
+                  disabled={date.isPast}
+                  key={index}
+                  style={[styles.dateItem, isSelected && styles.selectedDate]}
+                  onPress={() => handleDatePress(index)}>
+                  <Text style={[styles.dateText, textStyle]}>{date.day}</Text>
+                  <Text style={[styles.dayText, textStyle]}>
+                    {dayOfWeekMapping[date.dayOfWeek]}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -37,11 +90,15 @@ const Header: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <View
-      style={[marginHorizontal, rowCenter, {justifyContent: 'space-between', marginVertical: vh(2)}]}>
+      style={[
+        marginHorizontal,
+        rowCenter,
+        {justifyContent: 'space-between', marginVertical: vh(2)},
+      ]}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         {backArrowIcon(30, 30, 'white')}
       </TouchableOpacity>
-      <Text style={styles.headerTitle}>Calender</Text>
+      <Text style={styles.headerTitle}>Calendar</Text>
       {calendarIcon(30, 30, '#F87643')}
     </View>
   );
@@ -56,5 +113,47 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginLeft: 10,
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: vw(5),
+    marginTop: vh(2),
+  },
+  dateItem: {
+    alignItems: 'center',
+    padding: vw(2),
+    borderRadius: 10,
+  },
+  dateText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  dayText: {
+    fontSize: 12,
+  },
+  todayDate: {
+    color: '#F87643',
+  },
+  pastDate: {
+    color: 'grey',
+  },
+  futureDate: {
+    color: 'black',
+  },
+  todayText: {
+    color: '#F87643',
+  },
+  pastText: {
+    color: 'grey',
+  },
+  futureText: {
+    color: '#FFFFFF',
+  },
+  selectedDate: {
+    backgroundColor: '#F87643',
+  },
+  selectedText: {
+    color: 'black',
   },
 });
