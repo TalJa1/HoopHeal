@@ -190,8 +190,11 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({
   label,
   renerData,
 }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
-    <TouchableOpacity style={styles.exerItem}>
+    <TouchableOpacity
+      style={styles.exerItem}
+      onPress={() => navigation.navigate('Calendar')}>
       <View style={[rowCenter, styles.exerlabelGrp]}>
         {icon}
         <Text style={{color: '#03020B', fontSize: 14, marginLeft: vw(2)}}>
