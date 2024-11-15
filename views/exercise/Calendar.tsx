@@ -27,7 +27,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 
 const Calendar = () => {
-  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<number | null>(3);
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -53,6 +53,24 @@ const Calendar = () => {
   };
 
   const dayOfWeekMapping = ['Sun', '2', '3', '4', '5', '6', '7'];
+
+  const formatHour = (hour: number) => {
+    const period = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+    return `${formattedHour}:00 ${period}`;
+  };
+
+  const renderHours = () => {
+    const hours = [];
+    for (let i = 0; i < 24; i++) {
+      hours.push(
+        <View key={i} style={styles.hourItem}>
+          <Text style={styles.hourText}>{formatHour(i)}</Text>
+        </View>,
+      );
+    }
+    return hours;
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -93,6 +111,7 @@ const Calendar = () => {
             <Text style={styles.monthText}>{currentMonth}</Text>
             {nextCalenderIcon(30, 30, 'white')}
           </View>
+          <View style={styles.hoursContainer}>{renderHours()}</View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -178,5 +197,18 @@ const styles = StyleSheet.create({
     color: '#ADA4A5',
     fontSize: 16,
     marginHorizontal: vw(5),
+  },
+  hoursContainer: {
+    marginTop: vh(2),
+  },
+  hourItem: {
+    paddingVertical: vh(1),
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+  },
+  hourText: {
+    fontSize: 16,
+    color: 'white',
+    marginLeft: vw(5),
   },
 });
