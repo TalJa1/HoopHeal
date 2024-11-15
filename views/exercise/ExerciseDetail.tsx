@@ -89,13 +89,27 @@ const ExerciseDetail = () => {
 };
 
 const WorkOut: React.FC = () => {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const handleSelect = (index: number) => {
+    setSelectedIndex(index);
+  };
+
   return (
     <View style={[marginHorizontal]}>
       <Text style={styles.supportTitle}>Workout</Text>
       <View style={styles.woContainer}>
         {WorkoutData.map((item, index) => {
+          const isSelected = selectedIndex === index;
           return (
-            <TouchableOpacity key={index} style={[styles.woItem, rowCenter]}>
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleSelect(index)}
+              style={[
+                styles.woItem,
+                rowCenter,
+                isSelected && {borderColor: '#F87643'},
+              ]}>
               <View style={[rowCenter, {columnGap: vw(2)}]}>
                 <Image source={item.img} style={styles.woImg} />
                 <Text style={styles.woTxt}>{item.title}</Text>
@@ -105,6 +119,15 @@ const WorkOut: React.FC = () => {
           );
         })}
       </View>
+      <TouchableOpacity
+        style={[
+          styles.woBtn,
+          selectedIndex === null && {backgroundColor: '#8F8F8F'},
+        ]}
+        disabled={selectedIndex === null}>
+        <Text style={styles.woBtnTxt}>Start</Text>
+        <View style={styles.woNextIcon}>{nextIcon(vw(7), vw(7), 'black')}</View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -285,5 +308,27 @@ const styles = StyleSheet.create({
   woTimes: {
     color: '#6D6E6F',
     fontSize: 16,
+  },
+  woBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: vw(3),
+    alignSelf: 'center',
+    backgroundColor: '#F87643',
+    borderRadius: 12,
+    columnGap: vw(4),
+    paddingHorizontal: vw(7),
+    marginBottom: vh(2),
+  },
+  woBtnTxt: {
+    color: '#03020B',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  woNextIcon: {
+    backgroundColor: '#03020B',
+    opacity: 0.5,
+    borderRadius: 5,
   },
 });
