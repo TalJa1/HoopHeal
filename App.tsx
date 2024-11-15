@@ -20,6 +20,7 @@ import Onboarding from './views/onboarding/Onboarding';
 import SignIn from './views/login/SignIn';
 import SignIn2 from './views/login/SignIn2';
 import GetUserInfor from './views/inputInfo/GetUserInfor';
+import ExerciseDetail from './views/exercise/ExerciseDetail';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -91,6 +92,13 @@ const App = () => {
     <NavigationContainer>
       {/* Main || LoadingView */}
       <Stack.Navigator initialRouteName="LoadingView">
+        {/* Exercise */}
+        <Stack.Screen
+          name="ExerciseDetail"
+          component={ExerciseDetail}
+          options={{headerShown: false}}
+        />
+        {/* Exercise */}
         {/* Login Group */}
         <Stack.Screen
           name="SignIn"
