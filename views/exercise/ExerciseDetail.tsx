@@ -56,6 +56,10 @@ const ExerciseDetail = () => {
             <Text style={styles.title}>{exercise.title}</Text>
             <Text style={styles.repeat}>6 | {exercise.repeat}</Text>
           </View>
+          <Image
+            style={styles.mainImg}
+            source={require('../../assets/exercise/exer.png')}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -109,5 +113,12 @@ const styles = StyleSheet.create({
     color: '#7B6F72',
     fontSize: 12,
     textAlign: 'center',
+  },
+  mainImg: {
+    width: vw(90),
+    height: vh(30),
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginVertical: vh(2),
   },
 });
