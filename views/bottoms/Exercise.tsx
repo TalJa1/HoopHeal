@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   containerStyle,
   rowCenter,
@@ -31,6 +31,7 @@ import {
   TodayExerciseData,
 } from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Exercise = () => {
   return (
@@ -54,22 +55,24 @@ const Exercise = () => {
 const TodayExercise: React.FC = () => {
   const [todayExer, setTodayExer] = useState<TodayExerciseDataProps[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await AsyncStorage.getItem('todayExercise');
-      if (res) {
-        const parsedData: TodayExerciseDataProps[] = JSON.parse(res);
-        setTodayExer(parsedData);
-      } else {
-        setTodayExer(TodayExerciseData);
-        await AsyncStorage.setItem(
-          'todayExercise',
-          JSON.stringify(TodayExerciseData),
-        );
-      }
-    };
-    fetchData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        const res = await AsyncStorage.getItem('todayExercise');
+        if (res) {
+          const parsedData: TodayExerciseDataProps[] = JSON.parse(res);
+          setTodayExer(parsedData);
+        } else {
+          setTodayExer(TodayExerciseData);
+          await AsyncStorage.setItem(
+            'todayExercise',
+            JSON.stringify(TodayExerciseData),
+          );
+        }
+      };
+      fetchData();
+    }, [])
+  );
 
   return (
     <View style={styles.todayExer}>
