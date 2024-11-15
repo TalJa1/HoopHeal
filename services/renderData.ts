@@ -63,7 +63,7 @@ export const TodayExerciseData: TodayExerciseDataProps[] = [
     repeat: '5 min',
     level: 'Easy',
     notify: true,
-    time: '7:00 am',
+    time: '7:00 AM',
     img: require('../assets/home/exer1.png'),
   },
   {
@@ -71,7 +71,7 @@ export const TodayExerciseData: TodayExerciseDataProps[] = [
     repeat: '10 min',
     level: 'Medium',
     notify: false,
-    time: '8:30 pm',
+    time: '8:30 PM',
     img: require('../assets/home/exer1.png'),
   },
 ];

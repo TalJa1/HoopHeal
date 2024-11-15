@@ -10,6 +10,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import {
   containerStyle,
+  rowCenter,
   scrollContainer,
   vh,
   vw,
@@ -18,10 +19,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   ExerciseDetailRouteProp,
+  ExerciseItemProps,
   TodayExerciseDataProps,
 } from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {backArrowIcon} from '../../assets/svgIcon';
+import {backArrowIcon, calendarIcon, nextIcon} from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const ExerciseDetail = () => {
@@ -55,6 +57,11 @@ const ExerciseDetail = () => {
           <View>
             <Text style={styles.title}>{exercise.title}</Text>
             <Text style={styles.repeat}>6 | {exercise.repeat}</Text>
+            <ExerciseItem
+              icon={calendarIcon(vw(5), vw(5))}
+              label="Calendar"
+              renerData={exercise.time}
+            />
           </View>
           <Image
             style={styles.mainImg}
@@ -63,6 +70,27 @@ const ExerciseDetail = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const ExerciseItem: React.FC<ExerciseItemProps> = ({
+  icon,
+  label,
+  renerData,
+}) => {
+  return (
+    <View style={styles.exerItem}>
+      <View style={[rowCenter, styles.exerlabelGrp]}>
+        {icon}
+        <Text style={{color: '#7B6F72', fontSize: 12, marginLeft: vw(2)}}>
+          {label}
+        </Text>
+      </View>
+      <View style={[rowCenter]}>
+        <Text style={styles.exerData}>{renerData}</Text>
+        {nextIcon(vw(7), vw(7), 'black')}
+      </View>
+    </View>
   );
 };
 
@@ -120,5 +148,22 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center',
     marginVertical: vh(2),
+  },
+  exerItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: vw(5),
+    marginVertical: vh(2),
+    padding: vw(2),
+    backgroundColor: '#6262624D',
+    borderRadius: vw(5),
+  },
+  exerlabelGrp: {
+    flex: 1,
+  },
+  exerData: {
+    color: 'white',
+    fontSize: 14,
   },
 });

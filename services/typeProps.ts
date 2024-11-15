@@ -103,3 +103,9 @@ export type ExerciseDetailRouteProp = RouteProp<
   RootStackParamList,
   'ExerciseDetail'
 >;
+
+export interface ExerciseItemProps {
+  label: string;
+  icon: any;
+  renerData: string;
+}
