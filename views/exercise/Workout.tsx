@@ -13,6 +13,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   containerStyle,
   marginHorizontal,
+  rowCenter,
   scrollContainer,
   vh,
   vw,
@@ -71,6 +72,14 @@ const Main: React.FC<WorkoutDetailProps> = ({data}) => {
     <View style={[styles.main, marginHorizontal]}>
       <Text style={styles.mainTitle}>{data.title}</Text>
       <Text style={styles.mainTimes}>{data.times} times</Text>
+      <View>
+        <Text style={styles.mainDes}>Descriptions</Text>
+        <Text style={styles.mainDessub}>{data.description}</Text>
+      </View>
+      <View style={[rowCenter, {justifyContent: 'space-between'}]}>
+        <Text style={styles.mainDes}>How to do</Text>
+        <Text style={styles.steps}>(4 steps)</Text>
+      </View>
     </View>
   );
 };
@@ -104,5 +113,20 @@ const styles = StyleSheet.create({
   mainTimes: {
     fontSize: 14,
     color: '#7B6F72',
+  },
+  mainDes: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: 600,
+    marginVertical: vh(2),
+  },
+  mainDessub: {
+    fontSize: 14,
+    color: '#FFFFFF',
+  },
+  steps: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#F87643',
   },
 });
