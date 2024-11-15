@@ -25,7 +25,7 @@ import {
 } from '../../services/typeProps';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {backArrowIcon} from '../../assets/svgIcon';
+import {backArrowIcon, circleWOIcon} from '../../assets/svgIcon';
 import {WorkoutData} from '../../services/renderData';
 
 const Workout = () => {
@@ -80,6 +80,19 @@ const Main: React.FC<WorkoutDetailProps> = ({data}) => {
         <Text style={styles.mainDes}>How to do</Text>
         <Text style={styles.steps}>(4 steps)</Text>
       </View>
+      <View>
+        {data.howTodo.map((item, index) => (
+          <View key={index} style={styles.howTodoItem}>
+            <View style={[styles.howTodoIndex]}>
+              <Text style={styles.indexText}>
+                {String(index + 1).padStart(2, '0')}
+              </Text>
+              {circleWOIcon(vw(5), vw(5))}
+            </View>
+            <Text style={styles.howTodoText}>{item}</Text>
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
@@ -128,5 +141,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#F87643',
+  },
+  howTodoItem: {
+    flexDirection: 'row',
+    marginBottom: vh(2),
+  },
+  howTodoIndex: {
+    marginRight: vw(2),
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  indexText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#F87643',
+    marginRight: vw(3),
+  },
+  howTodoText: {
+    fontSize: 16,
+    color: 'white',
   },
 });

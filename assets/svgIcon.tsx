@@ -11,6 +11,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const circleWOIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="10" cy="10" r="9.4" fill="#03020B" stroke="#E65A4B" stroke-width="1.2"/>
+<circle cx="10" cy="10" r="5" fill="#E65A4B"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+
 export const levelIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.83337 12.4999L10 16.6666L14.1667 12.4999M14.1667 7.49992L10 3.33325L5.83337 7.49992" stroke="#03020B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
