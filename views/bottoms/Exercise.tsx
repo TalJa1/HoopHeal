@@ -31,7 +31,8 @@ import {
   TodayExerciseData,
 } from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const Exercise = () => {
   return (
@@ -53,6 +54,7 @@ const Exercise = () => {
 };
 
 const TodayExercise: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [todayExer, setTodayExer] = useState<TodayExerciseDataProps[]>([]);
 
   useFocusEffect(
@@ -71,8 +73,12 @@ const TodayExercise: React.FC = () => {
         }
       };
       fetchData();
-    }, [])
+    }, []),
   );
+
+  const handleExerciseDetail = (index: number) => {
+    navigation.navigate('ExerciseDetail', {index});
+  };
 
   return (
     <View style={styles.todayExer}>
@@ -105,7 +111,9 @@ const TodayExercise: React.FC = () => {
                     {item.time}
                   </Text>
                 </View>
-                <TouchableOpacity style={styles.exerBtnBottom}>
+                <TouchableOpacity
+                  style={styles.exerBtnBottom}
+                  onPress={() => handleExerciseDetail(index)}>
                   {play2Icon(vw(10), vw(10))}
                 </TouchableOpacity>
               </View>

@@ -1,3 +1,5 @@
+import {RouteProp} from '@react-navigation/native';
+
 export interface OnboardingComponentProps {
   img: any;
   title: string;
@@ -92,3 +94,12 @@ export interface SettingsFieldProps {
   isNoti: boolean;
   setNoti: () => void;
 }
+
+type RootStackParamList = {
+  ExerciseDetail: {index: number};
+};
+
+export type ExerciseDetailRouteProp = RouteProp<
+  RootStackParamList,
+  'ExerciseDetail'
+>;
