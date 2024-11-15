@@ -150,7 +150,7 @@ export const CommonInjuriesExerciseData = [
 export const WorkoutData: WorkoutProps[] = [
   {
     title: 'Towel stretch',
-    times: 3,
+    times: 20,
     img: require('../assets/exercise/w1.png'),
     description:
       'The towel stretch is a simple yet effective stretch that utilizes a towel to help extend your range of motion and improve flexibility, especially in the hamstrings and lower back. Regular practice can reduce muscle tightness and improve overall mobility in your legs and back.',
@@ -163,7 +163,7 @@ export const WorkoutData: WorkoutProps[] = [
   },
   {
     title: 'Standing calf stretch',
-    times: 3,
+    times: 10,
     img: require('../assets/exercise/w2.png'),
 
     description:
@@ -177,7 +177,7 @@ export const WorkoutData: WorkoutProps[] = [
   },
   {
     title: 'Achilles soleus stretch',
-    times: 3,
+    times: 7,
     img: require('../assets/exercise/w3.png'),
 
     description:
@@ -191,7 +191,7 @@ export const WorkoutData: WorkoutProps[] = [
   },
   {
     title: 'Toe circles',
-    times: 3,
+    times: 20,
     img: require('../assets/exercise/w4.png'),
 
     description:
@@ -205,7 +205,7 @@ export const WorkoutData: WorkoutProps[] = [
   },
   {
     title: 'Alphabet exercise',
-    times: 3,
+    times: 10,
     img: require('../assets/exercise/w1.png'),
 
     description:
