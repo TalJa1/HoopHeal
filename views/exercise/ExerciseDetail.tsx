@@ -66,7 +66,7 @@ const ExerciseDetail = () => {
             <ExerciseItem
               icon={calendarIcon(vw(5), vw(5))}
               label="Calendar"
-              renerData={exercise.time}
+              renerData={`${exercise.date}, ${exercise.time}`}
             />
             <ExerciseItem
               icon={levelIcon(vw(5), vw(5))}
