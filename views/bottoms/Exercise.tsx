@@ -3,6 +3,7 @@ import {
   Image,
   ImageBackground,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -37,6 +38,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 const Exercise = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={'black'} />
       <ScrollView style={scrollContainer}>
         <View style={{flex: 1}}>
           <Header />

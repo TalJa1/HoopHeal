@@ -2,6 +2,7 @@
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -59,6 +60,7 @@ const ExerciseDetail = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={'black'} />
       <ScrollView contentContainerStyle={scrollContainer}>
         <View style={{flex: 1}}>
           <Header />
