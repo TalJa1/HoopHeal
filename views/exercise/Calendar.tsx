@@ -28,6 +28,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 
 const Calendar = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [selectedDate, setSelectedDate] = useState<number | null>(3);
 
   const getCurrentDate = () => {
@@ -73,7 +74,9 @@ const Calendar = () => {
     return hours;
   };
 
-  const handleAdd = () => {};
+  const handleAdd = () => {
+    navigation.navigate('AddSchedule');
+  };
 
   return (
     <SafeAreaView style={styles.container}>

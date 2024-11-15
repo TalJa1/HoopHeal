@@ -23,6 +23,7 @@ import GetUserInfor from './views/inputInfo/GetUserInfor';
 import ExerciseDetail from './views/exercise/ExerciseDetail';
 import Workout from './views/exercise/Workout';
 import Calendar from './views/exercise/Calendar';
+import AddSchedule from './views/exercise/AddSchedule';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -108,6 +109,11 @@ const App = () => {
         <Stack.Screen
           name="Calendar"
           component={Calendar}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddSchedule"
+          component={AddSchedule}
           options={{headerShown: false}}
         />
         {/* Exercise */}
