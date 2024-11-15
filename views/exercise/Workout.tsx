@@ -80,14 +80,17 @@ const Main: React.FC<WorkoutDetailProps> = ({data}) => {
         <Text style={styles.mainDes}>How to do</Text>
         <Text style={styles.steps}>(4 steps)</Text>
       </View>
-      <View>
+      <View style={{width: '100%'}}>
         {data.howTodo.map((item, index) => (
           <View key={index} style={styles.howTodoItem}>
-            <View style={[styles.howTodoIndex]}>
+            <View style={styles.howTodoIndex}>
               <Text style={styles.indexText}>
                 {String(index + 1).padStart(2, '0')}
               </Text>
               {circleWOIcon(vw(5), vw(5))}
+              {index < data.howTodo.length - 1 && (
+                <View style={styles.dashedLine} />
+              )}
             </View>
             <Text style={styles.howTodoText}>{item}</Text>
           </View>
@@ -153,13 +156,21 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   indexText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#F87643',
+    fontSize: 14,
+    color: '#E65A4B',
     marginRight: vw(3),
   },
   howTodoText: {
-    fontSize: 16,
+    fontSize: 14,
+    width: vw(65),
     color: 'white',
+  },
+  dashedLine: {
+    width: 1,
+    height: '100%',
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    borderColor: 'black',
+    marginTop: vh(1),
   },
 });
