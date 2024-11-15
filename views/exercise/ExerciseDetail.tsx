@@ -78,9 +78,25 @@ const ExerciseDetail = () => {
             style={styles.mainImg}
             source={require('../../assets/exercise/exer.png')}
           />
+          <SupportItem />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const SupportItem: React.FC = () => {
+  return (
+    <View>
+      <View
+        style={[
+          rowCenter,
+          {marginHorizontal: vw(5), justifyContent: 'space-between'},
+        ]}>
+        <Text style={styles.supportTitle}>Support tool</Text>
+        <Text style={styles.supportRightTxt}>(2)</Text>
+      </View>
+    </View>
   );
 };
 
@@ -176,5 +192,15 @@ const styles = StyleSheet.create({
   exerData: {
     color: '#03020B',
     fontSize: 14,
+  },
+  supportTitle: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 600,
+  },
+  supportRightTxt: {
+    color: '#F87643',
+    fontSize: 16,
+    fontWeight: 600,
   },
 });
