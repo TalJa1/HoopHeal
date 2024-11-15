@@ -11,6 +11,24 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const levelIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.83337 12.4999L10 16.6666L14.1667 12.4999M14.1667 7.49992L10 3.33325L5.83337 7.49992" stroke="#03020B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
+export const calendarIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.5 2.08325V5.41659M7.49996 2.08325V5.41659M17.0688 9.58325H2.93107M17.0688 9.58325C16.8952 4.82723 15.1283 3.33325 9.99996 3.33325C4.87159 3.33325 3.10463 4.82723 2.93107 9.58325M17.0688 9.58325C17.0785 9.85062 17.0833 10.1283 17.0833 10.4166C17.0833 15.8333 15.4166 17.4999 9.99996 17.4999C4.58329 17.4999 2.91663 15.8333 2.91663 10.4166C2.91663 10.1283 2.92131 9.85062 2.93107 9.58325" stroke="#03020B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const backArrowIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M21 12L6 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
