@@ -33,7 +33,7 @@ import {CommonInjuriesData, TodayExerciseData} from '../../services/renderData';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Svg, {Line, G, Text as SvgText, Path, Circle} from 'react-native-svg';
 import * as d3 from 'd3-shape';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Home = () => {
   const [profile, setProfile] = useState<UserProps | null>(null);
@@ -313,7 +313,7 @@ const TodayExercise: React.FC = () => {
         }
       };
       fetchData();
-    }, [])
+    }, []),
   );
 
   const handleToggle = (index: number) => {
