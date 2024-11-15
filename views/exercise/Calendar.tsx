@@ -22,6 +22,7 @@ import {
   backCalenderIcon,
   calendarIcon,
   nextCalenderIcon,
+  plusIcon,
 } from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -72,6 +73,8 @@ const Calendar = () => {
     return hours;
   };
 
+  const handleAdd = () => {};
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
@@ -114,6 +117,9 @@ const Calendar = () => {
           <View style={styles.hoursContainer}>{renderHours()}</View>
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={handleAdd} style={styles.plusBtn}>
+        {plusIcon(vw(10), vw(10), '#F87643')}
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -210,5 +216,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     marginLeft: vw(5),
+  },
+  plusBtn: {
+    position: 'absolute',
+    bottom: vh(5),
+    right: vw(5),
+    padding: vw(3),
+    backgroundColor: '#F87643',
+    borderRadius: vw(50),
+    opacity: 0.9,
   },
 });
