@@ -46,6 +46,7 @@ const Calendar = () => {
   };
 
   const dates = getCurrentDate();
+  const currentMonth = new Date().toLocaleString('en-US', {month: 'long'});
 
   const handleDatePress = (index: number) => {
     setSelectedDate(index);
@@ -85,6 +86,11 @@ const Calendar = () => {
                 </TouchableOpacity>
               );
             })}
+            {nextCalenderIcon(30, 30, 'white')}
+          </View>
+          <View style={[rowCenter, styles.monthGrp]}>
+            {backCalenderIcon(30, 30, 'white')}
+            <Text style={styles.monthText}>{currentMonth}</Text>
             {nextCalenderIcon(30, 30, 'white')}
           </View>
         </View>
@@ -162,5 +168,15 @@ const styles = StyleSheet.create({
   },
   selectedText: {
     color: 'black',
+  },
+  monthGrp: {
+    marginTop: vh(1),
+    paddingHorizontal: vw(5),
+    alignSelf: 'center',
+  },
+  monthText: {
+    color: '#ADA4A5',
+    fontSize: 16,
+    marginHorizontal: vw(5),
   },
 });
