@@ -110,3 +110,11 @@ export interface ExerciseItemProps {
   icon: any;
   renerData: string;
 }
+
+export interface WorkoutProps {
+  title: string;
+  times: number;
+  img: any;
+  description: string;
+  howTodo: Array<string>; // 4 steps
+}

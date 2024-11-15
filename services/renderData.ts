@@ -146,3 +146,4 @@ export const CommonInjuriesExerciseData = [
     description: 'Pain along the shin bone caused by overuse',
   },
 ];
+
