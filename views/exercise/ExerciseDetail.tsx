@@ -10,6 +10,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import {
   containerStyle,
+  marginHorizontal,
   rowCenter,
   scrollContainer,
   vh,
@@ -86,15 +87,49 @@ const ExerciseDetail = () => {
 };
 
 const SupportItem: React.FC = () => {
+  const renderData = [
+    {
+      label: 'Towel',
+      img: require('../../assets/exercise/towel.png'),
+    },
+    {
+      label: 'Water',
+      img: require('../../assets/exercise/water.png'),
+    },
+  ];
+
   return (
-    <View>
-      <View
-        style={[
-          rowCenter,
-          {marginHorizontal: vw(5), justifyContent: 'space-between'},
-        ]}>
+    <View style={[marginHorizontal]}>
+      <View style={[rowCenter, {justifyContent: 'space-between'}]}>
         <Text style={styles.supportTitle}>Support tool</Text>
         <Text style={styles.supportRightTxt}>(2)</Text>
+      </View>
+      <View style={[rowCenter, {columnGap: vw(2)}]}>
+        {renderData.map((item, index) => {
+          return (
+            <View
+              key={index}
+              style={{
+                alignSelf: 'flex-start',
+                width: '30%',
+                marginVertical: vh(2),
+              }}>
+              <Image
+                style={{
+                  alignSelf: 'center',
+                  width: vw(25),
+                  height: vw(25),
+                  resizeMode: 'contain',
+                }}
+                source={item.img}
+              />
+              <Text
+                style={{color: '#8F8F8F', fontSize: 16, textAlign: 'center'}}>
+                {item.label}
+              </Text>
+            </View>
+          );
+        })}
       </View>
     </View>
   );

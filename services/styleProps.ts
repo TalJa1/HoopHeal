@@ -38,3 +38,8 @@ export const rowCenter: TextStyle = {
 export const scrollContainer: TextStyle = {
   flexGrow: 1,
 };
+
+export const marginHorizontal: TextStyle = {
+  marginHorizontal: vw(5),
+  marginVertical: vh(1),
+};
