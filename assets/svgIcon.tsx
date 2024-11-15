@@ -11,6 +11,16 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const backArrowIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 12L6 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10 17L5 12L10 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const play2Icon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.25 9C11.25 9 10.5 12 10.5 18C10.5 24 11.25 27 11.25 27C11.25 27 14.25 26.25 19.5 23.25C24.75 20.25 26.25 18 26.25 18C26.25 18 24.75 15.75 19.5 12.75C14.25 9.75 11.25 9 11.25 9Z" stroke="#03020B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
