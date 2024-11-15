@@ -41,6 +41,7 @@ const ExerciseDetail = () => {
     time: '',
     notify: false,
     img: null,
+    date: '',
   });
 
   useEffect(() => {

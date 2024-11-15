@@ -65,6 +65,7 @@ export const TodayExerciseData: TodayExerciseDataProps[] = [
     notify: true,
     time: '7:00 AM',
     img: require('../assets/home/exer1.png'),
+    date: '24/09',
   },
   {
     title: 'Range of Motion',
@@ -73,6 +74,7 @@ export const TodayExerciseData: TodayExerciseDataProps[] = [
     notify: false,
     time: '8:30 PM',
     img: require('../assets/home/exer1.png'),
+    date:'24/09',
   },
 ];
 

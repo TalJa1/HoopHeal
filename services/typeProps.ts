@@ -76,6 +76,7 @@ export interface TodayExerciseDataProps {
   time: string;
   notify: boolean;
   img: any;
+  date: string;
 }
 
 export interface SettingsProps {
