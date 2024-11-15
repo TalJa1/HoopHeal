@@ -191,7 +191,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({
   renerData,
 }) => {
   return (
-    <View style={styles.exerItem}>
+    <TouchableOpacity style={styles.exerItem}>
       <View style={[rowCenter, styles.exerlabelGrp]}>
         {icon}
         <Text style={{color: '#03020B', fontSize: 14, marginLeft: vw(2)}}>
@@ -202,7 +202,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({
         <Text style={styles.exerData}>{renerData}</Text>
         {nextIcon(vw(7), vw(7), 'black')}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

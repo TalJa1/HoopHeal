@@ -22,6 +22,7 @@ import SignIn2 from './views/login/SignIn2';
 import GetUserInfor from './views/inputInfo/GetUserInfor';
 import ExerciseDetail from './views/exercise/ExerciseDetail';
 import Workout from './views/exercise/Workout';
+import Calendar from './views/exercise/Calendar';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,9 +100,14 @@ const App = () => {
           component={ExerciseDetail}
           options={{headerShown: false}}
         />
-          <Stack.Screen
+        <Stack.Screen
           name="Workout"
           component={Workout}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Calendar"
+          component={Calendar}
           options={{headerShown: false}}
         />
         {/* Exercise */}
