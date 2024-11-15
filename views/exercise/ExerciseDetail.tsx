@@ -91,6 +91,7 @@ const ExerciseDetail = () => {
 };
 
 const WorkOut: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const handleSelect = (index: number) => {
@@ -122,6 +123,7 @@ const WorkOut: React.FC = () => {
         })}
       </View>
       <TouchableOpacity
+        onPress={() => navigation.navigate('Workout', {selectedIndex})}
         style={[
           styles.woBtn,
           selectedIndex === null && {backgroundColor: '#8F8F8F'},

@@ -98,6 +98,7 @@ export interface SettingsFieldProps {
 
 type RootStackParamList = {
   ExerciseDetail: {index: number};
+  WorkoutDetail: {selectedIndex: number};
 };
 
 export type ExerciseDetailRouteProp = RouteProp<
@@ -118,3 +119,8 @@ export interface WorkoutProps {
   description: string;
   howTodo: Array<string>; // 4 steps
 }
+
+export type WorkoutDetailRouteProp = RouteProp<
+  RootStackParamList,
+  'WorkoutDetail'
+>;
