@@ -7,27 +7,51 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   containerStyle,
   marginHorizontal,
   rowCenter,
   scrollContainer,
   vh,
+  vw,
 } from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {cancelIcon, doubleDotsIcon} from '../../assets/svgIcon';
-import {useNavigation} from '@react-navigation/native';
+import {calendarIcon, cancelIcon, doubleDotsIcon} from '../../assets/svgIcon';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {AddScheduleRouteProp} from '../../services/typeProps';
 
 const AddSchedule = () => {
+  const route = useRoute<AddScheduleRouteProp>();
+  const {date} = route.params;
+  const [formattedDate, setFormattedDate] = useState<string>('');
+
+  useEffect(() => {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const selectedDate = new Date(currentYear, currentMonth, date);
+    const dayOfWeek = selectedDate.toLocaleString('en-US', {weekday: 'long'});
+    const formattedDateString = `${dayOfWeek}, ${selectedDate
+      .getDate()
+      .toString()
+      .padStart(2, '0')}/${(selectedDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${selectedDate.getFullYear()}`;
+    setFormattedDate(formattedDateString);
+  }, [date]);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
       <ScrollView contentContainerStyle={scrollContainer}>
         <View style={{flex: 1}}>
           <Header />
-          <Text>AddSchedule</Text>
+          <View style={[rowCenter, marginHorizontal]}>
+            {calendarIcon(vw(5), vw(5), '#6D6E6F')}
+            <Text style={styles.dateText}>{formattedDate}</Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -61,5 +85,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginLeft: 10,
+  },
+  dateText: {
+    fontSize: 14,
+    color: 'white',
+    marginVertical: vh(2),
+    marginLeft: vw(2),
   },
 });

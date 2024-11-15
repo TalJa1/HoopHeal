@@ -75,7 +75,9 @@ const Calendar = () => {
   };
 
   const handleAdd = () => {
-    navigation.navigate('AddSchedule');
+    if (selectedDate !== null) {
+      navigation.navigate('AddSchedule', {date: dates[selectedDate].day});
+    }
   };
 
   return (
