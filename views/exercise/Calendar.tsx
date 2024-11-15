@@ -17,7 +17,12 @@ import {
   vh,
   vw,
 } from '../../services/styleProps';
-import {backArrowIcon, calendarIcon} from '../../assets/svgIcon';
+import {
+  backArrowIcon,
+  backCalenderIcon,
+  calendarIcon,
+  nextCalenderIcon,
+} from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 
@@ -55,6 +60,7 @@ const Calendar = () => {
         <View style={{flex: 1}}>
           <Header />
           <View style={styles.dateContainer}>
+            {backCalenderIcon(30, 30, 'white')}
             {dates.map((date, index) => {
               const isSelected = selectedDate === index;
 
@@ -79,6 +85,7 @@ const Calendar = () => {
                 </TouchableOpacity>
               );
             })}
+            {nextCalenderIcon(30, 30, 'white')}
           </View>
         </View>
       </ScrollView>
@@ -117,8 +124,8 @@ const styles = StyleSheet.create({
   dateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: vw(5),
-    marginTop: vh(2),
   },
   dateItem: {
     alignItems: 'center',
