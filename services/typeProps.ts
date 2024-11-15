@@ -112,7 +112,7 @@ export interface ExerciseItemProps {
 }
 
 export interface WorkoutProps {
-  title: string;
+  title: string; // Towel stretch, Standing calf stretch,Achilles soleus stretch,Toe circles,Alphabet exercise
   times: number;
   img: any;
   description: string;
