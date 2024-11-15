@@ -8,25 +8,40 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   containerStyle,
+  marginHorizontal,
   scrollContainer,
   vh,
   vw,
 } from '../../services/styleProps';
-import {WorkoutDetailRouteProp} from '../../services/typeProps';
+import {
+  WorkoutDetailProps,
+  WorkoutDetailRouteProp,
+  WorkoutProps,
+} from '../../services/typeProps';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {backArrowIcon} from '../../assets/svgIcon';
+import {WorkoutData} from '../../services/renderData';
 
 const Workout = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const route = useRoute<WorkoutDetailRouteProp>();
   const {selectedIndex} = route.params;
+  const [data, setData] = useState<WorkoutProps>({
+    title: '',
+    times: 0,
+    img: null,
+    description: '',
+    howTodo: [],
+  });
 
-  console.log('selectedIndex', selectedIndex);
+  useEffect(() => {
+    setData(WorkoutData[selectedIndex]);
+  }, [selectedIndex]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,10 +59,19 @@ const Workout = () => {
               source={require('../../assets/exercise/woDetail.png')}
             />
           </View>
-          <Text>Workout</Text>
+          <Main data={data} />
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const Main: React.FC<WorkoutDetailProps> = ({data}) => {
+  return (
+    <View style={[styles.main, marginHorizontal]}>
+      <Text style={styles.mainTitle}>{data.title}</Text>
+      <Text style={styles.mainTimes}>{data.times} times</Text>
+    </View>
   );
 };
 
@@ -68,5 +92,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: vh(30),
     resizeMode: 'cover',
+  },
+  main: {
+    flex: 1,
+  },
+  mainTitle: {
+    fontSize: 28,
+    fontFamily: 'RacingSansOne-Regular',
+    color: '#F87643',
+  },
+  mainTimes: {
+    fontSize: 14,
+    color: '#7B6F72',
   },
 });

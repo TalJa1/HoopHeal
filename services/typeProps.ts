@@ -124,3 +124,7 @@ export type WorkoutDetailRouteProp = RouteProp<
   RootStackParamList,
   'WorkoutDetail'
 >;
+
+export interface WorkoutDetailProps {
+  data: WorkoutProps;
+}
