@@ -23,7 +23,12 @@ import {
   TodayExerciseDataProps,
 } from '../../services/typeProps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {backArrowIcon, calendarIcon, nextIcon} from '../../assets/svgIcon';
+import {
+  backArrowIcon,
+  calendarIcon,
+  levelIcon,
+  nextIcon,
+} from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const ExerciseDetail = () => {
@@ -62,6 +67,11 @@ const ExerciseDetail = () => {
               label="Calendar"
               renerData={exercise.time}
             />
+            <ExerciseItem
+              icon={levelIcon(vw(5), vw(5))}
+              label="Level"
+              renerData={exercise.level}
+            />
           </View>
           <Image
             style={styles.mainImg}
@@ -82,7 +92,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({
     <View style={styles.exerItem}>
       <View style={[rowCenter, styles.exerlabelGrp]}>
         {icon}
-        <Text style={{color: '#7B6F72', fontSize: 12, marginLeft: vw(2)}}>
+        <Text style={{color: '#03020B', fontSize: 14, marginLeft: vw(2)}}>
           {label}
         </Text>
       </View>
@@ -154,16 +164,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: vw(5),
-    marginVertical: vh(2),
+    marginVertical: vh(1),
     padding: vw(2),
-    backgroundColor: '#6262624D',
-    borderRadius: vw(5),
+    backgroundColor: '#8F8F8F',
+    borderRadius: 12,
   },
   exerlabelGrp: {
     flex: 1,
   },
   exerData: {
-    color: 'white',
+    color: '#03020B',
     fontSize: 14,
   },
 });
