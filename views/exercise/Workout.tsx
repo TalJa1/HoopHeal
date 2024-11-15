@@ -88,9 +88,6 @@ const Main: React.FC<WorkoutDetailProps> = ({data}) => {
                 {String(index + 1).padStart(2, '0')}
               </Text>
               {circleWOIcon(vw(5), vw(5))}
-              {index < data.howTodo.length - 1 && (
-                <View style={styles.dashedLine} />
-              )}
             </View>
             <Text style={styles.howTodoText}>{item}</Text>
           </View>
@@ -170,7 +167,7 @@ const styles = StyleSheet.create({
     height: '100%',
     borderStyle: 'dashed',
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#E65A4B',
     marginTop: vh(1),
   },
 });
