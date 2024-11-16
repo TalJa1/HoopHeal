@@ -52,6 +52,9 @@ const AddSchedule = () => {
             {calendarIcon(vw(5), vw(5), '#6D6E6F')}
             <Text style={styles.dateText}>{formattedDate}</Text>
           </View>
+          <View style={[marginHorizontal]}>
+            <Text style={styles.times}>Times</Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -91,5 +94,9 @@ const styles = StyleSheet.create({
     color: 'white',
     marginVertical: vh(2),
     marginLeft: vw(2),
+  },
+  times: {
+    color: 'white',
+    fontSize: 18,
   },
 });
