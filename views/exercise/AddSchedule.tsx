@@ -60,7 +60,7 @@ const AddSchedule = () => {
     hours = hours % 12;
     hours = hours ? hours : 12;
     const strMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${hours}:${strMinutes} ${ampm}`;
+    return `${hours}        ${strMinutes}        ${ampm}`;
   };
 
   // Get the time for the row above (minus 1 hour)
@@ -95,7 +95,7 @@ const AddSchedule = () => {
           <View style={styles.timePickerRowContainer}>
             {/* Above Time */}
             <View style={styles.timeRow}>
-              <Text style={styles.timeText}>{getAboveTime()}</Text>
+              <Text style={styles.timeText1}>{getAboveTime()}</Text>
             </View>
 
             {/* Center Time (selected time) */}
@@ -107,7 +107,7 @@ const AddSchedule = () => {
 
             {/* Below Time */}
             <View style={styles.timeRow}>
-              <Text style={styles.timeText}>{getBelowTime()}</Text>
+              <Text style={styles.timeText1}>{getBelowTime()}</Text>
             </View>
           </View>
         </View>
@@ -171,11 +171,16 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   timeText: {
-    fontSize: 18,
-    color: 'white',
+    fontSize: 14,
+    color: '#6D6E6F',
+    fontWeight: 500,
+  },
+  timeText1: {
+    fontSize: 12,
+    color: '#6D6E6F',
   },
   centerRow: {
-    borderColor: 'white',
+    borderColor: '#F7F8F8',
     borderTopWidth: 2,
     borderBottomWidth: 2,
   },
