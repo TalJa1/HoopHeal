@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
+  Alert,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -36,8 +37,10 @@ import {
 import DatePicker from 'react-native-date-picker';
 import ModalSelector from 'react-native-modal-selector';
 import {activities, level, repeat} from '../../services/renderData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddSchedule = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const route = useRoute<AddScheduleRouteProp>();
   const {date} = route.params;
   const [formattedDate, setFormattedDate] = useState<string>('');
@@ -121,6 +124,51 @@ const AddSchedule = () => {
     });
   };
 
+  const handleSave = async () => {
+    // Helper function to format the date as dd/MM
+    const formatDate = (date1: Date) => {
+      const day = date1.getDate().toString().padStart(2, '0');
+      const month = (date1.getMonth() + 1).toString().padStart(2, '0');
+      return `${day}/${month}`;
+    };
+
+    // Helper function to format the time as HH:MM AM/PM
+    const formatTime1 = (time: Date) => {
+      let hours = time.getHours();
+      const minutes = time.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const strMinutes = minutes < 10 ? `0${minutes}` : minutes;
+      return `${hours}:${strMinutes} ${ampm}`;
+    };
+
+    const newExercise = {
+      title: chosenOptions.selectedActivity,
+      repeat: chosenOptions.repeat,
+      level: chosenOptions.level,
+      notify: false,
+      time: formatTime1(selectedTime),
+      img: null,
+      date: formatDate(new Date()), // Use the helper function to format the date
+    };
+
+    const tmpData = await AsyncStorage.getItem('todayExercise');
+    const todayExercise = tmpData ? JSON.parse(tmpData) : [];
+    todayExercise.push(newExercise);
+    await AsyncStorage.setItem('todayExercise', JSON.stringify(todayExercise));
+
+    Alert.alert('Success', 'Exercise added successfully', [
+      {
+        text: 'OK',
+        onPress: () => {
+          // Navigate back to the previous screen
+          navigation.goBack();
+        },
+      },
+    ]);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
@@ -188,7 +236,7 @@ const AddSchedule = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.saveBtn}>
+          <TouchableOpacity onPress={handleSave} style={styles.saveBtn}>
             <Text style={styles.saveBtnTxt}>Save</Text>
           </TouchableOpacity>
         </View>
