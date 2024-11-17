@@ -37,23 +37,6 @@ const Calendar = () => {
   >([]);
   const currentMonth = new Date().toLocaleString('en-US', {month: 'long'});
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const fetchData = async () => {
-        const todayExer = await AsyncStorage.getItem('todayExercise');
-        const data: TodayExerciseDataProps[] = todayExer
-          ? JSON.parse(todayExer)
-          : [];
-        const filteredData = data.filter(
-          (item: TodayExerciseDataProps) => item.date === '',
-        );
-        setCurrentDateData(filteredData);
-      };
-
-      fetchData();
-    }, []),
-  );
-
   const getCurrentDate = () => {
     const today = new Date();
     const dates = [];
@@ -73,6 +56,25 @@ const Calendar = () => {
   };
   const dates = getCurrentDate();
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        const todayExer = await AsyncStorage.getItem('todayExercise');
+        const data: TodayExerciseDataProps[] = todayExer
+          ? JSON.parse(todayExer)
+          : [];
+        const filteredData = data.filter(
+          (item: TodayExerciseDataProps) =>
+            item.date ===
+            dates[selectedDate!].day + '/' + dates[selectedDate!].month,
+        );
+        setCurrentDateData(filteredData);
+      };
+
+      fetchData();
+    }, [dates, selectedDate]),
+  );
+
   const handleDatePress = (index: number) => {
     setSelectedDate(index);
   };
@@ -88,9 +90,34 @@ const Calendar = () => {
   const renderHours = () => {
     const hours = [];
     for (let i = 0; i < 24; i++) {
+      // Find scheduled items for this hour
+      const scheduledItems = currentDateData.filter(item => {
+        // Extract hour and adjust for AM/PM manually
+        const [time, modifier] = item.time.split(' ');
+        const [hours1] = time.split(':').map(Number);
+
+        // Convert to 24-hour format
+        const itemTime =
+          modifier === 'PM' && hours1 !== 12
+            ? hours1 + 12
+            : hours1 === 12 && modifier === 'AM'
+            ? 0
+            : hours1;
+
+        // Compare with the desired hour (i.e., `i`)
+        return itemTime === i;
+      });
+
       hours.push(
         <View key={i} style={styles.hourItem}>
           <Text style={styles.hourText}>{formatHour(i)}</Text>
+          <View style={styles.scheduleCell}>
+            {scheduledItems.map((item, index) => (
+              <TouchableOpacity key={index} style={styles.scheduleItem}>
+                <Text style={styles.scheduleTitle}>{item.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>,
       );
     }
@@ -243,11 +270,13 @@ const styles = StyleSheet.create({
     paddingVertical: vh(1),
     borderBottomWidth: 1,
     borderBottomColor: 'grey',
+    flexDirection: 'row',
   },
   hourText: {
     fontSize: 16,
     color: 'white',
     marginLeft: vw(5),
+    width: '40%',
   },
   plusBtn: {
     position: 'absolute',
@@ -257,5 +286,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#F87643',
     borderRadius: vw(50),
     opacity: 0.9,
+  },
+  scheduleCell: {
+    flex: 1,
+    rowGap: vw(1),
+  },
+  scheduleItem: {
+    backgroundColor: '#F87643',
+    alignSelf: 'flex-start',
+    borderRadius: vw(50),
+    paddingHorizontal: vw(3),
+    paddingVertical: vh(0.5),
+  },
+  scheduleTitle: {
+    fontSize: 16,
+    color: '#03020B',
+    textAlign: 'center',
   },
 });
