@@ -25,11 +25,34 @@ import {
   plusIcon,
 } from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TodayExerciseDataProps} from '../../services/typeProps';
 
 const Calendar = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [selectedDate, setSelectedDate] = useState<number | null>(3);
+  const [currentDateData, setCurrentDateData] = useState<
+    TodayExerciseDataProps[]
+  >([]);
+  const currentMonth = new Date().toLocaleString('en-US', {month: 'long'});
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        const todayExer = await AsyncStorage.getItem('todayExercise');
+        const data: TodayExerciseDataProps[] = todayExer
+          ? JSON.parse(todayExer)
+          : [];
+        const filteredData = data.filter(
+          (item: TodayExerciseDataProps) => item.date === '',
+        );
+        setCurrentDateData(filteredData);
+      };
+
+      fetchData();
+    }, []),
+  );
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -39,6 +62,8 @@ const Calendar = () => {
       date.setDate(today.getDate() + i);
       dates.push({
         day: date.getDate(),
+        month: date.getMonth() + 1, // Adding 1 since getMonth() returns 0-11
+        year: date.getFullYear(),
         dayOfWeek: date.getDay(),
         isToday: i === 0,
         isPast: i < 0,
@@ -46,9 +71,7 @@ const Calendar = () => {
     }
     return dates;
   };
-
   const dates = getCurrentDate();
-  const currentMonth = new Date().toLocaleString('en-US', {month: 'long'});
 
   const handleDatePress = (index: number) => {
     setSelectedDate(index);
@@ -76,7 +99,11 @@ const Calendar = () => {
 
   const handleAdd = () => {
     if (selectedDate !== null) {
-      navigation.navigate('AddSchedule', {date: dates[selectedDate].day});
+      navigation.navigate('AddSchedule', {
+        date: dates[selectedDate].day,
+        month: dates[selectedDate].month,
+        year: dates[selectedDate].year,
+      });
     }
   };
 

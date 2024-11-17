@@ -42,7 +42,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const AddSchedule = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const route = useRoute<AddScheduleRouteProp>();
-  const {date} = route.params;
+  const {date, month, year} = route.params;
   const [formattedDate, setFormattedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
@@ -54,19 +54,16 @@ const AddSchedule = () => {
 
   // Format the date for display
   React.useEffect(() => {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
-    const selectedDate = new Date(currentYear, currentMonth, date);
+    const selectedDate = new Date(year, month, date);
     const dayOfWeek = selectedDate.toLocaleString('en-US', {weekday: 'long'});
     const formattedDateString = `${dayOfWeek}, ${selectedDate
       .getDate()
       .toString()
-      .padStart(2, '0')}/${(selectedDate.getMonth() + 1)
+      .padStart(2, '0')}/${(selectedDate.getMonth())
       .toString()
       .padStart(2, '0')}/${selectedDate.getFullYear()}`;
     setFormattedDate(formattedDateString);
-  }, [date]);
+  }, [date, month, year]);
 
   // Handle time change
   const handleConfirm = (date1: Date) => {
@@ -128,8 +125,8 @@ const AddSchedule = () => {
     // Helper function to format the date as dd/MM
     const formatDate = (date1: Date) => {
       const day = date1.getDate().toString().padStart(2, '0');
-      const month = (date1.getMonth() + 1).toString().padStart(2, '0');
-      return `${day}/${month}`;
+      const month1 = (date1.getMonth() + 1).toString().padStart(2, '0');
+      return `${day}/${month1}`;
     };
 
     // Helper function to format the time as HH:MM AM/PM

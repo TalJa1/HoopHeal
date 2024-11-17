@@ -99,7 +99,7 @@ export interface SettingsFieldProps {
 type RootStackParamList = {
   ExerciseDetail: {index: number};
   WorkoutDetail: {selectedIndex: number};
-  AddSchedule: {date: number};
+  AddSchedule: {date: number; month: number; year: number};
 };
 
 export type ExerciseDetailRouteProp = RouteProp<
