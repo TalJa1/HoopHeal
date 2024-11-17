@@ -11,6 +11,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const threeDotsVerticalIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.99992 9.16659C8.36811 9.16659 8.66659 8.86811 8.66659 8.49992C8.66659 8.13173 8.36811 7.83325 7.99992 7.83325C7.63173 7.83325 7.33325 8.13173 7.33325 8.49992C7.33325 8.86811 7.63173 9.16659 7.99992 9.16659Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.99992 4.50008C8.36811 4.50008 8.66659 4.2016 8.66659 3.83341C8.66659 3.46522 8.36811 3.16675 7.99992 3.16675C7.63173 3.16675 7.33325 3.46522 7.33325 3.83341C7.33325 4.2016 7.63173 4.50008 7.99992 4.50008Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.99992 13.8333C8.36811 13.8333 8.66659 13.5349 8.66659 13.1667C8.66659 12.7985 8.36811 12.5 7.99992 12.5C7.63173 12.5 7.33325 12.7985 7.33325 13.1667C7.33325 13.5349 7.63173 13.8333 7.99992 13.8333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const level1Icon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M14.0328 16.8035V5.45532" stroke="#6D6E6F" stroke-linecap="round" stroke-linejoin="round"/>

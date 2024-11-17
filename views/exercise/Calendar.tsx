@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
+  Modal,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -21,8 +22,10 @@ import {
   backArrowIcon,
   backCalenderIcon,
   calendarIcon,
+  clockIcon,
   nextCalenderIcon,
   plusIcon,
+  threeDotsVerticalIcon,
 } from '../../assets/svgIcon';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -35,6 +38,9 @@ const Calendar = () => {
   const [currentDateData, setCurrentDateData] = useState<
     TodayExerciseDataProps[]
   >([]);
+  const [selectedItem, setSelectedItem] =
+    useState<TodayExerciseDataProps | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const currentMonth = new Date().toLocaleString('en-US', {month: 'long'});
 
   const getCurrentDate = () => {
@@ -113,7 +119,13 @@ const Calendar = () => {
           <Text style={styles.hourText}>{formatHour(i)}</Text>
           <View style={styles.scheduleCell}>
             {scheduledItems.map((item, index) => (
-              <TouchableOpacity key={index} style={styles.scheduleItem}>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedItem(item);
+                  setModalVisible(true);
+                }}
+                key={index}
+                style={styles.scheduleItem}>
                 <Text style={styles.scheduleTitle}>{item.title}</Text>
               </TouchableOpacity>
             ))}
@@ -175,6 +187,41 @@ const Calendar = () => {
           </View>
           <View style={styles.hoursContainer}>{renderHours()}</View>
         </View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <View style={[rowCenter, {justifyContent: 'space-between'}]}>
+                {threeDotsVerticalIcon(30, 30, 'white')}
+                <Text style={styles.headerTitle}>Calendar</Text>
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => setModalVisible(false)}>
+                  <Text style={styles.closeButtonText}>✕</Text>
+                </TouchableOpacity>
+              </View>
+              {selectedItem && (
+                <>
+                  <Text style={styles.modalTitle}>{selectedItem.title}</Text>
+                  <View style={[rowCenter]}>
+                    {clockIcon(20, 20, '#8F8F8F')}
+                    <Text style={styles.modalTime}>
+                      {selectedItem.date}, {selectedItem.time}
+                    </Text>
+                  </View>
+                </>
+              )}
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                style={styles.btnDone}>
+                <Text style={styles.btnDoneTxt}>Tick list: Done</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
       <TouchableOpacity onPress={handleAdd} style={styles.plusBtn}>
         {plusIcon(vw(10), vw(10), '#F87643')}
@@ -209,7 +256,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-    marginLeft: 10,
   },
   dateContainer: {
     flexDirection: 'row',
@@ -302,5 +348,58 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#03020B',
     textAlign: 'center',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '90%',
+    rowGap: vw(2),
+    overflow: 'hidden',
+    backgroundColor: 'black',
+    borderRadius: 10,
+    padding: 20,
+    maxHeight: '80%',
+    shadowColor: '#FFFFFF',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    elevation: 9, // For Android
+  },
+  closeButton: {
+    padding: 10,
+  },
+  closeButtonText: {
+    fontSize: 20,
+    color: '#666',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: 'white',
+  },
+  modalTime: {
+    fontSize: 12,
+    color: '#666',
+    marginLeft: 10,
+  },
+  btnDone: {
+    backgroundColor: '#F87643',
+    padding: 10,
+    borderRadius: vw(50),
+    marginTop: 20,
+  },
+  btnDoneTxt: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: 600,
   },
 });
