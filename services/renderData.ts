@@ -218,3 +218,11 @@ export const WorkoutData: WorkoutProps[] = [
     ],
   },
 ];
+
+export const activities = [
+  {key: 0, label: 'Stretching'},
+  {key: 1, label: 'Ice Therapy'},
+  {key: 2, label: 'Physical Therapy'},
+  {key: 3, label: 'Rest'},
+  {key: 4, label: 'Hydration'},
+];

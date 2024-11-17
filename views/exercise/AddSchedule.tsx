@@ -22,6 +22,8 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AddScheduleRouteProp} from '../../services/typeProps';
 import DatePicker from 'react-native-date-picker';
+import ModalSelector from 'react-native-modal-selector';
+import {activities} from '../../services/renderData';
 
 const AddSchedule = () => {
   const route = useRoute<AddScheduleRouteProp>();
@@ -29,6 +31,11 @@ const AddSchedule = () => {
   const [formattedDate, setFormattedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [chosenOptions, setChosenOptions] = useState({
+    selectedActivity: '',
+    level: '',
+    repeat: '',
+  });
 
   // Format the date for display
   React.useEffect(() => {
@@ -77,6 +84,8 @@ const AddSchedule = () => {
     return formatTime(newTime);
   };
 
+  let modalRef: ModalSelector<{key: number; label: string}> | null = null;
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
@@ -108,6 +117,41 @@ const AddSchedule = () => {
             {/* Below Time */}
             <View style={styles.timeRow}>
               <Text style={styles.timeText1}>{getBelowTime()}</Text>
+            </View>
+          </View>
+
+          {/* render select box */}
+          <View>
+            <View style={[marginHorizontal]}>
+              <Text style={styles.times}>More</Text>
+              <TouchableOpacity
+                onPress={() => modalRef && modalRef.open()}
+                style={styles.selectStyle}>
+                <ModalSelector
+                  data={activities}
+                  initValue="Choose"
+                  onChange={option =>
+                    setChosenOptions({
+                      ...chosenOptions,
+                      selectedActivity: option.label,
+                    })
+                  }
+                  style={styles.modalSelector}
+                  selectStyle={styles.selectStyle}
+                  selectTextStyle={styles.selectTextStyle}
+                  customSelector={
+                    <View style={styles.customSelector}>
+                      {calendarIcon(vw(5), vw(5), '#6D6E6F')}
+                      <Text style={styles.selectedText}>
+                        {chosenOptions.selectedActivity || 'Choose'}
+                      </Text>
+                    </View>
+                  }
+                  ref={selector => {
+                    modalRef = selector;
+                  }}
+                />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -199,6 +243,26 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: 'white',
     fontSize: 16,
+  },
+  modalSelector: {
+    width: '100%',
+  },
+  selectStyle: {
+    borderRadius: 10,
+    borderColor: 'grey',
+    borderWidth: 1,
+    padding: 10,
+  },
+  selectTextStyle: {
+    textAlign: 'left',
+  },
+  customSelector: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectedText: {
+    marginLeft: 10,
+    color: 'white',
   },
 });
 
