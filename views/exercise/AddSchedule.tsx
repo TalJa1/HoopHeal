@@ -187,6 +187,10 @@ const AddSchedule = () => {
               </View>
             </View>
           </View>
+
+          <TouchableOpacity style={styles.saveBtn}>
+            <Text style={styles.saveBtnTxt}>Save</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -338,6 +342,19 @@ const styles = StyleSheet.create({
   selectedText: {
     marginLeft: 10,
     color: '#6D6E6F',
+  },
+  saveBtn: {
+    backgroundColor: '#F87643',
+    borderRadius: vw(50),
+    padding: 15,
+    marginVertical: vh(2),
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: vw(70),
+  },
+  saveBtnTxt: {
+    color: 'black',
+    fontSize: 18,
   },
 });
 
