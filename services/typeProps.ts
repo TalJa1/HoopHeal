@@ -131,3 +131,21 @@ export interface WorkoutDetailProps {
 }
 
 export type AddScheduleRouteProp = RouteProp<RootStackParamList, 'AddSchedule'>;
+
+export interface stateSelectOptionProps {
+  selectedActivity: string;
+  level: string;
+  repeat: string;
+}
+
+export interface SelectOptionProps {
+  label: string;
+  value: string;
+  setValue: (option: {key: number; label: string}) => void;
+  icon: any;
+  ref: any;
+  data: {
+    key: number;
+    label: string;
+  }[];
+}

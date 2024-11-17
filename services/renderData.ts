@@ -226,3 +226,16 @@ export const activities = [
   {key: 3, label: 'Rest'},
   {key: 4, label: 'Hydration'},
 ];
+
+export const level = [
+  {key: 0, label: 'Easy'},
+  {key: 1, label: 'Medium'},
+  {key: 2, label: 'Hard'},
+];
+
+export const repeat = [
+  {key: 0, label: '5 min'},
+  {key: 1, label: '10 min'},
+  {key: 2, label: '15 min'},
+  {key: 3, label: '20 min'},
+];

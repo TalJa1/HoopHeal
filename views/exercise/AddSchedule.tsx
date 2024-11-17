@@ -17,13 +17,25 @@ import {
   vw,
 } from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {calendarIcon, cancelIcon, doubleDotsIcon} from '../../assets/svgIcon';
+import {
+  activityIcon,
+  calendarIcon,
+  cancelIcon,
+  doubleDotsIcon,
+  level1Icon,
+  nextIcon,
+  repeatIcon,
+} from '../../assets/svgIcon';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {AddScheduleRouteProp} from '../../services/typeProps';
+import {
+  AddScheduleRouteProp,
+  SelectOptionProps,
+  stateSelectOptionProps,
+} from '../../services/typeProps';
 import DatePicker from 'react-native-date-picker';
 import ModalSelector from 'react-native-modal-selector';
-import {activities} from '../../services/renderData';
+import {activities, level, repeat} from '../../services/renderData';
 
 const AddSchedule = () => {
   const route = useRoute<AddScheduleRouteProp>();
@@ -31,7 +43,7 @@ const AddSchedule = () => {
   const [formattedDate, setFormattedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [chosenOptions, setChosenOptions] = useState({
+  const [chosenOptions, setChosenOptions] = useState<stateSelectOptionProps>({
     selectedActivity: '',
     level: '',
     repeat: '',
@@ -84,7 +96,30 @@ const AddSchedule = () => {
     return formatTime(newTime);
   };
 
-  let modalRef: ModalSelector<{key: number; label: string}> | null = null;
+  let modalRef1: ModalSelector<{key: number; label: string}> | null = null;
+  let modalRef2: ModalSelector<{key: number; label: string}> | null = null;
+  let modalRef3: ModalSelector<{key: number; label: string}> | null = null;
+
+  const handelChangeActivity = (option: {key: number; label: string}) => {
+    setChosenOptions({
+      ...chosenOptions,
+      selectedActivity: option.label,
+    });
+  };
+
+  const handelChangeLevel = (option: {key: number; label: string}) => {
+    setChosenOptions({
+      ...chosenOptions,
+      level: option.label,
+    });
+  };
+
+  const handelChangeRepeat = (option: {key: number; label: string}) => {
+    setChosenOptions({
+      ...chosenOptions,
+      repeat: option.label,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -124,34 +159,32 @@ const AddSchedule = () => {
           <View>
             <View style={[marginHorizontal]}>
               <Text style={styles.times}>More</Text>
-              <TouchableOpacity
-                onPress={() => modalRef && modalRef.open()}
-                style={styles.selectStyle}>
-                <ModalSelector
+              <View style={{marginVertical: vh(2), rowGap: vh(1.5)}}>
+                <SelectOptionView
+                  icon={activityIcon(vw(5), vw(5), '#6D6E6F')}
+                  label="Choose"
+                  ref={modalRef1}
+                  setValue={handelChangeActivity}
+                  value={chosenOptions.selectedActivity}
                   data={activities}
-                  initValue="Choose"
-                  onChange={option =>
-                    setChosenOptions({
-                      ...chosenOptions,
-                      selectedActivity: option.label,
-                    })
-                  }
-                  style={styles.modalSelector}
-                  selectStyle={styles.selectStyle}
-                  selectTextStyle={styles.selectTextStyle}
-                  customSelector={
-                    <View style={styles.customSelector}>
-                      {calendarIcon(vw(5), vw(5), '#6D6E6F')}
-                      <Text style={styles.selectedText}>
-                        {chosenOptions.selectedActivity || 'Choose'}
-                      </Text>
-                    </View>
-                  }
-                  ref={selector => {
-                    modalRef = selector;
-                  }}
                 />
-              </TouchableOpacity>
+                <SelectOptionView
+                  icon={level1Icon(vw(5), vw(5), '#6D6E6F')}
+                  label="Level"
+                  ref={modalRef2}
+                  setValue={handelChangeLevel}
+                  value={chosenOptions.level}
+                  data={level}
+                />
+                <SelectOptionView
+                  icon={repeatIcon(vw(5), vw(5), '#6D6E6F')}
+                  label="Repeat"
+                  ref={modalRef3}
+                  setValue={handelChangeRepeat}
+                  value={chosenOptions.repeat}
+                  data={repeat}
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -166,6 +199,47 @@ const AddSchedule = () => {
         mode="time"
       />
     </SafeAreaView>
+  );
+};
+
+const SelectOptionView: React.FC<SelectOptionProps> = ({
+  icon,
+  label,
+  ref,
+  setValue,
+  value,
+  data,
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={() => ref && ref.open()}
+      style={styles.selectStyle}>
+      <ModalSelector
+        data={data}
+        initValue={label}
+        onChange={setValue}
+        style={styles.modalSelector}
+        selectStyle={styles.selectStyle}
+        selectTextStyle={styles.selectTextStyle}
+        customSelector={
+          <View style={styles.customSelector}>
+            <View style={[rowCenter]}>
+              {icon}
+              <Text style={styles.selectedText}>{label}</Text>
+            </View>
+            <View style={[rowCenter]}>
+              <Text style={[styles.selectedText, {color: '#A09F9F'}]}>
+                {value || ''}
+              </Text>
+              {nextIcon(vw(7), vw(7), '#A09F9F')}
+            </View>
+          </View>
+        }
+        ref={selector => {
+          ref = selector;
+        }}
+      />
+    </TouchableOpacity>
   );
 };
 
@@ -248,8 +322,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   selectStyle: {
-    borderRadius: 10,
-    borderColor: 'grey',
+    borderRadius: 20,
+    borderColor: '#6D6E6F',
     borderWidth: 1,
     padding: 10,
   },
@@ -259,10 +333,11 @@ const styles = StyleSheet.create({
   customSelector: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   selectedText: {
     marginLeft: 10,
-    color: 'white',
+    color: '#6D6E6F',
   },
 });
 
