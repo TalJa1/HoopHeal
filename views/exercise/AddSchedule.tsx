@@ -59,7 +59,8 @@ const AddSchedule = () => {
     const formattedDateString = `${dayOfWeek}, ${selectedDate
       .getDate()
       .toString()
-      .padStart(2, '0')}/${(selectedDate.getMonth())
+      .padStart(2, '0')}/${selectedDate
+      .getMonth()
       .toString()
       .padStart(2, '0')}/${selectedDate.getFullYear()}`;
     setFormattedDate(formattedDateString);
@@ -122,13 +123,6 @@ const AddSchedule = () => {
   };
 
   const handleSave = async () => {
-    // Helper function to format the date as dd/MM
-    const formatDate = (date1: Date) => {
-      const day = date1.getDate().toString().padStart(2, '0');
-      const month1 = (date1.getMonth() + 1).toString().padStart(2, '0');
-      return `${day}/${month1}`;
-    };
-
     // Helper function to format the time as HH:MM AM/PM
     const formatTime1 = (time: Date) => {
       let hours = time.getHours();
@@ -147,7 +141,7 @@ const AddSchedule = () => {
       notify: false,
       time: formatTime1(selectedTime),
       img: null,
-      date: formatDate(new Date()), // Use the helper function to format the date
+      date: `${date}/${month}`,
     };
 
     const tmpData = await AsyncStorage.getItem('todayExercise');
