@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   ScrollView,
@@ -51,6 +51,20 @@ const AddSchedule = () => {
     level: '',
     repeat: '',
   });
+  const [isSave, setIsSave] = useState(false);
+
+  useEffect(() => {
+    //Check if all fields of chosenOptions are filled
+    if (
+      chosenOptions.selectedActivity &&
+      chosenOptions.level &&
+      chosenOptions.repeat
+    ) {
+      setIsSave(true);
+    } else {
+      setIsSave(false);
+    }
+  }, [chosenOptions]);
 
   // Format the date for display
   React.useEffect(() => {
@@ -227,7 +241,13 @@ const AddSchedule = () => {
             </View>
           </View>
 
-          <TouchableOpacity onPress={handleSave} style={styles.saveBtn}>
+          <TouchableOpacity
+            disabled={!isSave}
+            onPress={handleSave}
+            style={[
+              styles.saveBtn,
+              isSave === false && {backgroundColor: 'grey'},
+            ]}>
             <Text style={styles.saveBtnTxt}>Save</Text>
           </TouchableOpacity>
         </View>
