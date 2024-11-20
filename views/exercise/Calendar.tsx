@@ -41,7 +41,24 @@ const Calendar = () => {
   const [selectedItem, setSelectedItem] =
     useState<TodayExerciseDataProps | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const currentMonth = new Date().toLocaleString('en-US', {month: 'long'});
+
+  const getMonthName = (monthNumber: number): string => {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return months[monthNumber - 1]; // Subtract 1 since months array is 0-based
+  };
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -182,7 +199,11 @@ const Calendar = () => {
           </View>
           <View style={[rowCenter, styles.monthGrp]}>
             {backCalenderIcon(30, 30, 'white')}
-            <Text style={styles.monthText}>{currentMonth}</Text>
+            <Text style={styles.monthText}>
+              {selectedDate !== null
+                ? getMonthName(dates[selectedDate].month)
+                : ''}
+            </Text>
             {nextCalenderIcon(30, 30, 'white')}
           </View>
           <View style={styles.hoursContainer}>{renderHours()}</View>
