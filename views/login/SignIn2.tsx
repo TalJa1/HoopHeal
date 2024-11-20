@@ -17,13 +17,17 @@ import {
   checkSaveIcon,
   signInStarIcon,
 } from '../../assets/svgIcon';
-import {InputFieldProps} from '../../services/typeProps';
+import {InputFieldProps, UserProps} from '../../services/typeProps';
 import {
   GoogleSignin,
   isSuccessResponse,
 } from '@react-native-google-signin/google-signin';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn2 = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -44,12 +48,27 @@ const SignIn2 = () => {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
       if (isSuccessResponse(response)) {
-        console.log(response);
+        const tmp = response.data.user;
+        const listUser = await AsyncStorage.getItem('listUser');
+        if (listUser !== null) {
+          const userList: UserProps[] = JSON.parse(listUser);
+          const user = userList.find(
+            (item: UserProps) =>
+              item.email === tmp.email && item.name === tmp.name,
+          );
+          if (!user) {
+            navigation.navigate('GetUserInfor', {userData: tmp});
+          } else {
+            await AsyncStorage.setItem('currentUser', JSON.stringify(user));
+            navigation.navigate('Main');
+          }
+        } else {
+          await AsyncStorage.setItem('listUser', JSON.stringify([tmp]));
+        }
       } else {
         // sign in was cancelled by user
       }
-    } catch (error) {
-      console.log('error', error);
+    } catch {
       Alert.alert('Logged in failed');
     }
   };
@@ -107,7 +126,7 @@ const SignIn2 = () => {
             </View>
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Bạn chưa có tài khoản?</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                 <Text style={styles.signUpButton}>Đăng ký</Text>
               </TouchableOpacity>
             </View>
