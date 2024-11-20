@@ -201,7 +201,7 @@ const Calendar = () => {
             {backCalenderIcon(30, 30, 'white')}
             <Text style={styles.monthText}>
               {selectedDate !== null
-                ? getMonthName(dates[selectedDate].month)
+                ? `${getMonthName(dates[selectedDate].month)}`
                 : ''}
             </Text>
             {nextCalenderIcon(30, 30, 'white')}
