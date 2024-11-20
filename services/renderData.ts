@@ -225,6 +225,10 @@ export const activities = [
   {key: 2, label: 'Physical Therapy'},
   {key: 3, label: 'Rest'},
   {key: 4, label: 'Hydration'},
+  {key: 5, label: 'Heat Therapy'},
+  {key: 6, label: 'Compression'},
+  {key: 7, label: 'Range of Motion Exercises'},
+  {key: 8, label: 'Strength Training'},
 ];
 
 export const level = [
