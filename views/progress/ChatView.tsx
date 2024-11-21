@@ -1,8 +1,25 @@
 /* eslint-disable react-native/no-inline-styles */
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import {containerStyle, scrollContainer, vh, vw} from '../../services/styleProps';
+import {
+  centerAll,
+  containerStyle,
+  rowCenter,
+  scrollContainer,
+  vh,
+  vw,
+} from '../../services/styleProps';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {backIcon, searchIcon} from '../../assets/svgIcon';
 
 interface Message {
   id: number;
@@ -14,13 +31,13 @@ interface Message {
 const sampleMessages: Message[] = [
   {
     id: 1,
-    text: "Hi, I'm experiencing knee pain after running",
+    text: 'Hello, Mr. Gupta, Your kid has not done his homework for the past 3 days',
     isUser: true,
     timestamp: '09:00 AM',
   },
   {
     id: 2,
-    text: 'Please rest and apply ice therapy for 15 minutes',
+    text: 'Hello, Mr. Ajay Thank you for bringing this to my notice. I will look into it.',
     isUser: false,
     timestamp: '09:01 AM',
   },
@@ -46,6 +63,8 @@ const ChatView = () => {
       <ScrollView
         contentContainerStyle={[scrollContainer, styles.chatContainer]}
         showsVerticalScrollIndicator={false}>
+        <Header />
+
         {sampleMessages.map(message => (
           <View
             key={message.id}
@@ -60,6 +79,46 @@ const ChatView = () => {
         ))}
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const Header: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  return (
+    <View style={[rowCenter, {marginBottom: vh(2)}]}>
+      <View style={[rowCenter]}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          {backIcon(vw(8), vw(8), '#F87643')}
+        </TouchableOpacity>
+        <View
+          style={[
+            {
+              marginLeft: vw(4),
+              width: vw(8),
+              height: vw(8),
+              backgroundColor: '#626262',
+              borderRadius: vw(50),
+            },
+            centerAll,
+          ]}>
+          {searchIcon(vw(6), vw(6), 'black')}
+        </View>
+      </View>
+      <View
+        style={[
+          {
+            backgroundColor: '#F87643',
+            borderRadius: 12,
+            padding: vw(2),
+            position: 'absolute',
+            right: vw(0),
+          },
+          centerAll,
+        ]}>
+        <Text style={{color: 'white'}}>Expert</Text>
+      </View>
+    </View>
   );
 };
 

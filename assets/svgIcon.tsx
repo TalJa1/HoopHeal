@@ -11,6 +11,17 @@ export const test = (w?: any, h?: any, color?: any) => {
   return <SvgXml xml={xml} width={w} height={h} />;
 };
 
+export const searchIcon = (w?: any, h?: any, color?: any) => {
+  const xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 20L15.8033 15.8033M18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C14.6421 18 18 14.6421 18 10.5Z" stroke=${
+    color ?? '#03020B'
+  } stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+  return <SvgXml xml={xml} width={w} height={h} />;
+};
+
 export const threeDotsVerticalIcon = (w?: any, h?: any, color?: any) => {
   const xml = `<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.99992 9.16659C8.36811 9.16659 8.66659 8.86811 8.66659 8.49992C8.66659 8.13173 8.36811 7.83325 7.99992 7.83325C7.63173 7.83325 7.33325 8.13173 7.33325 8.49992C7.33325 8.86811 7.63173 9.16659 7.99992 9.16659Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
