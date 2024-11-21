@@ -1,13 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
+  Image,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   centerAll,
   containerStyle,
@@ -43,20 +45,32 @@ const sampleMessages: Message[] = [
   },
 ];
 
+// Add avatar image component
+const Avatar = () => (
+  <Image
+    source={require('../../assets/progress/expert.png')}
+    style={styles.avatar}
+  />
+);
+
+// Modify ChatBubble to include avatar
 const ChatBubble = ({message}: {message: Message}) => (
-  <View
-    style={[
-      styles.messageBubble,
-      message.isUser ? styles.userMessage : styles.fixedMessage,
-    ]}>
-    <Text style={message.isUser ? styles.userText : styles.fixedText}>
-      {message.text}
-    </Text>
-    <Text style={styles.timestamp}>{message.timestamp}</Text>
+  <View style={styles.messageWrapper}>
+    {!message.isUser && <Avatar />}
+    <View
+      style={[
+        styles.messageBubble,
+        message.isUser ? styles.userMessage : styles.fixedMessage,
+      ]}>
+      <Text style={message.isUser ? styles.userText : styles.fixedText}>
+        {message.text}
+      </Text>
+    </View>
   </View>
 );
 
 const ChatView = () => {
+  const [inputMessage, setInputMessage] = useState('');
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
@@ -78,6 +92,15 @@ const ChatView = () => {
           </View>
         ))}
       </ScrollView>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={inputMessage}
+          onChangeText={setInputMessage}
+          placeholder="Type a message..."
+          placeholderTextColor="#8E8E93"
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -133,19 +156,22 @@ const styles = StyleSheet.create({
   messageRow: {
     flexDirection: 'row',
     marginVertical: vh(1),
+    width: '100%',
   },
   messageBubble: {
-    maxWidth: '70%',
     padding: vw(4),
     borderRadius: vw(5),
+    width: vw(60),
   },
   userMessage: {
     backgroundColor: '#F87643',
     borderTopRightRadius: 0,
+    alignSelf: 'flex-end',
   },
   fixedMessage: {
     backgroundColor: '#2C2C2E',
     borderTopLeftRadius: 0,
+    alignSelf: 'flex-start',
   },
   userText: {
     color: '#000000',
@@ -160,5 +186,29 @@ const styles = StyleSheet.create({
     color: '#8E8E93',
     marginTop: vh(1),
     alignSelf: 'flex-end',
+  },
+  messageWrapper: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginVertical: vh(1),
+  },
+  avatar: {
+    width: vw(7),
+    height: vw(7),
+    borderRadius: vw(5),
+    marginRight: vw(2),
+  },
+  inputContainer: {
+    padding: vw(4),
+    borderTopWidth: 1,
+    borderTopColor: '#2C2C2E',
+    backgroundColor: 'black',
+  },
+  input: {
+    backgroundColor: '#2C2C2E',
+    borderRadius: vw(5),
+    padding: vw(4),
+    color: 'white',
+    fontSize: 16,
   },
 });
