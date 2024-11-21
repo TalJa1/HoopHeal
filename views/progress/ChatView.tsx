@@ -70,7 +70,24 @@ const ChatBubble = ({message}: {message: Message}) => (
 );
 
 const ChatView = () => {
+  const [messages, setMessages] = useState<Message[]>(sampleMessages);
   const [inputMessage, setInputMessage] = useState('');
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim()) {
+      const newMessage: Message = {
+        id: messages.length + 1,
+        text: inputMessage,
+        isUser: true,
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      };
+      setMessages([...messages, newMessage]);
+      setInputMessage('');
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={'black'} />
@@ -79,7 +96,7 @@ const ChatView = () => {
         showsVerticalScrollIndicator={false}>
         <Header />
 
-        {sampleMessages.map(message => (
+        {messages.map(message => (
           <View
             key={message.id}
             style={[
@@ -99,6 +116,7 @@ const ChatView = () => {
           onChangeText={setInputMessage}
           placeholder="Type a message..."
           placeholderTextColor="#8E8E93"
+          onSubmitEditing={handleSendMessage}
         />
       </View>
     </SafeAreaView>
@@ -174,7 +192,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   userText: {
-    color: '#000000',
+    color: 'white',
     fontSize: 16,
   },
   fixedText: {
