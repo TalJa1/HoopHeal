@@ -32,6 +32,8 @@ import Svg, {
   Stop,
 } from 'react-native-svg';
 import * as Progress from 'react-native-progress';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const ProgressView = () => {
   return (
@@ -276,6 +278,7 @@ const BarChartView: React.FC = () => {
 };
 
 const Matplotlib: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const data1 = [2, 8, 6, 2, 6, 7, 1]; // Example data for Pain level
   const data2 = [10, 40, 20, 25, 80, 10, 26]; // Example data for Range of motion
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -311,7 +314,9 @@ const Matplotlib: React.FC = () => {
 
   return (
     <View style={styles.matplotlib}>
-      <Text style={styles.todayTitle}>Detailed Recovery Metrics</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('ChatView')}>
+        <Text style={styles.todayTitle}>Detailed Recovery Metrics</Text>
+      </TouchableOpacity>
       <View style={{marginVertical: vh(1)}}>
         <View style={[rowCenter, {columnGap: vw(4)}]}>
           <View style={[rowCenter, {columnGap: vw(1)}]}>

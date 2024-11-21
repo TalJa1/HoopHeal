@@ -24,6 +24,7 @@ import ExerciseDetail from './views/exercise/ExerciseDetail';
 import Workout from './views/exercise/Workout';
 import Calendar from './views/exercise/Calendar';
 import AddSchedule from './views/exercise/AddSchedule';
+import ChatView from './views/progress/ChatView';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,6 +96,13 @@ const App = () => {
     <NavigationContainer>
       {/* Main || LoadingView */}
       <Stack.Navigator initialRouteName="LoadingView">
+        {/* Progress */}
+        <Stack.Screen
+          name="ChatView"
+          component={ChatView}
+          options={{headerShown: false}}
+        />
+        {/* Progress */}
         {/* Exercise */}
         <Stack.Screen
           name="ExerciseDetail"
