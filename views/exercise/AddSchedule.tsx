@@ -68,13 +68,12 @@ const AddSchedule = () => {
 
   // Format the date for display
   React.useEffect(() => {
-    const selectedDate = new Date(year, month, date);
+    const selectedDate = new Date(year, month - 1, date);
     const dayOfWeek = selectedDate.toLocaleString('en-US', {weekday: 'long'});
     const formattedDateString = `${dayOfWeek}, ${selectedDate
       .getDate()
       .toString()
-      .padStart(2, '0')}/${selectedDate
-      .getMonth()
+      .padStart(2, '0')}/${(selectedDate.getMonth() + 1)
       .toString()
       .padStart(2, '0')}/${selectedDate.getFullYear()}`;
     setFormattedDate(formattedDateString);
